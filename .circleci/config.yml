@@ -37,7 +37,8 @@ jobs:
 
   deploy:
     machine:
-      image: ubuntu-2004:202010-01
+      image: machine:
+      image: ubuntu-2204:edge
     steps:
       - attach_workspace:
           at: ~/project
