@@ -1,0 +1,13 @@
+<form method="POST">
+    {% csrf_token %}
+    <label for="latitude">Latitude :</label>
+    <input type="text" name="latitude" required>
+    
+    <label for="longitude">Longitude :</label>
+    <input type="text" name="longitude" required>
+
+    <label for="description">Description (optionnel) :</label>
+    <textarea name="description"></textarea>
+
+    <button type="submit">Ajouter le favori</button>
+</form>

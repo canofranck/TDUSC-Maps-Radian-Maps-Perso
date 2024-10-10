@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
+<link rel="stylesheet" href="{% static 'stylesmaps.css' %}" type="text/css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <div class="container text-center px-5">
+  <!-- Début du conteneur avec fond blanc -->
+   <!-- Image de la bannière -->
+   <div class="image-container">
+    <img id="banner" src="{% static 'images/sharps_Luxe.1d79d72.jpg' %}" alt="Bannière Test Drive" />
+    <img id="banner" src="{% static 'images/test-drive-unlimited-solar-crown-header-art2.jpg' %}" alt="Bannière Solar Hotel" />
+    <img id="banner" src="{% static 'images/sharps_Solar_Hotel.2342470.jpg' %}" alt="Bannière key of Test Drive" />
+</div> 
+
+<h1 id="footer">Maps interactive Test Drive Unlimited Solar Crown ( ALL 380 Radian )</h1>
+
+<div id="container">
+    <!-- Menu de contrôle à gauche -->
+
+    <!-- Sélecteur de langue -->
+    <div id="menu">
+       
+                    
+        <button id="toggle-all" class="menu-btn" data-fr="Afficher/Cacher tout" data-en="Show/Hide All">Afficher/Cacher tout</button>
+            <select id="district-select" class="menu-btn"style="appearance: auto;">
+            <option value="all">Sélection du district:</option>
+            <option value="1">District 1</option>
+            <option value="2">District 2</option>
+            <option value="3">District 3</option>
+            <option value="4">District 4</option>
+            <option value="5">District 5</option>
+            <option value="6">District 6</option>
+            <option value="7">District 7</option>
+            <option value="8">District 8</option>
+            <option value="9">District 9</option>
+            <option value="10">District 10</option>
+            <option value="11">District 11</option>
+            <option value="12">District 12</option>
+            <option value="13">District 13</option>
+            <option value="14">District 14</option>
+        </select>
+        <button id="toggle-solarCoins" class="menu-btn">
+            <img src="{% static 'images/SolarCoins.png' %}" alt="Solar Coins"> Solar Coins
+        </button>
+        <button id="toggle-reputation" class="menu-btn">
+            <img src="{% static 'images/reputation2.png' %}" alt="Réputation"> Réputation
+        </button>
+        <button id="toggle-clan" class="menu-btn">
+            <img src="{% static 'images/clan.png' %}" alt="Clan"> Clan
+        </button>
+        <button id="toggle-tresor" class="menu-btn">
+            <img src="{% static 'images/tresor.png' %}" alt="Trésor"> Trésor
+        </button>
+        <button id="toggle-epaves" class="menu-btn">
+            <img src="{% static 'images/epaves.png' %}" alt="Épaves"> Épaves Beetle Buggy
+        </button>
+        <button id="toggle-epaves2" class="menu-btn">
+            <img src="{% static 'images/epaves2.png' %}" alt="Épaves"> Épaves Mercedes 300SL
+        </button>
+        
+        <p>Liens</p>
+        <button id="toggle-tutoepaves" class="menu-btn">
+            <img src="{% static 'images/epaves.png' %}" alt="Tuto Épaves"> Tuto vidéo des épaves
+        </button>
+        <select id="districtvideo-select" class="menu-btn">
+            <option value="">Sélectionner le tuto vidéo</option>
+            <option value="district1">District 1</option>
+            <option value="district2">District 2</option>
+            <option value="district3">District 3</option>
+            <option value="district4">District 4</option>
+            <option value="district5">District 5</option>
+            <option value="district6">District 6</option>
+            <option value="district7">District 7</option>
+            <option value="district8">District 8</option>
+            <option value="district9">District 9</option>
+            <option value="district10">District 10</option>
+            <option value="district11">District 11</option>
+            <option value="district12">District 12</option>
+            <option value="district13">District 13</option>
+            <option value="district14">District 14</option>
+        </select>
+        
+        <button id="toggle-ibiza" class="menu-btn">
+            <img src="ibiza_icone.png" alt="Tuto Épaves"> Maps Interactive Ibiza
+        </button>
+        <button id="toggle-flaw" class="menu-btn">
+            <img src="channels4_profile.jpg" alt="yt Flaw">Youtube Flaw Motore
+        </button>
+    </div>
+
+    <!-- Div où la carte va être affichée -->
+    <div id="map"></div>
+</div>
+
+<!-- Inclure le JS de Leaflet -->
+<script src="{% static 'js/map.js' %}"></script>
+<script src="{% static 'js/script.js' %}"></script>
+
+    <footer>
+        <div class="container2">
+            <p>By <a href="https://www.youtube.com/@fcr_77" target="_blank">FCR</a> Septembre 2024</p><a href="https://www.mon-compteur.fr">
+        <img src="https://www.mon-compteur.fr/html_c01genv2-242818-3" alt="compteur" border="0" /></a><br>
+        
+        </div>
+        
+        
+    </footer>  
+  </div>
+{% endblock content %}

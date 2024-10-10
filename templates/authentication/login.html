@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+  <div class="white-background">
+    <div class="px-5 py-2 container border border-2 border-dark rounded-4">
+
+      <div class="row justify-content-center">
+        <div class="row py-4 text-center px-5">
+          <h1>Bienvenue</h1>
+        </div>
+        <div class="col-md-6">
+          <div class="inscription text-center">
+            <h2>Inscrivez-vous maintenant</h2>
+            <a class="col-2 btn btn-outline-secondary" href="{% url 'signup' %}"
+            >S'inscrire</a
+              >
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="connexion text-center">
+              <h2>Connectez-vous</h2>
+              <form class="row pt-1 pb-3 justify-content-end" method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button class="col-3 btn btn-outline-secondary" type="submit">
+                  Se connecter
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+{% endblock content %}

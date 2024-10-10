@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
+<link rel="stylesheet" href="{% static 'stylesmymaps.css' %}" type="text/css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <div class="container text-center px-5">
+  <!-- Début du conteneur avec fond blanc -->
+   <!-- Image de la bannière -->
+   <div class="image-container">
+    <img id="banner" src="{% static 'images/sharps_Luxe.1d79d72.jpg' %}" alt="Bannière Test Drive" />
+    <img id="banner" src="{% static 'images/test-drive-unlimited-solar-crown-header-art2.jpg' %}" alt="Bannière Solar Hotel" />
+    <img id="banner" src="{% static 'images/sharps_Solar_Hotel.2342470.jpg' %}" alt="Bannière key of Test Drive" />
+</div> 
+
+<h1 id="footer">Ma carte</h1>
+
+<div id="container">
+      <!-- Div où la carte va être affichée -->
+      <div id="menu">
+        <button id="toggle-all" class="menu-btn" data-fr="Afficher/Cacher tout" data-en="Show/Hide All">Afficher/Cacher tout</button>
+        <select id="friendSelect">
+          <option value="">Choisir un ami</option>
+          <!-- Options pour les amis seront ajoutées ici dynamiquement -->
+        </select>
+        
+      </div>
+        <div id="map"></div>
+    </div>
+    
+    <!-- Inclure le JS de Leaflet -->
+    <script src="{% static 'js/map.js' %}"></script>
+    <script src="{% static 'js/mymaps.js' %}"></script>
+    
+        <footer>
+            <div class="container2">
+                <p>By <a href="https://www.youtube.com/@fcr_77" target="_blank">FCR</a> Septembre 2024</p><a href="https://www.mon-compteur.fr">
+            <img src="https://www.mon-compteur.fr/html_c01genv2-242818-3" alt="compteur" border="0" /></a><br>
+            
+            </div>
+            
+            
+        </footer>  
+      </div>
+    {% endblock content %}

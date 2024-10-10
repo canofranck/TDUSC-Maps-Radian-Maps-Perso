@@ -1,0 +1,12 @@
+<h2>Vos favoris</h2>
+<ul>
+    {% for favori in favoris %}
+    <li>
+        {{ favori.latitude }}, {{ favori.longitude }} - {{ favori.description }}
+        <form method="POST" action="{% url 'supprimer_favori' favori.id %}">
+            {% csrf_token %}
+            <button type="submit">Supprimer</button>
+        </form>
+    </li>
+    {% endfor %}
+</ul>

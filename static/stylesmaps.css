@@ -1,0 +1,91 @@
+body {
+    background-color: black;
+    color: white;
+  }
+footer {
+    color: white;
+  }
+img {
+    display: block;
+    max-width:600px;
+    max-height:200px;
+    width: auto;
+    height: auto;
+  }
+.image-container {
+    display: flex; /* Rend le conteneur flexible */
+    justify-content: space-evenly; /* Espace les éléments uniformément */
+}
+.container2 {
+    display: flex;
+    justify-content: space-between; /* Distribue l'espace entre les éléments */
+  }
+  
+.element {
+    flex: 1; /* Chaque élément prend une part égale de l'espace disponible */
+  }
+/* Style pour la bannière */
+#banner {
+    display: block;
+    margin: 0 auto;
+}
+
+/* Conteneur pour le menu et la carte */
+#container {
+    display: flex;
+    height: calc(100vh - 210px); /* Ajuster la hauteur totale du conteneur */
+}
+
+/* Style pour le menu */
+#menu {
+    width:215px; /* Taille fixe pour le menu */
+    padding: 10px;
+    background-color: black;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    overflow-y: auto; /* Si le contenu du menu dépasse, permettre de défiler */
+}
+
+/* Style des boutons du menu */
+.menu-btn {
+    display: flex;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    font-size: 12px;
+    width: 100%;
+    border-radius: 20px;
+}
+
+.menu-btn img {
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.menu-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Style pour la carte */
+#map {
+    flex-grow: 1; /* La carte prend le reste de l'espace disponible */
+    /*cursor: crosshair;/* Changer le curseur en croix */
+    background-color: #05121A;
+    width: 100%; /* ou une largeur fixe comme 1000px si tu préfères */
+    height: auto; /* La hauteur va s'adapter à la largeur */
+    aspect-ratio: 1571 / 2069; /* Ratio basé sur les dimensions de l'image */
+    border: 1px solid #ccc; 
+}
+
+#footer {
+      text-align: center;
+}
+
+
+
+  
