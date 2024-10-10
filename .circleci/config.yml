@@ -37,7 +37,6 @@ jobs:
 
   deploy:
     machine:
-      image: machine:
       image: ubuntu-2204:edge
     steps:
       - attach_workspace:
