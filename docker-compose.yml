@@ -1,0 +1,22 @@
+version: '3'
+services:
+  django:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    expose:
+      - "8000"
+    env_file:
+      - .env
+    command: ["gunicorn", "--bind", "0.0.0.0:8000", "tduscmap.wsgi:application"]
+
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile-nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - django
