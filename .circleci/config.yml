@@ -28,7 +28,7 @@ jobs:
           version: docker23
       - run:
           name: Build Docker image
-          command: docker build -t {{ environment.DOCKERHUB_USERNAME }}/tduscmaps:latest .
+          command: docker build -t ${{ environment.DOCKERHUB_USERNAME }}/tduscmaps:latest .
       - run:
           name: Push Docker image
           command: |
