@@ -3,7 +3,7 @@ version: 2.1
 
 orbs:
   python: circleci/python@2.0.3
-  docker: circleci/docker@2.7.2
+  docker: circleci/docker@2.1.3
 
 jobs:
   build_and_test:
@@ -28,12 +28,12 @@ jobs:
           version: docker23
       - run:
           name: Build Docker image
-          command: docker build -t $DOCKERHUB_USERNAME/tduscmaps .
+          command: docker build -t $DOCKERHUB_USERNAME/tduscmaps:latest .
       - run:
           name: Push Docker image
           command: |
             echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
-            docker push $DOCKERHUB_USERNAME/tduscmaps
+            docker push $DOCKERHUB_USERNAME/tduscmaps:latest
 
   deploy:
     machine:
@@ -47,7 +47,7 @@ jobs:
             curl -X POST $HOOK_RENDER \
             -H 'Authorization: Bearer $RENDER_API_KEY' \
             -H 'Content-Type: application/json' \
-            -d '{"image": "docker.io/$DOCKERHUB_USERNAME/tduscmaps", "clearCache": false}'
+            -d '{"image": "docker.io/$DOCKERHUB_USERNAME/tduscmaps:latest", "clearCache": false}'
       
 workflows:
   build_test_deploy:
