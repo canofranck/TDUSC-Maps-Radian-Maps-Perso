@@ -198,44 +198,49 @@ function deleteFavorite(favoriteId, marker) {
         });
     });
 
-    // Écouter le changement du sélecteur d'amis
-    document.getElementById('friendSelect').addEventListener('change', function() {
-        var selectedFriendId = this.value;
-        if (selectedFriendId) {
-            loadFriendFavorites(selectedFriendId);
-        } else {
-            // Si aucun ami n'est sélectionné, ne rien faire ou vider la carte
-            // Vous pouvez choisir de retirer les favoris d'amis
+// Écouter le changement du sélecteur d'amis
+document.getElementById('friendSelect').addEventListener('change', function() {
+    var selectedFriendId = this.value;
+    if (selectedFriendId) {
+        loadFriendFavorites(selectedFriendId);  // Charger les favoris de l'ami sélectionné
+    } else {
+        // Si aucun ami n'est sélectionné, retirer les marqueurs des favoris de l'ami
+        clearFriendMarkers();
+    }
+});
+
+// Fonction pour retirer les marqueurs des amis précédents
+function clearFriendMarkers() {
+    map.eachLayer(layer => {
+        if (layer instanceof L.Marker && layer.options.icon === friendIcon) {
+            map.removeLayer(layer);  // Retirer les marqueurs des favoris de l'ami
         }
     });
+}
 
-    function loadFriendFavorites(friendId) {
-        fetch(`/friends/${friendId}/favorites/`) // Endpoint pour récupérer les favoris de l'ami
-            .then(response => response.json())
-            .then(data => {
-                // Effacer les anciens favoris d'amis
-                map.eachLayer(layer => {
-                    if (layer instanceof L.Marker && layer.icon.options.className === 'friend-favorite-icon') {
-                        map.removeLayer(layer);
-                    }
+// Fonction pour charger les favoris de l'ami sélectionné
+function loadFriendFavorites(friendId) {
+    fetch(`/friends/${friendId}/favorites/`)  // Endpoint pour récupérer les favoris de l'ami
+        .then(response => response.json())
+        .then(data => {
+            clearFriendMarkers();  // Retirer les anciens favoris de l'ami
+            data.forEach(favorite => {
+                var friendIcon = L.icon({
+                    iconUrl: '/static/images/friend-favorite.png',  // Icône pour les favoris de l'ami
+                    iconSize: [20, 20],
+                    iconAnchor: [10, 20],
+                    popupAnchor: [0, -20]
                 });
-
-                // Afficher les favoris de l'ami avec une autre icône
-                data.forEach(favorite => {
-                    var friendIcon = L.icon({
-                        iconUrl: '/static/images/friend-favorite.png', // Chemin vers l'icône des favoris d'ami
-                        iconSize: [20, 20],
-                        iconAnchor: [10, 20],
-                        popupAnchor: [0, -20]
-                    });
-                    
-                    L.marker([favorite.lat, favorite.lng], { icon: friendIcon })
-                        .addTo(map)
-                        .bindPopup(favorite.description);
-                });
-            })
-            .catch(error => {
-                console.error("Erreur lors du chargement des favoris de l'ami :", error);
+                L.marker([favorite.lat, favorite.lng], { icon: friendIcon })  // Ajouter les nouveaux favoris
+                    .addTo(map)
+                    .bindPopup(favorite.description);
             });
-    }
+        })
+        .catch(error => {
+            console.error("Erreur lors du chargement des favoris de l'ami :", error);
+        });
+}
+
+
+
 

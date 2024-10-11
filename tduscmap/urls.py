@@ -25,25 +25,26 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path(
-        "",
+        "login",
         LoginView.as_view(
             template_name="authentication/login.html",
             redirect_authenticated_user=True,
         ),
         name="login",
     ),
-    path('favoris/', tduscmap.views.afficher_favoris, name='afficher_favoris'),
+    
     path('favorites/', tduscmap.views.get_favorites, name='get_favorites'),
-    path('mymaps/ajouter-favori/', tduscmap.views.ajouter_favori,
-         name='ajouter_favori'),
+    
     path('favorites/<int:favorite_id>/delete/', tduscmap.views.delete_favorite,
          name='delete_favorite'),
     path('logout/', authentication.views.logout_user, name='logout'),
     path("signup/", authentication.views.signup_page, name="signup"),
-    path("home/", tduscmap.views.home, name="home"),
+    path("", tduscmap.views.home, name="home"),
     path("mymaps/", tduscmap.views.mymaps, name="mymaps"),
     path('friends/', tduscmap.views.get_friends, name='get_friends'),
     path('friends/<int:friend_id>/favorites/', tduscmap.views.get_friend_favorites, name='get_friend_favorites'),
+    path('search-friends/', tduscmap.views.search_friends, name='search_friends'),
+    path('add-friend/<int:user_id>/', tduscmap.views.add_friend, name='add_friend'),
 ]
 if settings.DEBUG:
     urlpatterns += static(
