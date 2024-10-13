@@ -18,6 +18,12 @@ var favoriteIcon = L.icon({
     iconAnchor: [currentIconSize[0] / 2, currentIconSize[1]],          // Point d'ancrage, ici au centre-bas de l'icône
     popupAnchor: [0, -currentIconSize[1]]          // Position du popup par rapport à l'icône
 });
+var friendIcon = L.icon({
+    iconUrl: '/static/images/friend-favorite.png',  // Remplace par le chemin de ton icône
+    iconSize: currentIconSize,            // Taille de l'icône [largeur, hauteur]
+    iconAnchor: [currentIconSize[0] / 2, currentIconSize[1]],          // Point d'ancrage, ici au centre-bas de l'icône
+    popupAnchor: [0, -currentIconSize[1]]          // Position du popup par rapport à l'icône
+});
 
 // Ajouter l'image de la carte en superposition
 var imageUrl = '/static/images/Sans titre.png';
@@ -164,27 +170,32 @@ function deleteFavorite(favoriteId, marker) {
 }
 
 
-    // Fonction pour charger les amis depuis le serveur
-    function loadFriends() {
-        fetch('/friends/') // Remplacer par votre endpoint pour récupérer les amis
-            .then(response => response.json())
-            .then(data => {
-                friends = data;
-                var friendSelect = document.getElementById('friendSelect');
-                friends.forEach(friend => {
-                    var option = document.createElement('option');
-                    option.value = friend.id; // Assurez-vous que l'ID correspond à votre base de données
-                    option.textContent = friend.name; // Remplacez par le nom de l'ami
-                    friendSelect.appendChild(option);
-                });
-            })
-            .catch(error => {
-                console.error("Erreur lors du chargement des amis :", error);
-            });
-    }
+function loadFriends() {
+    fetch('/get_friends/')
+        .then(response => response.json())
+        .then(friends => {
+            const friendSelect = document.getElementById('friendSelect');
+            friendSelect.innerHTML = ''; // Nettoie d'abord le select
+            const defaultOption = document.createElement('option');
+            defaultOption.value = '';
+            defaultOption.textContent = 'Choisir un ami';
+            friendSelect.appendChild(defaultOption);
 
-    // Charger les amis au démarrage
-    loadFriends();
+            friends.forEach(friend => {
+                const option = document.createElement('option');
+                option.value = friend.id;  // `friend.id` est l'identifiant de l'ami
+                option.textContent = friend.username;  // `friend.username` est le nom d'utilisateur de l'ami
+                friendSelect.appendChild(option);
+            });
+        })
+        .catch(error => console.error('Erreur lors de la récupération des amis:', error));
+}
+
+// Appelle la fonction pour charger les amis une fois la page chargée
+document.addEventListener('DOMContentLoaded', loadFriends);
+
+
+   
 
     // Écouter le clic sur le bouton pour afficher/cacher les favoris
     document.getElementById('toggleMarkers').addEventListener('click', function() {
@@ -198,6 +209,27 @@ function deleteFavorite(favoriteId, marker) {
         });
     });
 
+    function loadFriendFavorites(friendId) {
+        fetch(`/friends/${friendId}/favorites/`)  // Endpoint pour récupérer les favoris de l'ami
+            .then(response => response.json())
+            .then(data => {
+                clearFriendMarkers();  // Retirer les anciens favoris de l'ami
+                data.forEach(favorite => {
+                    var friendIcon = L.icon({
+                        iconUrl: '/static/images/friend-favorite.png',  // Icône pour les favoris de l'ami
+                        iconSize: [20, 20],
+                        iconAnchor: [10, 20],
+                        popupAnchor: [0, -20]
+                    });
+                    L.marker([favorite.lat, favorite.lng], { icon: friendIcon })  // Ajouter les nouveaux favoris
+                        .addTo(map)
+                        .bindPopup(favorite.description);
+                });
+            })
+            .catch(error => {
+                console.error("Erreur lors du chargement des favoris de l'ami :", error);
+            });
+    }  
 // Écouter le changement du sélecteur d'amis
 document.getElementById('friendSelect').addEventListener('change', function() {
     var selectedFriendId = this.value;
@@ -218,29 +250,47 @@ function clearFriendMarkers() {
     });
 }
 
+
 // Fonction pour charger les favoris de l'ami sélectionné
-function loadFriendFavorites(friendId) {
-    fetch(`/friends/${friendId}/favorites/`)  // Endpoint pour récupérer les favoris de l'ami
+function loadFriends() {
+    fetch('/get_friends/')
         .then(response => response.json())
-        .then(data => {
-            clearFriendMarkers();  // Retirer les anciens favoris de l'ami
-            data.forEach(favorite => {
-                var friendIcon = L.icon({
-                    iconUrl: '/static/images/friend-favorite.png',  // Icône pour les favoris de l'ami
-                    iconSize: [20, 20],
-                    iconAnchor: [10, 20],
-                    popupAnchor: [0, -20]
-                });
-                L.marker([favorite.lat, favorite.lng], { icon: friendIcon })  // Ajouter les nouveaux favoris
-                    .addTo(map)
-                    .bindPopup(favorite.description);
+        .then(friends => {
+            const friendSelect = document.getElementById('friendSelect');
+            friendSelect.innerHTML = '';  // Nettoyer d'abord le select
+            const defaultOption = document.createElement('option');
+            defaultOption.value = '';
+            defaultOption.textContent = 'Choisir un ami';
+            friendSelect.appendChild(defaultOption);
+
+            friends.forEach(friend => {
+                const option = document.createElement('option');
+                option.value = friend.id;
+                option.textContent = friend.username;
+                friendSelect.appendChild(option);
             });
+
+            console.log('Amis chargés:', friends);  // Vérifier si les amis sont bien reçus
         })
-        .catch(error => {
-            console.error("Erreur lors du chargement des favoris de l'ami :", error);
-        });
+        .catch(error => console.error('Erreur lors de la récupération des amis:', error));
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+    const friendSelect = document.getElementById('friendSelect');
+    
+    if (friendSelect) {
+        friendSelect.addEventListener('change', function() {
+            var selectedFriendId = this.value;
+            if (selectedFriendId) {
+                loadFriendFavorites(selectedFriendId);  // Charger les favoris de l'ami sélectionné
+            } else {
+                clearFriendMarkers();  // Retirer les favoris si aucun ami n'est sélectionné
+            }
+        });
+    } else {
+        console.error('#friendSelect n\'existe pas');
+    }
+});
 
 
 

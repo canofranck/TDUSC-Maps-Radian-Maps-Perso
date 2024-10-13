@@ -17,6 +17,33 @@ def home(request):
     )
 
 
+def ajouter_favori(request):
+    if request.method == 'POST':
+        try:
+            # Convertir les données JSON en dictionnaire Python
+            data = json.loads(request.body)
+            lat = data.get('lat')
+            lng = data.get('lng')
+            description = data.get('description')
+            # Créer et sauvegarder un nouveau favori dans la base de données
+            Favorite.objects.create(user=request.user,lat=lat, lng=lng, description=description)
+            return JsonResponse({'success': True})
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)})
+    else:
+        return JsonResponse({'success': False, 'error': 'Invalid request method'})
+# Supprimer un favori
+# @login_required
+def supprimer_favori(request, favori_id):
+    favori = Favorite.objects.get(id=favori_id, user=request.user)
+    favori.delete()
+    return redirect('afficher_favoris')
+# Afficher les favoris de l'utilisateur connecté
+# @login_required
+def afficher_favoris(request):
+    favoris = Favorite.objects.filter(user=request.user)
+    return render(request, 'afficher_favoris.html', {'favoris': favoris})
+
 def mymaps(request):
     return render(request, 'tduscmap/mymaps.html')
 
@@ -57,8 +84,8 @@ def get_friend_favorites(request, friend_id):
             favorites = Favorite.objects.filter(user=friend)
             favorites_data = [{
                 'id': fav.id,
-                'lat': fav.latitude,
-                'lng': fav.longitude,
+                'lat': fav.lat,  
+                'lng': fav.lng,  
                 'description': fav.description
             } for fav in favorites]
             return JsonResponse(favorites_data, safe=False)

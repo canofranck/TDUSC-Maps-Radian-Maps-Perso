@@ -32,7 +32,8 @@ urlpatterns = [
         ),
         name="login",
     ),
-    
+    path('mymaps/ajouter-favori/', tduscmap.views.ajouter_favori,
+         name='ajouter_favori'),
     path('favorites/', tduscmap.views.get_favorites, name='get_favorites'),
     
     path('favorites/<int:favorite_id>/delete/', tduscmap.views.delete_favorite,
@@ -41,7 +42,7 @@ urlpatterns = [
     path("signup/", authentication.views.signup_page, name="signup"),
     path("", tduscmap.views.home, name="home"),
     path("mymaps/", tduscmap.views.mymaps, name="mymaps"),
-    path('friends/', tduscmap.views.get_friends, name='get_friends'),
+    path('get_friends/', tduscmap.views.get_friends, name='get_friends'),
     path('friends/<int:friend_id>/favorites/', tduscmap.views.get_friend_favorites, name='get_friend_favorites'),
     path('search-friends/', tduscmap.views.search_friends, name='search_friends'),
     path('add-friend/<int:user_id>/', tduscmap.views.add_friend, name='add_friend'),

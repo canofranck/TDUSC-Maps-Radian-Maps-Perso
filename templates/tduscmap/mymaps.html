@@ -29,7 +29,7 @@
     <!-- Div où la carte va être affichée -->
     <div id="container">
         <div id="menu">
-            <button id="toggle-all" class="menu-btn" data-fr="Afficher/Cacher tout" data-en="Show/Hide All">Afficher/Cacher tout</button>
+            <button id="toggleMarkers" class="menu-btn" data-fr="Afficher/Cacher tout" data-en="Show/Hide All">Afficher/Cacher tout</button>
             <select id="friendSelect">
                 <option value="">Choisir un ami</option>
                 <!-- Options pour les amis seront ajoutées ici dynamiquement -->
@@ -50,7 +50,7 @@
 
 <!-- Inclure le JS de Leaflet -->
 <script src="{% static 'js/map.js' %}"></script>
-<script src="{% static 'js/mymaps.js' %}"></script>
+
 
 <script>
   // Récupère l'ID de l'utilisateur actuellement connecté depuis Django
@@ -109,8 +109,26 @@
           console.error("Erreur lors de l'ajout de l'ami :", error);
       });
   }
-</script>
 
+  document.addEventListener('DOMContentLoaded', function() {
+    const friendSelect = document.getElementById('friendSelect');
+    
+    // Vérifie si l'élément #friendSelect existe avant d'ajouter l'événement
+    if (friendSelect) {
+        friendSelect.addEventListener('change', function() {
+            var selectedFriendId = this.value;
+            if (selectedFriendId) {
+                loadFriendFavorites(selectedFriendId);  // Charger les favoris de l'ami sélectionné
+            } else {
+                clearFriendMarkers();  // Retirer les favoris si aucun ami n'est sélectionné
+            }
+        });
+    } else {
+        console.error('#friendSelect n\'existe pas'); // Log si l'élément n'existe pas
+    }
+});
+</script>
+<script src="{% static 'js/mymaps.js' %}"></script>
 
 
 {% endblock content %}
