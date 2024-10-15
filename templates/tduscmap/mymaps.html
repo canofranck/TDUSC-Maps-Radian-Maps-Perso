@@ -110,23 +110,7 @@
       });
   }
 
-  document.addEventListener('DOMContentLoaded', function() {
-    const friendSelect = document.getElementById('friendSelect');
-    
-    // Vérifie si l'élément #friendSelect existe avant d'ajouter l'événement
-    if (friendSelect) {
-        friendSelect.addEventListener('change', function() {
-            var selectedFriendId = this.value;
-            if (selectedFriendId) {
-                loadFriendFavorites(selectedFriendId);  // Charger les favoris de l'ami sélectionné
-            } else {
-                clearFriendMarkers();  // Retirer les favoris si aucun ami n'est sélectionné
-            }
-        });
-    } else {
-        console.error('#friendSelect n\'existe pas'); // Log si l'élément n'existe pas
-    }
-});
+
 </script>
 <script src="{% static 'js/mymaps.js' %}"></script>
 

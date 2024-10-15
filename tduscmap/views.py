@@ -84,8 +84,8 @@ def get_friend_favorites(request, friend_id):
             favorites = Favorite.objects.filter(user=friend)
             favorites_data = [{
                 'id': fav.id,
-                'lat': fav.lat,  
-                'lng': fav.lng,  
+                'lat': fav.lat,
+                'lng': fav.lng,
                 'description': fav.description
             } for fav in favorites]
             return JsonResponse(favorites_data, safe=False)
