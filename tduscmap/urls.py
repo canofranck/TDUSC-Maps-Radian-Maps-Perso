@@ -46,6 +46,9 @@ urlpatterns = [
     path('friends/<int:friend_id>/favorites/', tduscmap.views.get_friend_favorites, name='get_friend_favorites'),
     path('search-friends/', tduscmap.views.search_friends, name='search_friends'),
     path('add-friend/<int:user_id>/', tduscmap.views.add_friend, name='add_friend'),
+    # path('car/<int:car_id>/price-history/', tduscmap.views.car_price_history, name='car_price_history'),
+    path('car/select/', tduscmap.views.car_price_choice, name='car_select'),
+    path('car-prices/', tduscmap.views.car_prices_view, name='car_prices'),
 ]
 if settings.DEBUG:
     urlpatterns += static(

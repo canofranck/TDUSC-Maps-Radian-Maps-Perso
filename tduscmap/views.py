@@ -1,14 +1,15 @@
 
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
 # from django.contrib.auth.decorators import login_required
-from .models import Favorite
+from .models import Favorite, Car, CarPrice
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods
 from .models import CustomUser
-
+from django.db.models import Prefetch
 
 def home(request):
     return render(
@@ -129,3 +130,67 @@ def add_friend(request, user_id):
             return JsonResponse({'success': False, 'message': 'Erreur de décodage JSON'})
     else:
         return JsonResponse({'success': False, 'message': 'Requête non autorisée'})
+    
+
+# def car_price_history(request, car_id):
+#     car = Car.objects.get(id=car_id)
+#     prices = car.historique_prix.all().order_by('date')
+
+#     # Préparer les données pour Chart.js
+#     dates = [price.date.strftime('%Y-%m-%d') for price in prices]
+#     price_values = [price.prix for price in prices]
+
+#     # Ajouter le prix initial au début de la liste des prix
+#     price_values.insert(0, car.prix_initial)
+#     dates.insert(0, 'Prix initial')  # Pour ajouter une étiquette pour le prix initial
+
+#     context = {
+#         'car': car,
+#         'dates': dates,
+#         'price_values': price_values,
+#     }
+#     return render(request, 'tduscmap/car_price_history.html', context)
+
+
+def car_price_choice(request):
+    cars = Car.objects.all()  # Fetch all cars initially
+    if request.method == 'POST':
+        car_id = request.POST.get('car_id')
+        car_selected = Car.objects.get(pk=car_id)  # Assuming primary key is 'id'
+    # Préparer les données pour Chart.js
+        prices = car_selected.historique_prix.all().order_by('date')
+        dates = [price.date.strftime('%Y-%m-%d') for price in prices]
+        price_values = [price.prix for price in prices]
+
+        # Ajouter le prix initial au début de la liste des prix
+        price_values.insert(0, car_selected.prix_initial)
+        dates.insert(0, 'Prix initial')  # Pour ajouter une étiquette pour le prix initial
+
+        context = {
+            'cars': cars,
+            'car_selected': car_selected,
+            'dates': dates,
+            'price_values': price_values,
+        }
+    else:
+        car_selected = None
+        context = {'cars': cars, 'car_selected': car_selected}
+
+    return render(request, 'tduscmap/car_list.html', context)
+
+def car_prices_view(request):
+    cars = Car.objects.prefetch_related('historique_prix').all()
+    
+    prices_data = {}
+    for car in cars:
+        prices_data[car] = []
+        for price in car.historique_prix.all():
+            prices_data[car].append({
+                'date': price.date,
+                'prix': price.prix if price.prix is not None else None
+            })
+
+    context = {
+        'prices_data': prices_data,
+    }
+    return render(request, 'tduscmap/car_prices.html', context)

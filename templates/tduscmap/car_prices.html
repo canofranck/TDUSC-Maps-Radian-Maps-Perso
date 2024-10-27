@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Évolution des prix des voitures</h1>
+    <canvas id="pricesChart"></canvas>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const pricesData = {{ prices_data|safe }};
+        const labels = [];
+        const datasets = [];
+
+        // Créez une série de données pour chaque voiture
+        for (const [car, prices] of Object.entries(pricesData)) {
+            const carPrices = [];
+            prices.forEach(price => {
+                labels.push(price.date);  // Ajoute la date à l'axe X
+                carPrices.push(price.prix);
+            });
+            datasets.push({
+                label: car,  // Nom de la voiture
+                data: carPrices,
+                borderColor: randomColor(), // Fonction pour générer une couleur aléatoire
+                fill: false
+            });
+        }
+
+        const ctx = document.getElementById('pricesChart').getContext('2d');
+        const pricesChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [...new Set(labels)],  // Élimine les doublons
+                datasets: datasets
+            },
+            options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Dates'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Prix (€)'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Fonction pour générer une couleur aléatoire
+        function randomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+    </script>
+{% endblock %}
