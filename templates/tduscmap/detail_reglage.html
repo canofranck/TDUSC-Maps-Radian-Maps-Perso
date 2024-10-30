@@ -5,35 +5,123 @@
 <link rel="stylesheet" href="{% static 'stylesmymaps.css' %}">
 <link rel="stylesheet" href="{% static '/node_modules/nouislider/dist/nouislider.css' %}">
 <script src="{% static '/node_modules/nouislider/dist/nouislider.js' %}"></script>
+<style>
+    .slider-container {
+        display: flex;
+        align-items: center; /* Centre verticalement les éléments */
+      }
+      
+      .slider-label {
+        margin-right: 20px; /* Marge à droite du label "Rapport final" */
+      }
+      
+      .slider-value {
+        margin: 0 5px; /* Marge de 5px à gauche et à droite des valeurs min et max */
+      }
+      
+      .slider {
+        width: 350px; /* Largeur du slider */
+        background-color: #0056b3;
+      }
 
+      .slider-disabled {
+        pointer-events: none;
+       
+      }
+  </style>
 <h1>Détails du réglage</h1>
 
 <p><strong>Voiture :</strong> {{ reglage.voiture }}</p>
-<p><strong>Utilisateur :</strong> {{ reglage.utilisateur }}</p>
+<p><strong>Proposé par :</strong> {{ reglage.utilisateur }}</p>
 <p><strong>Description :</strong> {{ reglage.description }}</p>
-
-<h2>Boîte de Vitesse</h2>
-
-<p>Valeur minimale : {{ reglage.configurationreglage.rapport_final_min }}</p>
-<p>Valeur maximale : {{ reglage.configurationreglage.rapport_final_max }}</p>
-<p>Valeur rapport: {{ reglage.rapport_final }}</p>
-<div id="slider"></div>
-
+<h3>Vitesse</h3>
+<h4>Boîte de Vitesse</h4>
+<div class="slider-container">
+    <span class="slider-label">Rapport final :</span>
+    <span class="slider-value" id="min-value"></span>
+    <div id="slider" class="slider slider-disabled"></div>
+    <span class="slider-value" id="max-value"></span>
+  </div>
+  <br>
+  <br>
+ 
+  <div class="slider-container">
+    <span class="slider-label">1ère vitesse :</span>
+    <span class="slider-value" id="min-value2"></span>
+    <div id="slider2" class="slider slider-disabled"></div>
+    <span class="slider-value" id="max-value2"></span>
+  </div>
+  
 <script>
-    var slider = document.getElementById('slider');
-
+    window.addEventListener("load", function() {
+        // Code à exécuter après le chargement complet de la page
+        console.log("Page complètement chargée");
+        var slider = document.getElementById('slider');
+        var slider2 = document.getElementById('slider2');
     // Récupérer les valeurs min et max depuis la table configreglage
     
-    var rapportFinal = {{ reglage.rapport_final|floatformat:2}};
+    var rapportFinal = {{ reglage.rapport_final|floatformat:0}};
+    
     noUiSlider.create(slider, {
         start: [rapportFinal], 
         connect: 'lower',
         range: {
-            'min': [0],
-            'max': [10]
+            'min': [{{reglage.configurationreglage.rapport_final_min|floatformat:0}}],
+            'max': [{{reglage.configurationreglage.rapport_final_max|floatformat:0}}]
+        },
+        width: '50px',
+        tooltips: true, // Active les tooltips
+        format: {
+            to: function ( value ) {
+            return value.toFixed(2); // Affiche la valeur avec 2 décimales
+            },
+            from: function ( value ) {
+            return parseFloat( value );
+            }
         }
-    });
 
+    });
+    // Récupérer les éléments où les valeurs min et max seront affichées
+    const minValueElement = document.getElementById('min-value');
+    const maxValueElement = document.getElementById('max-value');
+
+    // Mettre à jour les valeurs min et max lors de la création du slider
+    minValueElement.textContent = slider.noUiSlider.options.range.min;
+    maxValueElement.textContent = slider.noUiSlider.options.range.max;
+   
+    // premiere vitesse 
+    var premiere_vitesse = {{ reglage.premiere_vitesse|floatformat:0}};
+    
+    noUiSlider.create(slider2, {
+        start: [premiere_vitesse], 
+        connect: 'lower',
+        range: {
+            'min': [{{reglage.configurationreglage.premiere_vitesse_min|floatformat:0}}],
+            'max': [{{reglage.configurationreglage.premiere_vitesse_max|floatformat:0}}]
+        },
+        width: '50px',
+        tooltips: true, // Active les tooltips
+        format: {
+            to: function ( value ) {
+            return value.toFixed(2); // Affiche la valeur avec 2 décimales
+            },
+            from: function ( value ) {
+            return parseFloat( value );
+            }
+        }
+
+    });
+    // Récupérer les éléments où les valeurs min et max seront affichées
+    const minValue2Element = document.getElementById('min-value2');
+    const maxValue2Element = document.getElementById('max-value2');
+
+    // Mettre à jour les valeurs min et max lors de la création du slider
+    minValue2Element.textContent = slider.noUiSlider.options.range.min;
+    maxValue2Element.textContent = slider.noUiSlider.options.range.max;
+   
+
+    });
+    
 </script>
 
 {% endblock %}
