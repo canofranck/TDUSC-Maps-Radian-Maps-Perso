@@ -82,7 +82,8 @@ class Car(models.Model):
     transmission = models.CharField(max_length=3, choices=TRANSMISSIONS)
     ip = models.PositiveIntegerField()
     categorie = models.CharField(max_length=1, choices=CATEGORIES)
-    rarete = models.CharField(max_length=10, choices=RARETES, blank=True, null=True)
+    rarete = models.CharField(max_length=10, choices=RARETES, blank=True,
+                              null=True)
     prix_initial = models.PositiveIntegerField()
 
     def __str__(self):
@@ -90,18 +91,21 @@ class Car(models.Model):
 
 
 class CarPrice(models.Model):
-    car = models.ForeignKey(Car, on_delete=models.CASCADE, related_name="historique_prix")
+    car = models.ForeignKey(Car, on_delete=models.CASCADE,
+                            related_name="historique_prix")
     prix = models.PositiveIntegerField()
     date = models.DateField(default=timezone.now)
 
     def __str__(self):
-        return f"{self.car.marque} {self.car.modele} - {self.date}: {self.prix}€"
+        return (
+                f"{self.car.marque} {self.car.modele} - {self.date}: "
+                f"{self.prix}€"
+                )
 
 
 class ConfigurationReglage(models.Model):
-    # reglage = models.OneToOneField('Reglage', on_delete=models.CASCADE)  # Lien vers le modèle Reglage
-    car = models.ForeignKey(Car, on_delete=models.CASCADE)
 
+    car = models.ForeignKey(Car, on_delete=models.CASCADE)
     # Champs spécifiques pour la configuration
     rapport_final_min = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     rapport_final_max = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
