@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'stylesmymaps.css' %}" type="text/css">
+<h1>Liste des Réglages</h1>
+
+<form method="get">
+    <input type="text" name="q" placeholder="Rechercher un réglage">
+    <select name="search_by">
+        <option value="marque">Marque</option>
+        <option value="modele">Modèle</option>
+    </select>
+    <button type="submit">Rechercher</button>
+</form>
+
+<h1>Liste des réglages</h1>
+
+{% if query %}
+    <h2>Résultats pour "{{ query }}"</h2>
+{% endif %}
+
+<ul>
+    {% for reglage in reglages %}
+    <li>
+        <h2>Réglage pour {{ reglage.voiture }}</h2>
+        <p><strong>Utilisateur :</strong> {{ reglage.utilisateur }}</p>
+        <p><strong>Description :</strong> {{ reglage.description }}</p>
+        <a href="{% url 'detail_reglage' reglage.id %}">Afficher les détails</a>
+    </li>
+    {% endfor %}
+</ul>
+
+{% if not reglages %}
+    <p>Aucun résultat trouvé.</p>
+{% endif %}
+
+    {% endblock %}

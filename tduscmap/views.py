@@ -2,7 +2,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 # from django.contrib.auth.decorators import login_required
-from .models import Favorite, Car, CarPrice
+from .models import Favorite, Car, CarPrice, Reglage
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods
 from .models import CustomUser
 from django.db.models import Prefetch
-
+from django.db.models import Q
 def home(request):
     return render(
         request,
@@ -130,26 +130,6 @@ def add_friend(request, user_id):
             return JsonResponse({'success': False, 'message': 'Erreur de décodage JSON'})
     else:
         return JsonResponse({'success': False, 'message': 'Requête non autorisée'})
-    
-
-# def car_price_history(request, car_id):
-#     car = Car.objects.get(id=car_id)
-#     prices = car.historique_prix.all().order_by('date')
-
-#     # Préparer les données pour Chart.js
-#     dates = [price.date.strftime('%Y-%m-%d') for price in prices]
-#     price_values = [price.prix for price in prices]
-
-#     # Ajouter le prix initial au début de la liste des prix
-#     price_values.insert(0, car.prix_initial)
-#     dates.insert(0, 'Prix initial')  # Pour ajouter une étiquette pour le prix initial
-
-#     context = {
-#         'car': car,
-#         'dates': dates,
-#         'price_values': price_values,
-#     }
-#     return render(request, 'tduscmap/car_price_history.html', context)
 
 
 def car_price_choice(request):
@@ -194,3 +174,27 @@ def car_prices_view(request):
         'prices_data': prices_data,
     }
     return render(request, 'tduscmap/car_prices.html', context)
+
+
+def liste_reglages(request):
+    reglages = Reglage.objects.all()  # Récupère tous les réglages
+    query = request.GET.get('q')
+    search_by = request.GET.get('search_by')
+
+    if query:
+        if search_by == 'marque':
+            reglages = Reglage.objects.filter(voiture__marque__icontains=query)
+        elif search_by == 'modele':
+            reglages = Reglage.objects.filter(voiture__modele__icontains=query)
+        else:
+            # Recherche par défaut (les deux champs)
+            reglages = Reglage.objects.filter(
+                Q(voiture__modele__icontains=query) |
+                Q(voiture__marque__icontains=query)
+            )
+    print(reglages.query)  
+    return render(request, 'tduscmap/liste_reglages.html', {'reglages': reglages, 'query': query})
+
+def detail_reglage(request, pk):
+    reglage = Reglage.objects.get(pk=pk)
+    return render(request, 'tduscmap/detail_reglage.html', {'reglage': reglage})

@@ -49,6 +49,8 @@ urlpatterns = [
     # path('car/<int:car_id>/price-history/', tduscmap.views.car_price_history, name='car_price_history'),
     path('car/select/', tduscmap.views.car_price_choice, name='car_select'),
     path('car-prices/', tduscmap.views.car_prices_view, name='car_prices'),
+    path('reglages/', tduscmap.views.liste_reglages, name='liste_reglages'),
+    path('reglages/<int:pk>/', tduscmap.views.detail_reglage, name='detail_reglage'),
 ]
 if settings.DEBUG:
     urlpatterns += static(

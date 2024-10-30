@@ -25,6 +25,7 @@
                     </li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'mymaps' %}">Ma carte</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'car_select' %}">Prix Cars</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'liste_reglages' %}">Reglages</a></li>
                     {% if user.is_authenticated %}
                     {% else %}
                     <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Se connecter</a></li>

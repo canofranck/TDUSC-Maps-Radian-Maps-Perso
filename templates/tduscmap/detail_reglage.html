@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'stylesmymaps.css' %}" type="text/css">
+<h1>Détails du réglage</h1>
+
+<p><strong>Voiture :</strong> {{ reglage.voiture }}</p>
+<p><strong>Utilisateur :</strong> {{ reglage.utilisateur }}</p>
+<p><strong>Description :</strong> {{ reglage.description }}</p>
+
+<h2>Boîte de Vitesse</h2>
+<ul>
+    <li>Rapport final : {{ reglage.rapport_final }}</li>
+    <li>premiere_vitesse : {{ reglage.premiere_vitesse}}</li>
+    </ul>
+
+    {% endblock %}
