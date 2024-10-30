@@ -216,7 +216,7 @@ class Reglage(models.Model):
         
     def save(self, *args, **kwargs):
         # Appel de clean() pour effectuer la validation avant de sauvegarder
-        self.clean()
+        self.clean_rapport_final()
         super().save(*args, **kwargs)
 
 
