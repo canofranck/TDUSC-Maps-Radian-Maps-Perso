@@ -2,7 +2,10 @@
 {% block content %}
 
 {% load static %}
-<link rel="stylesheet" href="{% static 'stylesmymaps.css' %}" type="text/css">
+<link rel="stylesheet" href="{% static 'stylesmymaps.css' %}">
+<link rel="stylesheet" href="{% static '/node_modules/nouislider/dist/nouislider.css' %}">
+<script src="{% static '/node_modules/nouislider/dist/nouislider.js' %}"></script>
+
 <h1>Détails du réglage</h1>
 
 <p><strong>Voiture :</strong> {{ reglage.voiture }}</p>
@@ -10,9 +13,27 @@
 <p><strong>Description :</strong> {{ reglage.description }}</p>
 
 <h2>Boîte de Vitesse</h2>
-<ul>
-    <li>Rapport final : {{ reglage.rapport_final }}</li>
-    <li>premiere_vitesse : {{ reglage.premiere_vitesse}}</li>
-    </ul>
 
-    {% endblock %}
+<p>Valeur minimale : {{ reglage.configurationreglage.rapport_final_min }}</p>
+<p>Valeur maximale : {{ reglage.configurationreglage.rapport_final_max }}</p>
+<p>Valeur rapport: {{ reglage.rapport_final }}</p>
+<div id="slider"></div>
+
+<script>
+    var slider = document.getElementById('slider');
+
+    // Récupérer les valeurs min et max depuis la table configreglage
+    
+    var rapportFinal = {{ reglage.rapport_final|floatformat:2}};
+    noUiSlider.create(slider, {
+        start: [rapportFinal], 
+        connect: 'lower',
+        range: {
+            'min': [0],
+            'max': [10]
+        }
+    });
+
+</script>
+
+{% endblock %}
