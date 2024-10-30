@@ -23,11 +23,9 @@ class ReglageAdminForm(ModelForm):
         model = Reglage
         fields = '__all__'
 
-    
     def save(self, commit=True):
         instance = super().save(commit=False)
-        
-        # Assurez-vous que 'voiture' est bien défini
+
         if instance.voiture:
             configuration, created = ConfigurationReglage.objects.get_or_create(car=instance.voiture)
             instance.configurationreglage = configuration
@@ -38,11 +36,10 @@ class ReglageAdminForm(ModelForm):
             instance.save()
         return instance
 
+
 @admin.register(Reglage)
 class ReglageAdmin(admin.ModelAdmin):
     form = ReglageAdminForm
-    # Ici, vous pouvez personnaliser l'affichage dans l'admin pour Reglage
-    # list_display = ('voiture', 'utilisateur', 'durete_ressorts_arriere', 'durete_ressorts_avant')  # Exemple
     list_display = [field.name for field in Reglage._meta.fields]
     list_filter = ('voiture__marque',)
     search_fields = ('voiture__modele',)
@@ -81,6 +78,6 @@ class LikeAdmin(admin.ModelAdmin):
 
 @admin.register(ConfigurationReglage)
 class ConfigurationReglageAdmin(admin.ModelAdmin):
-    list_display = ( 'car', 'rapport_final_min', 'rapport_final_max')  # Champs à afficher dans la liste
-    search_fields = [ 'car']  # Champs pour la recherche
+    list_display = ('car', 'rapport_final_min', 'rapport_final_max')  # Champs à afficher dans la liste
+    search_fields = ['car']  # Champs pour la recherche
     # Ajoutez d'autres options de personnalisation si nécessaire (filtres, tri, etc.)

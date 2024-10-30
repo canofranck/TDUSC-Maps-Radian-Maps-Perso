@@ -5,6 +5,7 @@ from django.utils import timezone
 from authentication.models import CustomUser
 from django.core.validators import MinValueValidator, MaxValueValidator
 
+
 class Favorite(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE,
                              related_name='favorites')
@@ -179,18 +180,14 @@ class Reglage(models.Model):
 
     def get_configuration(self):
         return ConfigurationReglage.objects.get(car=self.voiture)
-    
+
     def clean_rapport_final(self):
         """Validation de rapport_final par rapport aux min et max de configurationreglage."""
         if self.configurationreglage is None:
             raise ValidationError("Aucune configurationreglage associée.")
         config = self.configurationreglage
         errors = {}
-        # Afficher les valeurs pour déboguer
-        print("Validation de rapport_final:")
-        print(f"Valeur actuelle : {self.rapport_final}")
-        print(f"Min : {config.rapport_final_min}, Max : {config.rapport_final_max}")
-        # Exemple pour la validation du champ rapport_final
+        # validation du champ rapport_final
         if config.rapport_final_min is not None and config.rapport_final_max is not None:
             if self.rapport_final < config.rapport_final_min or self.rapport_final > config.rapport_final_max:
                 errors['rapport_final'] = f"La valeur de 'rapport_final' doit être comprise entre {config.rapport_final_min} et {config.rapport_final_max}."
@@ -203,17 +200,10 @@ class Reglage(models.Model):
             if self.premiere_vitesse < config.premiere_vitesse_min or self.premiere_vitesse > config.premiere_vitesse_max:
                 errors['premiere_vitesse'] = f"La valeur de 'premiere_vitesse' doit être comprise entre {config.premiere_vitesse_min} et {config.premiere_vitesse_max}."
 
-        # Ajoutez ici les autres validations de champ (deuxieme_vitesse, troisieme_vitesse, etc.)
-
         # Lève une ValidationError si des erreurs ont été collectées
         if errors:
             raise ValidationError(errors)
-        
-    # def clean(self):
-    #    # Ajoutez un print pour déboguer
-    #     print(f"ConfigurationReglage de {self} : {self.configurationreglage}")
-    #     super().clean()
-        
+
     def save(self, *args, **kwargs):
         # Appel de clean() pour effectuer la validation avant de sauvegarder
         self.clean_rapport_final()
