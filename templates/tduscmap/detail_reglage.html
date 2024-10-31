@@ -7,19 +7,27 @@
 <script src="{% static '/node_modules/nouislider/dist/nouislider.js' %}"></script>
 <style>
     .slider-container {
-        display: flex;
-        align-items: center; /* Centre verticalement les éléments */
+        display: grid;
+        grid-template-columns: 100px 1% 1fr 2fr 3fr;
+        grid-gap: 10px;
+        align-items: center;
+        margin-bottom: 45px
       }
       
       .slider-label {
-        margin-right: 20px; /* Marge à droite du label "Rapport final" */
+      
+        grid-column: 1;
+        text-align: left;
       }
       
       .slider-value {
-        margin: 0 5px; /* Marge de 5px à gauche et à droite des valeurs min et max */
+        display: flex;
+        align-items: right;
+        margin-right: 10px
       }
       
       .slider {
+       
         width: 350px; /* Largeur du slider */
         background-color: #0056b3;
       }
@@ -37,39 +45,69 @@
 <h3>Vitesse</h3>
 <h4>Boîte de Vitesse</h4>
 <div class="slider-container">
-    <span class="slider-label">Rapport final :</span>
-    <span class="slider-value" id="min-value"></span>
-    <div id="slider" class="slider slider-disabled"></div>
-    <span class="slider-value" id="max-value"></span>
-  </div>
-  <br>
-  <br>
- 
-  <div class="slider-container">
-    <span class="slider-label">1ère vitesse :</span>
-    <span class="slider-value" id="min-value2"></span>
-    <div id="slider2" class="slider slider-disabled"></div>
-    <span class="slider-value" id="max-value2"></span>
-  </div>
-  
+  <span class="slider-label">Rapport final :</span>
+  <span class="slider-value" id="min-value-rapport"></span>
+  <div id="slider" class="slider"></div>
+  <span class="slider-value" id="max-value-rapport"></span>
+</div>
+
+<div class="slider-container">
+  <span class="slider-label">1ère vitesse :</span>
+  <span class="slider-value" id="min-value-vitesse"></span>
+  <div id="slider2" class="slider"></div>
+  <span class="slider-value" id="max-value-vitesse"></span>
+</div>
+<div class="slider-container">
+  <span class="slider-label">2ème vitesse :</span>
+  <span class="slider-value" id="min-value-vitesse2"></span>
+  <div id="slider3" class="slider"></div>
+  <span class="slider-value" id="max-value-vitesse2"></span>
+</div>
+<div class="slider-container">
+  <span class="slider-label">3ème vitesse :</span>
+  <span class="slider-value" id="min-value-vitesse3"></span>
+  <div id="slider4" class="slider"></div>
+  <span class="slider-value" id="max-value-vitesse3"></span>
+</div>
+<div class="slider-container">
+  <span class="slider-label">4ème vitesse :</span>
+  <span class="slider-value" id="min-value-vitesse4"></span>
+  <div id="slider5" class="slider"></div>
+  <span class="slider-value" id="max-value-vitesse4"></span>
+</div>
+<div class="slider-container">
+  <span class="slider-label">5ème vitesse :</span>
+  <span class="slider-value" id="min-value-vitesse5"></span>
+  <div id="slider6" class="slider"></div>
+  <span class="slider-value" id="max-value-vitesse5"></span>
+</div>
+<div class="slider-container">
+  <span class="slider-label">6ème vitesse :</span>
+  <span class="slider-value" id="min-value-vitesse6"></span>
+  <div id="slider7" class="slider"></div>
+  <span class="slider-value" id="max-value-vitesse6"></span>
+</div>
+<div class="slider-container">
+  <span class="slider-label">7ème vitesse :</span>
+  <span class="slider-value" id="min-value-vitesse7"></span>
+  <div id="slider8" class="slider"></div>
+  <span class="slider-value" id="max-value-vitesse7"></span>
+</div>
 <script>
-    window.addEventListener("load", function() {
-        // Code à exécuter après le chargement complet de la page
-        console.log("Page complètement chargée");
-        var slider = document.getElementById('slider');
-        var slider2 = document.getElementById('slider2');
-    // Récupérer les valeurs min et max depuis la table configreglage
-    
-    var rapportFinal = {{ reglage.rapport_final|floatformat:0}};
-    
+window.addEventListener("load", function() {
+  // Fonction réutilisable pour créer un slider
+  function createSlider(sliderId, value, minValue, maxValue) {
+    const slider = document.getElementById(sliderId);
+
     noUiSlider.create(slider, {
-        start: [rapportFinal], 
-        connect: 'lower',
-        range: {
-            'min': [{{reglage.configurationreglage.rapport_final_min|floatformat:0}}],
-            'max': [{{reglage.configurationreglage.rapport_final_max|floatformat:0}}]
-        },
-        width: '50px',
+      // ... configuration du slider ...
+      start: [value],
+      connect: 'lower',
+      range: {
+        'min': [minValue],
+        'max': [maxValue]
+      },
+      width: '50px',
         tooltips: true, // Active les tooltips
         format: {
             to: function ( value ) {
@@ -81,46 +119,52 @@
         }
 
     });
-    // Récupérer les éléments où les valeurs min et max seront affichées
-    const minValueElement = document.getElementById('min-value');
-    const maxValueElement = document.getElementById('max-value');
+  }
 
-    // Mettre à jour les valeurs min et max lors de la création du slider
+  // Fonction pour afficher les valeurs minimales et maximales
+  function afficheSlider(slider, minValueElementId, maxValueElementId, minValue, maxValue) {
+    const minValueElement = document.getElementById(minValueElementId);
+    const maxValueElement = document.getElementById(maxValueElementId);
+
+  
     minValueElement.textContent = slider.noUiSlider.options.range.min;
     maxValueElement.textContent = slider.noUiSlider.options.range.max;
-   
-    // premiere vitesse 
-    var premiere_vitesse = {{ reglage.premiere_vitesse|floatformat:0}};
-    
-    noUiSlider.create(slider2, {
-        start: [premiere_vitesse], 
-        connect: 'lower',
-        range: {
-            'min': [{{reglage.configurationreglage.premiere_vitesse_min|floatformat:0}}],
-            'max': [{{reglage.configurationreglage.premiere_vitesse_max|floatformat:0}}]
-        },
-        width: '50px',
-        tooltips: true, // Active les tooltips
-        format: {
-            to: function ( value ) {
-            return value.toFixed(2); // Affiche la valeur avec 2 décimales
-            },
-            from: function ( value ) {
-            return parseFloat( value );
-            }
-        }
+  }
+  function createAndDisplaySlider(sliderId, minValueId, maxValueId, min, max, initialValue) {
+    createSlider(sliderId, initialValue, min, max);
+    afficheSlider(sliderId, minValueId, maxValueId, min, max);
+  }
 
-    });
-    // Récupérer les éléments où les valeurs min et max seront affichées
-    const minValue2Element = document.getElementById('min-value2');
-    const maxValue2Element = document.getElementById('max-value2');
+  
+  // Appels aux fonctions
+  createSlider('slider', {{ reglage.rapport_final|floatformat:0 }}, {{ reglage.configurationreglage.rapport_final_min|floatformat:0 }},{{ reglage.configurationreglage.rapport_final_max|floatformat:0 }});
+  afficheSlider(document.getElementById('slider'), 'min-value-rapport', 'max-value-rapport', 
+               {{ reglage.configurationreglage.rapport_final_min|floatformat:0 }}, {{ reglage.configurationreglage.rapport_final_max|floatformat:0 }});
+  createSlider('slider2', {{ reglage.premiere_vitesse|floatformat:0 }}, {{ reglage.configurationreglage.premiere_vitesse_min|floatformat:0 }}, {{ reglage.configurationreglage.premiere_vitesse_max|floatformat:0 }});
+  afficheSlider(slider2, 'min-value-vitesse', 'max-value-vitesse', {{ reglage.configurationreglage.premiere_vitesse_min|floatformat:0 }}, {{ reglage.configurationreglage.premiere_vitesse_max|floatformat:0 }});
+             
+  createSlider('slider3', {{ reglage.deuxieme_vitesse|floatformat:0 }}, {{ reglage.configurationreglage.deuxieme_vitesse_min|floatformat:0 }}, {{ reglage.configurationreglage.deuxieme_vitesse_max|floatformat:0 }});
+  afficheSlider(slider3, 'min-value-vitesse2', 'max-value-vitesse2', {{ reglage.configurationreglage.deuxieme_vitesse_min|floatformat:0 }}, {{ reglage.configurationreglage.deuxieme_vitesse_max|floatformat:0 }});
 
-    // Mettre à jour les valeurs min et max lors de la création du slider
-    minValue2Element.textContent = slider.noUiSlider.options.range.min;
-    maxValue2Element.textContent = slider.noUiSlider.options.range.max;
-   
+  createSlider('slider4', {{ reglage.troisieme_vitesse|floatformat:0 }}, {{ reglage.configurationreglage.troisieme_vitesse_min|floatformat:0 }}, {{ reglage.configurationreglage.troisieme_vitesse_max|floatformat:0 }});
+  afficheSlider(slider4, 'min-value-vitesse3', 'max-value-vitesse3', {{ reglage.configurationreglage.troisieme_vitesse_min|floatformat:0 }}, {{ reglage.configurationreglage.troisieme_vitesse_max|floatformat:0 }});
 
-    });
+  createSlider('slider5', {{ reglage.quatrieme_vitesse|floatformat:0 }}, {{ reglage.configurationreglage.quatrieme_vitesse_min|floatformat:0 }}, {{ reglage.configurationreglage.quatrieme_vitesse_max|floatformat:0 }});
+  afficheSlider(slider5, 'min-value-vitesse4', 'max-value-vitesse4', {{ reglage.configurationreglage.quatrieme_vitesse_min|floatformat:0 }}, {{ reglage.configurationreglage.quatrieme_vitesse_max|floatformat:0 }});
+
+  createSlider('slider6', {{ reglage.cinquieme_vitesse|floatformat:0 }}, {{ reglage.configurationreglage.cinquieme_vitesse_min|floatformat:0 }}, {{ reglage.configurationreglage.cinquieme_vitesse_max|floatformat:0 }});
+  afficheSlider(slider6, 'min-value-vitesse5', 'max-value-vitesse5', {{ reglage.configurationreglage.cinquieme_vitesse_min|floatformat:0 }}, {{ reglage.configurationreglage.cinquieme_vitesse_max|floatformat:0 }});
+
+  createSlider('slider7', {{ reglage.sixieme_vitesse|floatformat:0 }}, {{ reglage.configurationreglage.sixieme_vitesse_min|floatformat:0 }}, {{ reglage.configurationreglage.sixieme_vitesse_max|floatformat:0 }});
+  afficheSlider(slider7, 'min-value-vitesse6', 'max-value-vitesse6', {{ reglage.configurationreglage.sixieme_vitesse_min|floatformat:0 }}, {{ reglage.configurationreglage.sixieme_vitesse_max|floatformat:0 }});
+
+  createSlider('slider8', {{ reglage.septieme_vitesse|floatformat:0 }}, {{ reglage.configurationreglage.septieme_vitesse_min|floatformat:0 }}, {{ reglage.configurationreglage.septieme_vitesse_max|floatformat:0 }});
+  afficheSlider(slider8, 'min-value-vitesse7', 'max-value-vitesse7', {{ reglage.configurationreglage.septieme_vitesse_min|floatformat:0 }}, {{ reglage.configurationreglage.septieme_vitesse_max|floatformat:0 }});
+
+
+
+
+});
     
 </script>
 
