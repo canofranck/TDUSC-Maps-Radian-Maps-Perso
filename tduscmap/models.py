@@ -21,8 +21,9 @@ class Car(models.Model):
     MARQUES = [
         ("Abarth", "Abarth"),
         ("AC", "AC"),
-        ("Alpha Romeo", "Alpha Romeo"),
+        ("Alfa Romeo", "Alfa Romeo"),
         ("Alpine", "Alpine"),
+        ("Apollo Automobil","Apollo Automobil"),
         ("Aston Martin", "Aston Martin"),
         ("Audi", "Audi"),
         ("Bentley", "Bentley"),
@@ -30,25 +31,28 @@ class Car(models.Model):
         ("Bugatti", "Bugatti"),
         ("Caterham", "Caterham"),
         ("Chevrolet", "Chevrolet"),
-        ("Citroen", "Citroen"),
+        ("Citroën", "Citroën"),
         ("Dodge", "Dodge"),
         ("Ferrari", "Ferrari"),
         ("Ford", "Ford"),
         ("Jaguar", "Jaguar"),
-        ("Koenlgsegg", "Koenlgsegg"),
+        ("Koenigsegg", "Koenigsegg"),
         ("Lamborghini", "Lamborghini"),
+        ("Land Rover", "Land Rover"),
         ("Lancia", "Lancia"),
         ("Lotus", "Lotus"),
+        ('Maserati', "Maserati"),
         ("McLaren", "McLaren"),
-        ("Mercedes-AMG", "Mercedes-AMG"),
-        ("Mercedes-Benz", "Mercedes-Benz"),
+        ("MercedesAMG", "MercedesAMG"),
+        ("MercedesBenz", "MercedesBenz"),
         ("Mini", "Mini"),
         ("Nissan", "Nissan"),
-        ("Porshe", "Porshe"),
+        ("Porsche", "Porsche"),
         ("Shelby", "Shelby"),
         ("Sientero", "Sientero"),
         ("WMotors", "WMotors"),
-        ("Wolkwagen", "Wolkswagen"),
+        ("Volkswagen", "Volkswagen"),
+        ("W Motors", "W Motors"),
     ]
     TRANSMISSIONS = [
         ("RWD", "RWD"),
@@ -78,14 +82,14 @@ class Car(models.Model):
 
     marque = models.CharField(max_length=50, choices=MARQUES)
     modele = models.CharField(max_length=50)
-    annee = models.PositiveIntegerField()
-    transmission = models.CharField(max_length=3, choices=TRANSMISSIONS)
-    ip = models.PositiveIntegerField()
-    categorie = models.CharField(max_length=1, choices=CATEGORIES)
+    annee = models.PositiveIntegerField(null=True)
+    transmission = models.CharField(max_length=3, choices=TRANSMISSIONS, null=True)
+    ip = models.PositiveIntegerField(null=True)
+    categorie = models.CharField(max_length=1, choices=CATEGORIES, null=True)
     rarete = models.CharField(
         max_length=10, choices=RARETES, blank=True, null=True
     )
-    prix_initial = models.PositiveIntegerField()
+    prix_initial = models.PositiveIntegerField(null=True)
 
     def __str__(self):
         return f"{self.marque} {self.modele} ({self.annee})"
@@ -257,10 +261,10 @@ class Reglage(models.Model):
 
     # Aérodynamisme
     appui_aerodynamique_avant = models.DecimalField(
-        max_digits=3, decimal_places=1
+        max_digits=3, decimal_places=2
     )
     appui_aerodynamique_arriere = models.DecimalField(
-        max_digits=3, decimal_places=1
+        max_digits=3, decimal_places=2
     )
 
     # Stabilité
