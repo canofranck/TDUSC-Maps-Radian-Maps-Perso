@@ -37,6 +37,19 @@ class ReglageAdminForm(ModelForm):
         return instance
 
 
+    class Meta:
+        model = Reglage
+        fields = '__all__'
+        
+        labels = {
+            'rapport_final': 'Rapport final (3 , 5)',
+            'premiere_vitesse': '1ère vitesse',
+            'deuxieme_vitesse': '2ème vitesse',
+            'appui_aerodynamique_avant' : 'Appui aérodynamique Avant( -1 , 1 )',
+            'appui_aerodynamique_arriere' : 'Appuiaerodynamique Arriere ( -1 , 1 )',
+            # ... et ainsi de suite pour tous les autres labels
+        }
+
 @admin.register(Reglage)
 class ReglageAdmin(admin.ModelAdmin):
     form = ReglageAdminForm
@@ -60,12 +73,15 @@ class ReglageAdmin(admin.ModelAdmin):
             'fields': ('compression_amortisseurs_avant', 'compression_amortisseurs_arriere', 'decompression_amortisseurs_avant', 'decompression_amortisseurs_arriere')
         }),
         ('Conduite sportive', {
-            'fields': ('differentiel_arriere', 'acceleration_arriere', 'deceleration_arriere', 'freinage_arriere', 'durete_barre_antiroulis_avant', 'durete_barre_antiroulis_arriere', 'angle_carrossage_arriere', 'angle_carrossage_avant', 'pression_pneus_arriere', 'pression_pneus_avant')
+            'fields': ('acceleration_avant', 'deceleration_avant','freinage_avant','distribution_puissance_avant_arriere','acceleration_centrale','deceleration_centrale','freinage_central','acceleration_arriere', 'deceleration_arriere', 'freinage_arriere', 'durete_barre_antiroulis_avant', 'durete_barre_antiroulis_arriere', 'angle_carrossage_arriere', 'angle_carrossage_avant', 'pression_pneus_arriere', 'pression_pneus_avant')
         }),
         ('Freinage', {
             'fields': ('repartiteur_freinage_avant', 'pression_freinage')
         })
     ]
+
+
+
 
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
@@ -81,3 +97,5 @@ class ConfigurationReglageAdmin(admin.ModelAdmin):
     list_display = ('car', 'rapport_final_min', 'rapport_final_max')  # Champs à afficher dans la liste
     search_fields = ['car']  # Champs pour la recherche
     # Ajoutez d'autres options de personnalisation si nécessaire (filtres, tri, etc.)
+
+

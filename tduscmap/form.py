@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
-
+from .models import Reglage
 
 class SignupForm(UserCreationForm):
     """
@@ -32,3 +32,8 @@ class SignupForm(UserCreationForm):
         model = get_user_model()
         fields = ("username",)
 
+
+class ReglageForm(forms.ModelForm):
+    class Meta:
+        model = Reglage
+        fields = '__all__'  # Or specify the desired fields

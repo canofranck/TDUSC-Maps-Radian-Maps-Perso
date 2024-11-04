@@ -1,7 +1,7 @@
 
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 # from django.contrib.auth.decorators import login_required
-from .models import Favorite, Car, Reglage
+from .models import Favorite, Car, Reglage, ConfigurationReglage
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods
 from .models import CustomUser
 from django.db.models import Q
-
+from tduscmap.form import ReglageForm
 
 def home(request):
     return render(
@@ -216,3 +216,38 @@ def detail_reglage(request, pk):
     reglage = Reglage.objects.get(pk=pk)
     return render(request, 'tduscmap/detail_reglage.html',
                   {'reglage': reglage})
+
+
+def create_reglage(request):
+    if request.method == 'POST':
+        form = ReglageForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('reglage_list')  # Replace with your desired redirect URL
+    else:
+        form = ReglageForm()
+    return render(request, 'tduscmap/reglage_form.html', {'form': form})
+
+
+def selectionner_reglage(request):
+    cars = Car.objects.all()
+    if request.method == 'POST':
+        car_id = request.POST.get('car_id')
+        reglage = get_object_or_404(ConfigurationReglage, car_id=car_id)
+        print("regalge:")
+        print(reglage)
+        return render(request, 'tduscmap/reglage_form.html', {'reglage': reglage})
+    else:
+        return render(request, 'tduscmap/template_principal.html', {'cars': cars})
+  
+
+def get_configuration(request, car_id):
+    try:
+        reglage = Reglage.objects.get(car_id=car_id)
+        configuration = ConfigurationReglage.objects.get(car_id=car_id)
+        return render(request, 'ton_template.html', {
+        'reglage': reglage,
+        'configurationreglage': configuration,
+    })
+    except ConfigurationReglage.DoesNotExist:
+        return JsonResponse({'error': 'Configuration non trouvée'}, status=404)

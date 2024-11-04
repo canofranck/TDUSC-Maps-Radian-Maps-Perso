@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'stylesmymaps.css' %}">
+<link rel="stylesheet" href="{% static 'node_modules/nouislider/dist/nouislider.css' %}">
+<script src="{% static 'node_modules/nouislider/dist/nouislider.js' %}"></script>
+<style>
+    .slider-container {
+        display: grid;
+        grid-template-columns: 250px 2% 1fr 2fr 3fr;
+        grid-gap: 10px;
+        align-items: center;
+        margin-bottom: 45px
+      }
+      
+      .slider-label {
+      
+        grid-column: 1;
+        text-align: left;
+      }
+      
+      .slider-value {
+        display: flex;
+        align-items: right;
+        margin-right: 10px
+      }
+      
+      .slider {
+       
+        width: 350px; /* Largeur du slider */
+        background-color: #0056b3;
+      }
+
+      .slider-disabled {
+        pointer-events: none;
+       
+      }
+  </style>
+  <form method="POST">
+    {% csrf_token %}
+    <h3>Vitesse</h3>
+    <h4>Boîte de Vitesse</h4>
+    <div class="slider-container">
+      <span class="slider-label">Rapport final :</span>
+      <span class="slider-value" id="min-value-rapport"></span>
+      <div id="slider1" class="slider"></div>
+      <span class="slider-value" id="max-value-rapport"></span>
+    </div>
+    <button type="submit">Enregistrer</button>
+</form>
+
+<script>
+  window.addEventListener("load", function() {
+    // Fonction réutilisable pour créer un slider
+    function createSlider(sliderId, value, minValue, maxValue) {
+      const slider = document.getElementById(sliderId);
+  
+      noUiSlider.create(slider, {
+        // ... configuration du slider ...
+        start: [value],
+        connect: 'lower',
+        range: {
+          'min': [minValue],
+          'max': [maxValue]
+        },
+        width: '50px',
+          tooltips: true, // Active les tooltips
+          format: {
+            to: function ( value ) {
+                if (value === minValue) {
+                    return minValue + ' min';
+                } else if (value === maxValue) {
+                    return maxValue + ' max';
+                } else {
+                    return value.toFixed(2);
+                }
+            },
+            from: function ( value ) {
+                return parseFloat( value );
+            }
+        }
+    });
+    }
+  
+    // Fonction pour afficher les valeurs minimales et maximales
+    function afficheSlider(slider, minValueElementId, maxValueElementId, minValue, maxValue) {
+      const minValueElement = document.getElementById(minValueElementId);
+      const maxValueElement = document.getElementById(maxValueElementId);
+  
+    
+      minValueElement.textContent = slider.noUiSlider.options.range.min;
+      maxValueElement.textContent = slider.noUiSlider.options.range.max;
+    }
+    function createAndDisplaySlider(sliderId, minValueId, maxValueId, min, max, initialValue) {
+      createSlider(sliderId, initialValue, min, max);
+      afficheSlider(sliderId, minValueId, maxValueId, min, max);
+    }
+  
+    
+    // Appels aux fonctions
+    const slider1Min = {{ reglage.rapport_final_min|floatformat:0 }};
+    const slider1Max = {{ reglage.rapport_final_max|floatformat:0 }};
+    const slider1Value = (slider1Min + slider1Max) / 2
+    createSlider('slider1', slider1Value, slider1Min,slider1Max);
+    afficheSlider(document.getElementById('slider1'), 'min-value-rapport', 'max-value-rapport', 
+    slider1Min,slider1Max);
+   
+ 
+  });
+      
+  </script>
+  
+  {% endblock %}
