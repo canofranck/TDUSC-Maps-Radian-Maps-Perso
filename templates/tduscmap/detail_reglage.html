@@ -429,29 +429,42 @@ window.addEventListener("load", function() {
 
   createSlider('slider18', {{ reglage.decompression_amortisseurs_arriere  }}, 80, 120);
   afficheSlider(slider18, 'min-value-decompression-amortisseurs-arriere', 'max-value-decompression-amortisseurs-arriere', 80, 120);
-  
+  const accav ={{reglage.acceleration_avant|floatformat:0  }};
+  if ( accav !== 9999 ){
   createSlider('slider19', {{ reglage.acceleration_avant|floatformat:0 }}, {{ reglage.configurationreglage.acceleration_avant_min|floatformat:0 }}, {{ reglage.configurationreglage.acceleration_avant_max|floatformat:0 }} );
   afficheSlider(slider19, 'min-value-acceleration-avant', 'max-value-acceleration-avant', {{ reglage.configurationreglage.acceleration_avant_min|floatformat:0 }} ,  {{ reglage.configurationreglage.acceleration_avant_max|floatformat:0 }});
-  const dece_avant ={{reglage.deceleration_avant|format_decimal }};
-  if ( dece_avant !== 9999 ){
+  }
+  const decav ={{reglage.deceleration_avant|floatformat:0 }};
+  if ( decav!== 9999 ){
   createSlider('slider20', {{ reglage.deceleration_avant|floatformat:0 }}, {{ reglage.configurationreglage.deceleration_avant_min|floatformat:0 }}, {{ reglage.configurationreglage.deceleration_avant_max|floatformat:0 }});
   afficheSlider(slider20, 'min-value-deceleration-avant', 'max-value-deceleration-avant', {{ reglage.configurationreglage.deceleration_avant_min|floatformat:0 }}, {{ reglage.configurationreglage.deceleration_avant_max|floatformat:0 }});
   }
+  const freav ={{reglage.freinage_avant|floatformat:0  }};
+  if ( freav!== 9999 ){
   createSlider('slider21', {{ reglage.freinage_avant|floatformat:0 }}, {{ reglage.configurationreglage.freinage_avant_min|floatformat:0 }}, {{ reglage.configurationreglage.freinage_avant_max|floatformat:0 }});
   afficheSlider(slider21, 'min-value-freinage-avant', 'max-value-freinage-avant', {{ reglage.configurationreglage.freinage_avant_min|floatformat:0 }}, {{ reglage.configurationreglage.freinage_avant_max|floatformat:0 }});
-
+  }
+  const dispui ={{reglage.distribution_puissance_avant_arriere|floatformat:0 }};
+  if ( dispui!== 9999 ){
   createSlider('slider22', {{ reglage.distribution_puissance_avant_arriere|floatformat:0 }}, 1, {{ reglage.configurationreglage.distribution_puissance_avant_arriere_max|floatformat:0 }});
   afficheSlider(slider22, 'min-value-distribution-avant-arriere', 'max-value-distribution-avant-arriere', {{ reglage.configurationreglage.distribution_puissance_avant_arriere_min|floatformat:0 }}, {{ reglage.configurationreglage.distribution_puissance_avant_arriere_max|floatformat:0 }});
-  
+  }
+  const acav ={{reglage.acceleration_centrale|floatformat:0 }};
+  if ( acav!== 9999 ){
   createSlider('slider23', {{ reglage.acceleration_centrale|floatformat:0 }}, {{ reglage.configurationreglage.acceleration_centrale_min|floatformat:0 }}, {{ reglage.configurationreglage.acceleration_centrale_max|floatformat:0 }} );
   afficheSlider(slider23, 'min-value-acceleration-centrale', 'max-value-acceleration-centrale', {{ reglage.configurationreglage.acceleration_centrale_min|floatformat:0 }} ,  {{ reglage.configurationreglage.acceleration_centrale_max|floatformat:0 }});
- 
+  }
+  const decce ={{reglage.deceleration_centrale|floatformat:0}};
+  if ( decce!== 9999 ){
   createSlider('slider24', {{ reglage.deceleration_centrale|floatformat:0 }}, {{ reglage.configurationreglage.deceleration_centrale_min|floatformat:0 }}, {{ reglage.configurationreglage.deceleration_centrale_max|floatformat:0 }} );
   afficheSlider(slider24, 'min-value-deceleration-centrale', 'max-value-deceleration-centrale', {{ reglage.configurationreglage.deceleration_centrale_min|floatformat:0 }} ,  {{ reglage.configurationreglage.deceleration_centrale_max|floatformat:0 }});
-  
+  }
+  const frece ={{reglage.freinage_central|floatformat:0 }};
+  if ( frece!== 9999 ){
   createSlider('slider25', {{ reglage.freinage_central|floatformat:0 }}, {{ reglage.configurationreglage.freinage_centrale_min|floatformat:0 }}, {{ reglage.configurationreglage.freinage_centrale_max|floatformat:0 }} );
   afficheSlider(slider25, 'min-value-freinage-centrale', 'max-value-freinage-centrale', {{ reglage.configurationreglage.freinage_centrale_min|floatformat:0 }} ,  {{ reglage.configurationreglage.freinage_centrale_max|floatformat:0 }});
-
+  }
+  
   createSlider('slider26', {{ reglage.acceleration_arriere|floatformat:0 }}, 0,100  );
   afficheSlider(slider26, 'min-value-acceleration-arriere', 'max-value-acceleration-arriere', 0, 100);
  
@@ -472,19 +485,26 @@ window.addEventListener("load", function() {
 
   createSlider('slider32', {{ reglage.angle_carrossage_avant|floatformat:0 }}, -6 , 3  );
   afficheSlider(slider32, 'min-value-angle-carrossage-avant', 'max-value-angle-carrossage-avant', -6 , 3  );
-
+  const prear ={{reglage.pression_pneus_arriere|floatformat:0 }};
+  if ( prear!== 9999 ){
   createSlider('slider33', {{ reglage.pression_pneus_arriere|floatformat:0 }}, {{ reglage.configurationreglage.pression_pneus_arriere_min|floatformat:0 }}, {{ reglage.configurationreglage.pression_pneus_arriere_max|floatformat:0 }} );
   afficheSlider(slider33, 'min-value-pression-pneus-arriere', 'max-value-pression-pneus-arriere', {{ reglage.configurationreglage.pression_pneus_arriere_min|floatformat:0 }}, {{ reglage.configurationreglage.pression_pneus_arriere_max|floatformat:0 }} );
-
+  }
+  const preav ={{reglage.pression_pneus_avant|floatformat:0 }};
+  if ( preav!== 9999 ){
   createSlider('slider34', {{ reglage.pression_pneus_avant|floatformat:0 }}, {{ reglage.configurationreglage.pression_pneus_avant_min|floatformat:0 }}, {{ reglage.configurationreglage.pression_pneus_avant_max|floatformat:0 }} );
   afficheSlider(slider34, 'min-value-pression-pneus-avant', 'max-value-pression-pneus-avant', {{ reglage.configurationreglage.pression_pneus_avant_min|floatformat:0 }}, {{ reglage.configurationreglage.pression_pneus_avant_max|floatformat:0 }} );
-  
+  }
+  const reav ={{reglage.repartiteur_freinage_avant|floatformat:0 }};
+  if ( reav!== 9999 ){
   createSlider('slider35', {{ reglage.repartiteur_freinage_avant|floatformat:0 }}, 0 , 100  );
   afficheSlider(slider35, 'min-value-repartiteur-freinage-avant', 'max-value-repartiteur-freinage-avant', 0 , 100  );
-
+  }
+  const prefre ={{reglage.pression_freinage|floatformat:0 }};
+  if ( prefre!== 9999 ){
   createSlider('slider36', {{ reglage.pression_freinage|floatformat:0 }}, -1000 , 1000 );
   afficheSlider(slider36, 'min-value-pression-freinage', 'max-value-pression-freinage', -1000 , 1000 );
-  
+  }
   // Fonction pour désactiver tous les sliders
 function disableAllSliders() {
   for (let i = 1; i <= 36; i++) {
