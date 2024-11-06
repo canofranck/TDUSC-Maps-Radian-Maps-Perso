@@ -23,7 +23,7 @@ class Car(models.Model):
         ("AC", "AC"),
         ("Alfa Romeo", "Alfa Romeo"),
         ("Alpine", "Alpine"),
-        ("Apollo Automobil","Apollo Automobil"),
+        ("Apollo Automobil", "Apollo Automobil"),
         ("Aston Martin", "Aston Martin"),
         ("Audi", "Audi"),
         ("Bentley", "Bentley"),
@@ -41,7 +41,7 @@ class Car(models.Model):
         ("Land Rover", "Land Rover"),
         ("Lancia", "Lancia"),
         ("Lotus", "Lotus"),
-        ('Maserati', "Maserati"),
+        ("Maserati", "Maserati"),
         ("McLaren", "McLaren"),
         ("MercedesAMG", "MercedesAMG"),
         ("MercedesBenz", "MercedesBenz"),
@@ -83,7 +83,9 @@ class Car(models.Model):
     marque = models.CharField(max_length=50, choices=MARQUES)
     modele = models.CharField(max_length=50)
     annee = models.PositiveIntegerField(null=True)
-    transmission = models.CharField(max_length=3, choices=TRANSMISSIONS, null=True)
+    transmission = models.CharField(
+        max_length=3, choices=TRANSMISSIONS, null=True
+    )
     ip = models.PositiveIntegerField(null=True)
     categorie = models.CharField(max_length=1, choices=CATEGORIES, null=True)
     rarete = models.CharField(
@@ -232,8 +234,8 @@ class ConfigurationReglage(models.Model):
 class Reglage(models.Model):
     """Modèle pour stocker les réglages d'une voiture"""
 
-    voiture = models.ForeignKey(Car, on_delete=models.CASCADE)
-    utilisateur = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    car = models.ForeignKey(Car, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     description = models.TextField(blank=True)
     configurationreglage = models.ForeignKey(
         ConfigurationReglage, on_delete=models.CASCADE
@@ -278,35 +280,35 @@ class Reglage(models.Model):
 
     # Ressort
     durete_ressorts_arriere = models.DecimalField(
-        max_digits=3,
-        decimal_places=0,
+        max_digits=5,
+        decimal_places=2,
         validators=[MinValueValidator(80), MaxValueValidator(120)],
     )
     durete_ressorts_avant = models.DecimalField(
-        max_digits=3,
-        decimal_places=0,
+        max_digits=5,
+        decimal_places=2,
         validators=[MinValueValidator(80), MaxValueValidator(120)],
     )
 
     # Amortisseurs
     compression_amortisseurs_avant = models.DecimalField(
-        max_digits=3,
-        decimal_places=0,
+        max_digits=5,
+        decimal_places=2,
         validators=[MinValueValidator(80), MaxValueValidator(120)],
     )
     compression_amortisseurs_arriere = models.DecimalField(
-        max_digits=3,
-        decimal_places=0,
+        max_digits=5,
+        decimal_places=2,
         validators=[MinValueValidator(80), MaxValueValidator(120)],
     )
     decompression_amortisseurs_avant = models.DecimalField(
-        max_digits=3,
-        decimal_places=0,
+        max_digits=5,
+        decimal_places=2,
         validators=[MinValueValidator(80), MaxValueValidator(120)],
     )
     decompression_amortisseurs_arriere = models.DecimalField(
-        max_digits=3,
-        decimal_places=0,
+        max_digits=5,
+        decimal_places=2,
         validators=[MinValueValidator(80), MaxValueValidator(120)],
     )
 
@@ -354,12 +356,12 @@ class Reglage(models.Model):
     # carrossge
     angle_carrossage_arriere = models.DecimalField(
         max_digits=3,
-        decimal_places=1,
+        decimal_places=2,
         validators=[MinValueValidator(-6), MaxValueValidator(3)],
     )
     angle_carrossage_avant = models.DecimalField(
         max_digits=3,
-        decimal_places=1,
+        decimal_places=2,
         validators=[MinValueValidator(-6), MaxValueValidator(3)],
     )
     # pression pneus

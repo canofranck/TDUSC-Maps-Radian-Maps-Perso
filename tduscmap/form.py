@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
-from .models import Reglage
+from .models import Reglage, Car
+
 
 class SignupForm(UserCreationForm):
     """
@@ -36,4 +37,13 @@ class SignupForm(UserCreationForm):
 class ReglageForm(forms.ModelForm):
     class Meta:
         model = Reglage
-        fields = '__all__'  # Or specify the desired fields
+        fields = "__all__"  # Or specify the desired fields
+
+
+class ModeleSelectionForm(forms.ModelForm):
+    class Meta:
+        model = Car
+        fields = ["id"]  # On sélectionne uniquement le champ 'id'
+        widgets = {
+            "id": forms.HiddenInput(),  # On cache le champ 'id' car il sera rempli dynamiquement
+        }

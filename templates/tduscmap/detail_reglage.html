@@ -446,7 +446,7 @@ window.addEventListener("load", function() {
   }
   const dispui ={{reglage.distribution_puissance_avant_arriere|floatformat:0 }};
   if ( dispui!== 9999 ){
-  createSlider('slider22', {{ reglage.distribution_puissance_avant_arriere|floatformat:0 }}, 1, {{ reglage.configurationreglage.distribution_puissance_avant_arriere_max|floatformat:0 }});
+  createSlider('slider22', {{ reglage.distribution_puissance_avant_arriere|floatformat:0 }}, {{ reglage.configurationreglage.distribution_puissance_avant_arriere_min|floatformat:0 }}, {{ reglage.configurationreglage.distribution_puissance_avant_arriere_max|floatformat:0 }});
   afficheSlider(slider22, 'min-value-distribution-avant-arriere', 'max-value-distribution-avant-arriere', {{ reglage.configurationreglage.distribution_puissance_avant_arriere_min|floatformat:0 }}, {{ reglage.configurationreglage.distribution_puissance_avant_arriere_max|floatformat:0 }});
   }
   const acav ={{reglage.acceleration_centrale|floatformat:0 }};
