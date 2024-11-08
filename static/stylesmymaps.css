@@ -88,4 +88,44 @@ img {
 
 
 
+.pagination.centered {
+    
+    border-radius: 50px;
+    text-align: center; /* Assurez-vous qu'aucune autre règle ne l'écrase */
+  }
   
+  /* Si vous avez des éléments flottants, ajoutez ceci : */
+  .pagination::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  .like-container {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Aligne verticalement les éléments */
+}
+.like-container2 {
+  display: flex;
+  align-items: center;
+}
+
+.like-container2 button {
+  margin-right: 0px; /* Ajuste la valeur selon vos besoins */
+}
+
+.like-container2 img {
+  margin-left: -2px; /* Ajuste la valeur selon vos besoins */
+}
+
+
+  
+  .reglage {
+    border: 1px solid #ccc; /* Bordure de 1px, solide, de couleur gris clair */
+    border-radius: 5px; /* Arrondis les coins de la bordure */
+    padding: 10px; /* Espace interne pour aérer le contenu */
+  }
+  .titre-reglage {
+    text-align: center;
+}

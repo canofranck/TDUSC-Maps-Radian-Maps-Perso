@@ -381,56 +381,10 @@ class Reglage(models.Model):
     )
 
     def __str__(self):
-        return f"Réglage de {self.utilisateur} pour {self.voiture}"
+        return f"Réglage de {self.user} pour {self.car}"
 
     def get_configuration(self):
-        return ConfigurationReglage.objects.get(car=self.voiture)
-
-    def clean_rapport_final(self):
-        """Validation de rapport_final par rapport aux min et max de configurationreglage."""
-        if self.configurationreglage is None:
-            raise ValidationError("Aucune configurationreglage associée.")
-        config = self.configurationreglage
-        errors = {}
-        # validation du champ rapport_final
-        if (
-            config.rapport_final_min is not None
-            and config.rapport_final_max is not None
-        ):
-            if (
-                self.rapport_final < config.rapport_final_min
-                or self.rapport_final > config.rapport_final_max
-            ):
-                errors["rapport_final"] = (
-                    f"La valeur de 'rapport_final' doit être comprise entre {config.rapport_final_min} et {config.rapport_final_max}."
-                )
-
-        # Validation pour premiere_vitesse
-        if (
-            config.premiere_vitesse_min is not None
-            and config.premiere_vitesse_max is not None
-        ):
-            print("Validation de premiere_vitesse:")
-            print(f"Valeur actuelle : {self.premiere_vitesse}")
-            print(
-                f"Min : {config.premiere_vitesse_min}, Max : {config.premiere_vitesse_max}"
-            )
-            if (
-                self.premiere_vitesse < config.premiere_vitesse_min
-                or self.premiere_vitesse > config.premiere_vitesse_max
-            ):
-                errors["premiere_vitesse"] = (
-                    f"La valeur de 'premiere_vitesse' doit être comprise entre {config.premiere_vitesse_min} et {config.premiere_vitesse_max}."
-                )
-
-        # Lève une ValidationError si des erreurs ont été collectées
-        if errors:
-            raise ValidationError(errors)
-
-    def save(self, *args, **kwargs):
-        # Appel de clean() pour effectuer la validation avant de sauvegarder
-        self.clean_rapport_final()
-        super().save(*args, **kwargs)
+        return ConfigurationReglage.objects.get(car=self.car)
 
 
 class Like(models.Model):

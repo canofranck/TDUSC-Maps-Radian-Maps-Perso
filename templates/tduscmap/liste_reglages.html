@@ -2,37 +2,90 @@
 {% block content %}
 
 {% load static %}
-<link rel="stylesheet" href="{% static 'stylesmymaps.css' %}" type="text/css">
-<h1>Liste des Réglages</h1>
 
-<form method="get">
-    <input type="text" name="q" placeholder="Rechercher un réglage">
-    <select name="search_by">
-        <option value="marque">Marque</option>
-        <option value="modele">Modèle</option>
+<link rel="stylesheet" href="{% static 'stylesmymaps.css' %}" type="text/css">
+<h6>Liste de tout les réglages , ou faites un tri par :</h6>
+
+<form method="get" data-url="{% url 'liste_reglages' %}" id="reglages-form">
+    <label for="marque">Marque:</label>
+    <select name="marque" id="marque">
+        <option value="">Toutes les marques</option>
+        {% for marque in marques %}
+            <option value="{{ marque }}">{{ marque }}</option>
+        {% endfor %}
     </select>
-    <button type="submit">Rechercher</button>
+
+    <label for="modele">Modèle:</label>
+    <select name="modele" id="modele">
+        <option value="">Tous les modèles</option>
+        {% for modele in modeles %}
+            <option value="{{ modele }}">{{ modele }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="limit">Éléments par page:</label>
+    <select name="limit" id="limit">
+        <option value="3" selected>3</option>
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="25">25</option>
+        <option value="30">30</option>   
+
+        <option value="35">35</option>   
+
+    </select>
 </form>
 
-<h1>Liste des réglages</h1>
+<h6>Liste des réglages</h6>
 
-{% if query %}
-    <h2>Résultats pour "{{ query }}"</h2>
-{% endif %}
 
-<ul>
+
+
     {% for reglage in reglages %}
-    <li>
-        <h2>Réglage pour {{ reglage.voiture }}</h2>
-        <p><strong>Utilisateur :</strong> {{ reglage.utilisateur }}</p>
-        <p><strong>Description :</strong> {{ reglage.description }}</p>
-        <a href="{% url 'detail_reglage' reglage.id %}">Afficher les détails</a>
-    </li>
+    <div class="reglage">
+        <p class="titre-reglage">Réglage pour {{ reglage.car }} , Auteur : {{ reglage.user }}</p>
+        
+        
+        <p>Description : {{ reglage.description }}</p>
+        <a href="{% url 'detail_reglage' reglage.id %}">Voir ce réglage</a>
+        <div class="like-container">
+            <img src="{% static 'images/like.png' %}" alt="icône de like" >
+            <span> Nb :{{ reglage.like_count }}</span>
+            
+          </div> 
+        </div>
     {% endfor %}
-</ul>
-
-{% if not reglages %}
-    <p>Aucun résultat trouvé.</p>
+       
+{% if paginator.num_pages > 1 %}
+<div class="container">
+    <div class="pagination centered">
+        <span class="step-links">
+            {% if reglages.has_previous %}
+                <a href="?page={{ reglages.previous_page_number }}">Précédent</a>
+            {% endif %}
+            <span class="current">
+                Page {{ reglages.number }} / {{ paginator.num_pages }}
+            </span>
+            {% if reglages.has_next %}
+                <a href="?page={{ reglages.next_page_number }}">Suivant</a>
+            {% endif %}
+        </span>
+    </div>
+</div>
 {% endif %}
 
-    {% endblock %}
+{% endblock %}
+<script>
+    const limitSelect = document.getElementById('limit');
+    const form = document.getElementById('reglages-form');
+  
+    limitSelect.addEventListener('change', () => {
+      // Afficher un message de chargement (facultatif)
+      const loadingMessage = document.createElement('div');
+      loadingMessage.textContent = 'Chargement...';
+      form.appendChild(loadingMessage);
+  
+      // Soumettre le formulaire
+      form.submit();
+    });
+  </script>

@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
-{% load static %}
+
 {% load custom_filters %}
 {% block content %}
-<link rel="stylesheet" href="{% static 'stylesmymaps.css' %}">
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'stylesmymaps.css' %}" type="text/css">
+
 <link rel="stylesheet" href="{% static 'node_modules/nouislider/dist/nouislider.css' %}">
 <script src="{% static 'node_modules/nouislider/dist/nouislider.js' %}"></script>
 <style>
@@ -40,9 +43,7 @@
   <form method="POST">
     {% csrf_token %}
     {{ form.description }}
-    <input type="hidden" name="car_id" value="{{ car_id }}">
-    <input type="hidden" name="user_id" value="{{ user.id }}">
-    <input type="hidden" name="configurationreglage" value="{{ id_configurationreglage }}">
+
     <h3>Vitesse</h3>
     <h4>Boîte de Vitesse</h4>
     <div class="slider-container">
@@ -342,9 +343,9 @@
           format: {
             to: function ( value ) {
                 if (value === minValue) {
-                    return minValue + ' min';
+                    return minValue ;
                 } else if (value === maxValue) {
-                    return maxValue + ' max';
+                    return maxValue ;
                 } else {
                     return value.toFixed(2);
                 }

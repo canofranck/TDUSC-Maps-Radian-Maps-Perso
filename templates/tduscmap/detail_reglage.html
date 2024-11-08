@@ -38,11 +38,21 @@
        
       }
   </style>
-<h1>Détails du réglage</h1>
+<h5>Détails du réglage</h5>
 
-<p><strong>Voiture :</strong> {{ reglage.voiture }}</p>
-<p><strong>Proposé par :</strong> {{ reglage.utilisateur }}</p>
-<p><strong>Description :</strong> {{ reglage.description }}</p>
+<p>Voiture :</strong> {{ reglage.car }}</p>
+<p>Proposé par :</strong> {{ reglage.user }}</p>
+<p>Description :</strong> {{ reglage.description }}</p>
+<form method="POST">
+  {% csrf_token %}
+  <div class="like-container2">
+  <button type="submit">J'aime </button>
+  <img src="{% static 'images/like.png' %}" alt="icône de like" >
+  <p>{{ nombre_likes }} personnes aiment ce réglage.</p>
+  </div>
+</form>
+
+
 <h3>Vitesse</h3>
 <h4>Boîte de Vitesse</h4>
 <div class="slider-container">
@@ -412,22 +422,22 @@ window.addEventListener("load", function() {
   createSlider('slider12', {{ reglage.taille_suspension_avant|format_decimal  }}, {{ reglage.configurationreglage.taille_suspension_avant_min|format_decimal  }}, {{ reglage.configurationreglage.taille_suspension_avant_max|format_decimal  }});
   afficheSlider(slider12, 'min-value-taille-suspension-avant', 'max-value-taille-suspension-avant', {{ reglage.configurationreglage.taille_suspension_avant_min|format_decimal  }}, {{ reglage.configurationreglage.taille_suspension_avant_max|floatformat:0   }});
   
-  createSlider('slider13', {{ reglage.durete_ressorts_arriere  }}, 80, 120);
+  createSlider('slider13', {{ reglage.durete_ressorts_arriere|floatformat:0   }}, 80, 120);
   afficheSlider(slider13, 'min-value-durete-ressorts-arriere', 'max-value-durete-ressorts-arriere', 80, 120);
 
-  createSlider('slider14', {{ reglage.durete_ressorts_avant  }}, 80, 120);
+  createSlider('slider14', {{ reglage.durete_ressorts_avant|floatformat:0   }}, 80, 120);
   afficheSlider(slider14, 'min-value-durete-ressorts-avant', 'max-value-durete-ressorts-avant', 80, 120);
 
-  createSlider('slider15', {{ reglage.compression_amortisseurs_avant  }}, 80, 120);
+  createSlider('slider15', {{ reglage.compression_amortisseurs_avant|floatformat:0   }}, 80, 120);
   afficheSlider(slider15, 'min-value-compression-amortisseurs-avant', 'max-value-compression-amortisseurs-avant', 80, 120);
 
-  createSlider('slider16', {{ reglage.compression_amortisseurs_arriere  }}, 80, 120);
+  createSlider('slider16', {{ reglage.compression_amortisseurs_arriere|floatformat:0   }}, 80, 120);
   afficheSlider(slider16, 'min-value-compression-amortisseurs-arriere', 'max-value-compression-amortisseurs-arriere', 80, 120);
 
-  createSlider('slider17', {{ reglage.decompression_amortisseurs_avant  }}, 80, 120);
+  createSlider('slider17', {{ reglage.decompression_amortisseurs_avant|floatformat:0   }}, 80, 120);
   afficheSlider(slider17, 'min-value-decompression-amortisseurs-avant', 'max-value-decompression-amortisseurs-avant', 80, 120);
 
-  createSlider('slider18', {{ reglage.decompression_amortisseurs_arriere  }}, 80, 120);
+  createSlider('slider18', {{ reglage.decompression_amortisseurs_arriere|floatformat:0   }}, 80, 120);
   afficheSlider(slider18, 'min-value-decompression-amortisseurs-arriere', 'max-value-decompression-amortisseurs-arriere', 80, 120);
   const accav ={{reglage.acceleration_avant|floatformat:0  }};
   if ( accav !== 9999 ){

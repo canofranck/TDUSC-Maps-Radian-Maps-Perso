@@ -35,10 +35,10 @@ class ReglageAdminForm(ModelForm):
     def save(self, commit=True):
         instance = super().save(commit=False)
 
-        if instance.voiture:
+        if instance.car:
             configuration, created = (
                 ConfigurationReglage.objects.get_or_create(
-                    car=instance.voiture
+                    car=instance.car
                 )
             )
             instance.configurationreglage = configuration
@@ -151,7 +151,7 @@ class ReglageAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
-        return queryset.select_related("voiture", "configurationreglage")
+        return queryset.select_related("car", "configurationreglage")
 
 
 @admin.register(Like)

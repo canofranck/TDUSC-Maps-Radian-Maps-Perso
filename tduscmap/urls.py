@@ -72,16 +72,25 @@ urlpatterns = [
         tduscmap.views.detail_reglage,
         name="detail_reglage",
     ),
-    path(
-        "selectionner_reglage/",
-        tduscmap.views.selectionner_reglage,
-        name="selectionner_reglage",
-    ),
+    # path(
+    #     "model_select_reglage/<int:car_id>/selectionner_reglage/",
+    #     tduscmap.views.selectionner_reglage,
+    #     name="selectionner_reglage",
+    # ),
+    # path('intermediate_view/<int:car_id>/', tduscmap.views.intermediate_view, name='intermediate_view'),
+    # path(
+    #     "model_select_reglage/",
+    #     tduscmap.views.model_select_reglage,
+    #     name="model_select_reglage",
+    # ),
     path(
         "get-configuration/<int:car_id>/",
         tduscmap.views.get_configuration,
         name="get_configuration",
     ),
+    path('choix_modele/', tduscmap.views.choix_modele, name='choix_modele'),
+    path('saisie_reglage/<int:car_id>/', tduscmap.views.saisie_reglage, name='saisie_reglage'),
+    path('error/', tduscmap.views.error, name='error'),
 ]
 if settings.DEBUG:
     urlpatterns += static(

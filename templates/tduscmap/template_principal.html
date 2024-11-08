@@ -1,18 +1,24 @@
 {% extends 'base.html' %}
-
 {% block content %}
-    <form method="POST">
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'stylesmymaps.css' %}" type="text/css">
+
+
+    <form method="post">
         {% csrf_token %}
-        <label for="car">Sélectionnez un modèle de voiture :</label>
-        <select name="car_id" id="car">
-            {% for car in cars %}
-                <option value="{{ car.id }}">{{ car.modele }}</option>
+        <select name="modele">
+            {% for modele in modeles %}
+                <option value="{{ modele }}">{{ modele }}</option>
             {% endfor %}
         </select>
         <button type="submit">Valider</button>
     </form>
 
+
+
     <div id="form-reglage">
-        {% block form_reglage %}{% endblock %}
+        {% block form_reglage %}
+        {% endblock %}
     </div>
 {% endblock %}

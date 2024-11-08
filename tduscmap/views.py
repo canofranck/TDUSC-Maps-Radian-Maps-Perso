@@ -1,15 +1,14 @@
-from django.shortcuts import get_object_or_404, render, redirect
-
-# from django.contrib.auth.decorators import login_required
-from .models import Favorite, Car, Reglage, ConfigurationReglage
+from django.shortcuts import render, redirect
+from .models import Favorite, Car, Reglage, ConfigurationReglage, Like
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods
 from .models import CustomUser
-from django.db.models import Q
-from tduscmap.form import ReglageForm
+from tduscmap.form import ReglageForm, ChoixModeleForm
+from django.db.models import Count, Q, Prefetch
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 
 def home(request):
@@ -19,6 +18,7 @@ def home(request):
     )
 
 
+@login_required
 def ajouter_favori(request):
     if request.method == "POST":
         try:
@@ -41,7 +41,7 @@ def ajouter_favori(request):
 
 
 # Supprimer un favori
-# @login_required
+@login_required
 def supprimer_favori(request, favori_id):
     favori = Favorite.objects.get(id=favori_id, user=request.user)
     favori.delete()
@@ -49,12 +49,13 @@ def supprimer_favori(request, favori_id):
 
 
 # Afficher les favoris de l'utilisateur connecté
-# @login_required
+@login_required
 def afficher_favoris(request):
     favoris = Favorite.objects.filter(user=request.user)
     return render(request, "afficher_favoris.html", {"favoris": favoris})
 
 
+@login_required
 def mymaps(request):
     return render(request, "tduscmap/mymaps.html")
 
@@ -77,6 +78,7 @@ def get_favorites(request):
     return JsonResponse(favorites_list, safe=False)
 
 
+@login_required
 @require_http_methods(["DELETE"])
 def delete_favorite(request, favorite_id):
     try:
@@ -118,6 +120,7 @@ def get_friend_favorites(request, friend_id):
             return JsonResponse({"error": "Ami non trouvé"}, status=404)
 
 
+@login_required
 def search_friends(request):
     search_query = request.GET.get("search", "")
     if search_query:
@@ -129,6 +132,7 @@ def search_friends(request):
     return JsonResponse({"users": results})
 
 
+@login_required
 @csrf_exempt
 def add_friend(request, user_id):
     if request.method == "POST":
@@ -165,6 +169,7 @@ def add_friend(request, user_id):
         )
 
 
+@login_required
 def car_price_choice(request):
     cars = Car.objects.all()
     if request.method == "POST":
@@ -191,6 +196,7 @@ def car_price_choice(request):
     return render(request, "tduscmap/car_list.html", context)
 
 
+@login_required
 def car_prices_view(request):
     cars = Car.objects.prefetch_related("historique_prix").all()
 
@@ -211,37 +217,70 @@ def car_prices_view(request):
     return render(request, "tduscmap/car_prices.html", context)
 
 
+@login_required
 def liste_reglages(request):
-    reglages = Reglage.objects.all()  # Récupère tous les réglages
-    query = request.GET.get("q")
-    search_by = request.GET.get("search_by")
+    reglages = Reglage.objects.all().annotate(
+        like_count=Count('likes')
+    ).prefetch_related(
+        Prefetch('car')
+    )
 
-    if query:
-        if search_by == "marque":
-            reglages = Reglage.objects.filter(voiture__marque__icontains=query)
-        elif search_by == "modele":
-            reglages = Reglage.objects.filter(voiture__modele__icontains=query)
-        else:
-            # Recherche par défaut (les deux champs)
-            reglages = Reglage.objects.filter(
-                Q(voiture__modele__icontains=query)
-                | Q(voiture__marque__icontains=query)
-            )
-    print(reglages.query)
+    # Construire la requête en fonction des critères de recherche
+    query = Q()
+    marque = request.GET.get('marque')
+    modele = request.GET.get('modele')
+    if marque:
+        query &= Q(car__marque__icontains=marque)
+    if modele:
+        query &= Q(car__modele__icontains=modele)
+    reglages = reglages.filter(query)
+
+    # Trier les résultats
+    order_by = request.GET.get('order_by', '-like_count')  # Permet de trier par d'autres champs
+    reglages = reglages.order_by(order_by)
+
+    # Récupérer les marques et modèles distincts à partir du prefetch
+    marques = Car.objects.values_list('marque', flat=True).distinct()
+    modeles = Car.objects.values_list('modele', flat=True).distinct()
+
+    # Pagination
+    limit = int(request.GET.get('limit', 10))  # Valeur par défaut 10
+    paginator = Paginator(reglages, limit)  # 25 résultats par page
+    page = request.GET.get('page')
+    try:
+        reglages = paginator.page(page)
+    except PageNotAnInteger:
+        # Si la page n'est pas un entier, renvoyer la première page
+        reglages = paginator.page(1)
+    except EmptyPage:
+        # Si la page est hors limites (trop élevée), renvoyer la dernière page
+        reglages = paginator.page(paginator.num_pages)
+
     return render(
         request,
         "tduscmap/liste_reglages.html",
-        {"reglages": reglages, "query": query},
+        {'reglages': reglages, 'marques': marques, 'modeles': modeles, 'paginator': paginator,'page': page},
     )
 
 
+@login_required
 def detail_reglage(request, pk):
     reglage = Reglage.objects.get(pk=pk)
+    nombre_likes = reglage.likes.count()
+    if request.method == 'POST':
+        # Vérifier si l'utilisateur est authentifié
+        if request.user.is_authenticated:
+            # Vérifier si l'utilisateur a déjà liké ce réglage
+            if not reglage.likes.filter(user=request.user).exists():
+                Like.objects.create(reglage=reglage, user=request.user)
+            # Rediriger vers la même page pour afficher le nouveau nombre de likes
+            return redirect('detail_reglage', pk=reglage.pk)
     return render(
-        request, "tduscmap/detail_reglage.html", {"reglage": reglage}
+        request, "tduscmap/detail_reglage.html", {"reglage": reglage, "nombre_likes": nombre_likes}
     )
 
 
+@login_required
 def create_reglage(request):
     if request.method == "POST":
         form = ReglageForm(request.POST)
@@ -255,54 +294,88 @@ def create_reglage(request):
     return render(request, "tduscmap/reglage_form.html", {"form": form})
 
 
-def selectionner_reglage(request):
-    cars = Car.objects.all()
-    if request.method == "POST":
-        car_id = request.POST.get("car_id")
-        user_id = request.POST.get("user_id")
-        print("car_id ds selec reglage", car_id)
-        try:
-            reglage = ConfigurationReglage.objects.get(car_id=car_id)
-        except ConfigurationReglage.DoesNotExist:
-            reglage = ConfigurationReglage(
-                car=Car.objects.get(pk=car_id), utilisateur=request.user
-            )
+# def selectionner_reglage(request, car_id):
+#     if request.method == "POST":
+#         form = ReglageForm(request.POST)
+#         print(request.POST)
+#         if form.is_valid():
+#             # Récupérer l'utilisateur connecté (à adapter selon votre méthode d'authentification)
+#             user = request.user
+#             car = Car.objects.get(pk=car_id)
 
-        if request.method == "POST":
+#             # Créer ou mettre à jour le réglage
+#             reglage, created = ConfigurationReglage.objects.update_or_create(
+#                 car=car,
+#                 defaults={
+#                     'user': user,
+#                     'car' : car,
+#                     'configurationreglage' : reglage,
+#                     # Autres champs du formulaire
+#                 }
+#             )
 
-            form = ReglageForm(request.POST)
-            print(request.POST)
-            if form.is_valid():
-                try:
-                    reglage = form.save()  # Enregistrer les données
-                except Exception as e:
-                    # Gérer les erreurs
-                    print(f"Erreur lors de l'enregistrement :", {str(e)})
-                else:
-                    # Rediriger si l'enregistrement a réussi
-                    return redirect("liste_reglages")
-            else:
-                # Afficher les erreurs de validation
-                print(form.errors)
-                print(f"Veuillez corriger les erreurs dans le formulaire.")
+#             # Enregistrer les modifications
+#             reglage.save()
 
-        return render(
-            request,
-            "tduscmap/reglage_form.html",
-            {
-                "reglage": reglage,
-                "form": form,
-                "car_id": car_id,
-                "user_id": user_id,
-                "id_configurationreglage": reglage.id if reglage else None,
-            },
-        )
-    else:
-        return render(
-            request, "tduscmap/template_principal.html", {"cars": cars}
-        )
+#             return redirect("liste_reglages")
+#         else:
+#             # Afficher les erreurs de validation
+#             return render(request, "tduscmap/reglage_form.html", {
+#                 "form": form,
+#                 "car": car,  # Passer l'objet Car pour l'utiliser dans le template
+#             })
+#     else:
+#         # Afficher le formulaire initial
+#         car = Car.objects.get(pk=car_id)
+#         initial_data = {'car': car}
+#         form = ReglageForm(initial=initial_data)
+#         return render(request, "tduscmap/reglage_form.html", {
+#             "form": form,
+#             "car": car,
+#         })
 
 
+# def model_select_reglage(request):
+#     cars = Car.objects.all()
+#     if request.method == "POST":
+#         form = ReglageForm(request.POST)
+#         car_id = request.POST.get("car_id")
+#         print("car_id ds selec reglage", car_id)
+#         try:
+#             reglage = ConfigurationReglage.objects.get(car_id=car_id)
+#         except ConfigurationReglage.DoesNotExist:
+#             reglage = ConfigurationReglage(
+#                 car=Car.objects.get(pk=car_id), utilisateur=request.user
+#             )
+
+#         return redirect('intermediate_view', car_id=car_id)
+                
+#     else:
+#         return render(
+#             request, "tduscmap/template_principal.html", {"cars": cars}
+#         )
+
+# def intermediate_view(request, car_id):
+#     # Récupérer le véhicule correspondant au car_id
+#     car = Car.objects.get(pk=car_id)
+
+#     # Créer un formulaire pré-rempli avec les données du véhicule (si nécessaire)
+#     initial_data = {'car': car}
+#     form = ReglageForm(initial=initial_data)
+
+#     # Récupérer le réglage associé au véhicule (si existe)
+#     try:
+#         reglage = ConfigurationReglage.objects.get(car=car)
+#     except ConfigurationReglage.DoesNotExist:
+#         reglage = None
+
+#     return render(request, "tduscmap/reglage_form.html", {
+#         "reglage": reglage,
+#         "form": form,
+#         "car_id": car_id,
+#     })
+
+@login_required
 def get_configuration(request, car_id):
     try:
         reglage = Reglage.objects.get(car_id=car_id)
@@ -317,3 +390,53 @@ def get_configuration(request, car_id):
         )
     except ConfigurationReglage.DoesNotExist:
         return JsonResponse({"error": "Configuration non trouvée"}, status=404)
+
+
+@login_required
+def choix_modele(request):
+    if request.method == 'POST':
+        form = ChoixModeleForm(request.POST)
+        if form.is_valid():
+            modele = form.cleaned_data['modele']
+            # Récupérer la voiture en fonction du modèle (vous pouvez ajouter d'autres critères si nécessaire)
+            car = Car.objects.get(modele=modele)
+            return redirect('saisie_reglage', car_id=car.id)
+    else:
+        form = ChoixModeleForm()
+        # Récupérer tous les modèles de voitures distincts
+        modeles = Car.objects.values_list('modele', flat=True).distinct()
+        return render(request, 'tduscmap/template_principal.html', {'form': form, 'modeles': modeles})
+
+
+def saisie_reglage(request, car_id):
+    try:
+        car = Car.objects.get(id=car_id)
+        configuration = ConfigurationReglage.objects.get(car=car)
+        reglage = ConfigurationReglage.objects.get(car_id=car_id)
+        initial_data = {
+            'car': car,
+            'user': request.user,
+            'configurationreglage': configuration,
+        }
+    except (Car.DoesNotExist, ConfigurationReglage.DoesNotExist):
+        return redirect('error')
+    if request.method == 'POST':
+        form = ReglageForm(request.POST)
+        print(request.POST)
+        if form.is_valid():
+            # Comme les champs exclus ne sont pas dans le formulaire,
+            # on les ajoute manuellement à l'instance avant de l'enregistrer
+            reglage = form.save(commit=False)
+            reglage.car = car
+            reglage.user = request.user
+            reglage.configurationreglage = configuration
+            reglage.save()
+            return redirect('home')
+    else:
+        form = ReglageForm(initial=initial_data)
+
+    return render(request, 'tduscmap/reglage_form.html', {'form': form, 'car': car, 'reglage': reglage})
+
+
+def error(request):  # Add message argument
+    return render(request, 'tduscmap/error.html')

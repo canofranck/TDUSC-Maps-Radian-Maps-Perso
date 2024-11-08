@@ -37,9 +37,8 @@ class SignupForm(UserCreationForm):
 class ReglageForm(forms.ModelForm):
     class Meta:
         model = Reglage
-        fields = "__all__"  # Or specify the desired fields
-
-
+        exclude = ('car', 'user', 'configurationreglage')
+        
 class ModeleSelectionForm(forms.ModelForm):
     class Meta:
         model = Car
@@ -47,3 +46,11 @@ class ModeleSelectionForm(forms.ModelForm):
         widgets = {
             "id": forms.HiddenInput(),  # On cache le champ 'id' car il sera rempli dynamiquement
         }
+
+
+class ChoixModeleForm(forms.ModelForm):
+    class Meta:
+        model = Car
+        fields = ['modele']
+
+
