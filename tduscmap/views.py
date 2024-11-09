@@ -244,7 +244,7 @@ def liste_reglages(request):
     modeles = Car.objects.values_list('modele', flat=True).distinct()
 
     # Pagination
-    limit = int(request.GET.get('limit', 10))  # Valeur par défaut 10
+    limit = int(request.GET.get('limit', 5))  # Valeur par défaut 10
     paginator = Paginator(reglages, limit)  # 25 résultats par page
     page = request.GET.get('page')
     try:
@@ -256,10 +256,14 @@ def liste_reglages(request):
         # Si la page est hors limites (trop élevée), renvoyer la dernière page
         reglages = paginator.page(paginator.num_pages)
 
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     return render(
         request,
         "tduscmap/liste_reglages.html",
-        {'reglages': reglages, 'marques': marques, 'modeles': modeles, 'paginator': paginator,'page': page},
+        {'reglages': page_obj, 'marques': marques, 'modeles': modeles, 
+         'paginator': paginator, 'page': page_number, 'limit': limit}
     )
 
 

@@ -104,6 +104,14 @@
     <span class="slider-value" id="max-value-vitesse7"></span>
   </div>
   {%endif%}
+  {% if reglage.huitieme_vitesse_max != 9999 %}
+  <div class="slider-container">
+    <span class="slider-label">8ème vitesse :</span>
+    <span class="slider-value" id="min-value-vitesse8"></span>
+    <div id="slider37" class="slider"></div>
+    <span class="slider-value" id="max-value-vitesse8"></span>
+  </div>
+  {%endif%}
   <h4>aérodynamisme</h4>
 <div class="slider-container">
   <span class="slider-label">appui aérodynamique avant :</span>
@@ -419,7 +427,7 @@
     }
     const slider7Min = {{ reglage.sixieme_vitesse_min|format_decimal }};
     const slider7Max = {{ reglage.sixieme_vitesse_max|format_decimal }};
-    const slider7Value = (slider6Min + slider6Max) / 2
+    const slider7Value = (slider7Min + slider7Max) / 2
     const vitesse6 ={{reglage.sixieme_vitesse_max|format_decimal }};
     if ( vitesse6 !== 9999 ){ 
     createSlider('slider7', slider7Value, slider7Min, slider7Max);
@@ -433,7 +441,15 @@
       createSlider('slider8', slider8Value, slider8Min, slider8Max);
       afficheSlider(slider8, 'min-value-vitesse7', 'max-value-vitesse7', slider8Min, slider8Max);
     }  
-   
+    const slider37Min = {{ reglage.huitieme_vitesse_min|format_decimal }};
+    const slider37Max = {{ reglage.huitieme_vitesse_max|format_decimal }};
+    const slider37Value = (slider37Min + slider37Max) / 2
+    const vitesse8 ={{reglage.huitieme_vitesse_max|format_decimal }};
+    if ( vitesse8 !== 9999 ){
+      createSlider('slider8', slider37Value, slider37Min,slider37Max);
+      afficheSlider(slider8, 'min-value-vitesse8', 'max-value-vitesse8', slider37Min, slider8Max);
+    }
+
     createSlider('slider9', 0, -1, 1);
     afficheSlider(slider9, 'min-value-appui-aerodynamique-avant', 'max-value-appui-aerodynamique-avant', -1, 1);
         
@@ -570,15 +586,17 @@
     const prear ={{reglage.pression_pneus_arriere_min|floatformat:0 }};
     const slider33Min =  {{ reglage.pression_pneus_arriere_min|floatformat:0 }};
     const slider33Max =  {{ reglage.pression_pneus_arriere_max|floatformat:0 }};
+    const slider33Value = (slider33Min + slider33Max) / 2;
     if ( prear!== 9999 ){
-      createSlider('slider33', prear, slider33Min, slider33Max );
+      createSlider('slider33', slider33Value, slider33Min, slider33Max );
       afficheSlider(slider33, 'min-value-pression-pneus-arriere', 'max-value-pression-pneus-arriere', slider33Min, slider33Max );
     }
     const preav ={{reglage.pression_pneus_avant_min|floatformat:0 }};
     const slider34Min =  {{ reglage.pression_pneus_avant_min|floatformat:0 }};
     const slider34Max =  {{ reglage.pression_pneus_avant_max|floatformat:0 }};
+    const slider34Value = (slider34Min + slider34Max) / 2;
     if ( preav!== 9999 ){
-      createSlider('slider34',preav, slider34Min, slider34Max );
+      createSlider('slider34',slider34Value, slider34Min, slider34Max );
       afficheSlider(slider34, 'min-value-pression-pneus-avant', 'max-value-pression-pneus-avant', slider34Min, slider34Max );
     }
     
@@ -630,6 +648,7 @@
       'slider34': 'pression_pneus_avant',
       'slider35': 'repartiteur_freinage_avant',
       'slider36': 'pression_freinage',
+      'slider37': 'septieme_vitesse',
       // ... et ainsi de suite pour tous les autres sliders
     };
 

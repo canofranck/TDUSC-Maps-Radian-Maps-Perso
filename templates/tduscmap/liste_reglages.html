@@ -23,18 +23,17 @@
         {% endfor %}
     </select>
 
-    <label for="limit">Éléments par page:</label>
-    <select name="limit" id="limit">
-        <option value="3" selected>3</option>
-        <option value="5">5</option>
-        <option value="10">10</option>
-        <option value="25">25</option>
-        <option value="30">30</option>   
-
-        <option value="35">35</option>   
-
-    </select>
-</form>
+    <form method="get">
+        <label for="limit">Éléments par page:</label>
+        <select name="limit" id="limit">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="25">25</option>
+            <option value="30">30</option>
+        </select>
+        <button type="submit">Appliquer</button>
+    </form>
 
 <h6>Liste des réglages</h6>
 
@@ -75,17 +74,3 @@
 {% endif %}
 
 {% endblock %}
-<script>
-    const limitSelect = document.getElementById('limit');
-    const form = document.getElementById('reglages-form');
-  
-    limitSelect.addEventListener('change', () => {
-      // Afficher un message de chargement (facultatif)
-      const loadingMessage = document.createElement('div');
-      loadingMessage.textContent = 'Chargement...';
-      form.appendChild(loadingMessage);
-  
-      // Soumettre le formulaire
-      form.submit();
-    });
-  </script>

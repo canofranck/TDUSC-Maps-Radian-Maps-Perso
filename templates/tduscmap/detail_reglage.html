@@ -38,6 +38,7 @@
        
       }
   </style>
+<div class="reglage">
 <h5>Détails du réglage</h5>
 
 <p>Voiture :</strong> {{ reglage.car }}</p>
@@ -51,8 +52,8 @@
   <p>{{ nombre_likes }} personnes aiment ce réglage.</p>
   </div>
 </form>
-
-
+</div>
+<div class="reglage">
 <h3>Vitesse</h3>
 <h4>Boîte de Vitesse</h4>
 <div class="slider-container">
@@ -114,6 +115,15 @@
     <span class="slider-value" id="max-value-vitesse7"></span>
   </div>
   {%endif%}
+  {% if reglage.configurationreglage.huitieme_vitesse_max != 9999 %}
+  <div class="slider-container">
+    <span class="slider-label">8ème vitesse :</span>
+    <span class="slider-value" id="min-value-vitesse8"></span>
+    <div id="slider37" class="slider"></div>
+    <span class="slider-value" id="max-value-vitesse8"></span>
+  </div>
+  {%endif%}
+
 <h4>aérodynamisme</h4>
 <div class="slider-container">
   <span class="slider-label">appui aérodynamique avant :</span>
@@ -127,6 +137,8 @@
   <div id="slider10" class="slider"></div>
   <span class="slider-value" id="max-value-appui-aerodynamique-arriere"></span>
 </div>
+</div>
+<div class="reglage">
 <h3>Stabilité</h3>
 <h4>Hauteur de caisse</h4>
 <div class="slider-container">
@@ -180,6 +192,8 @@
   <div id="slider18" class="slider"></div>
   <span class="slider-value" id="max-value-decompression-amortisseurs-arriere"></span>
 </div>
+</div>
+<div class="reglage">
 <h3>Tenue de route</h3>
 {% if reglage.acceleration_avant != 9999 %}
   <h4>Differentiel avant</h4>
@@ -312,6 +326,8 @@
       <span class="slider-value" id="max-value-pression-pneus-avant"></span>
       </div>
       {%endif%}
+    </div>
+    <div class="reglage">
       <h3>freinage</h3>
       
         <h4>Répartiteur de freinage</h4>
@@ -329,7 +345,7 @@
           <div id="slider36" class="slider"></div>
           <span class="slider-value" id="max-value-pression-freinage"></span>
         </div>
-      
+      </div>
 
 
 <script>
@@ -410,6 +426,12 @@ window.addEventListener("load", function() {
   createSlider('slider8', {{ reglage.septieme_vitesse|format_decimal }}, {{ reglage.configurationreglage.septieme_vitesse_min|format_decimal }}, {{ reglage.configurationreglage.septieme_vitesse_max|format_decimal }});
   afficheSlider(slider8, 'min-value-vitesse7', 'max-value-vitesse7', {{ reglage.configurationreglage.septieme_vitesse_min|format_decimal }}, {{ reglage.configurationreglage.septieme_vitesse_max|format_decimal }});
   }
+  const vitesse8 ={{reglage.configurationreglage.huitieme_vitesse_max|format_decimal }};
+  if ( vitesse8 !== 9999 ){
+  createSlider('slider37', {{ reglage.huitieme_vitesse|format_decimal }}, {{ reglage.configurationreglage.huitieme_vitesse_min|format_decimal }}, {{ reglage.configurationreglage.huitieme_vitesse_max|format_decimal }});
+  afficheSlider(slider37, 'min-value-vitesse8', 'max-value-vitesse8', {{ reglage.configurationreglage.huitieme_vitesse_min|format_decimal }}, {{ reglage.configurationreglage.huitieme_vitesse_max|format_decimal }});
+  }
+
   createSlider('slider9', {{ reglage.appui_aerodynamique_avant|format_decimal }}, -1, 1);
   afficheSlider(slider9, 'min-value-appui-aerodynamique-avant', 'max-value-appui-aerodynamique-avant', -1, 1);
 
@@ -517,7 +539,7 @@ window.addEventListener("load", function() {
   }
   // Fonction pour désactiver tous les sliders
 function disableAllSliders() {
-  for (let i = 1; i <= 36; i++) {
+  for (let i = 1; i <= 37; i++) {
     const slider = document.getElementById(`slider${i}`);
     if (slider && slider.noUiSlider) {
       slider.setAttribute('disabled', true); // Désactive l'interaction

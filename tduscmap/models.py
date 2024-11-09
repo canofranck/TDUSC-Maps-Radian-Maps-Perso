@@ -163,6 +163,12 @@ class ConfigurationReglage(models.Model):
     septieme_vitesse_max = models.DecimalField(
         max_digits=6, decimal_places=2, null=True, blank=True
     )
+    huitieme_vitesse_min = models.DecimalField(
+        max_digits=6, decimal_places=2, null=True, blank=True
+    )
+    huitieme_vitesse_max = models.DecimalField(
+        max_digits=6, decimal_places=2, null=True, blank=True
+    )
     taille_suspension_arriere_min = models.DecimalField(
         max_digits=6, decimal_places=2, null=True, blank=True
     )
@@ -258,6 +264,9 @@ class Reglage(models.Model):
         max_digits=6, decimal_places=2, null=True, blank=True
     )
     septieme_vitesse = models.DecimalField(
+        max_digits=6, decimal_places=2, null=True, blank=True
+    )
+    huitieme_vitesse = models.DecimalField(
         max_digits=6, decimal_places=2, null=True, blank=True
     )
 
