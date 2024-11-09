@@ -219,16 +219,16 @@ def car_prices_view(request):
 
 @login_required
 def liste_reglages(request):
-    reglages = Reglage.objects.all().annotate(
-        like_count=Count('likes')
-    ).prefetch_related(
-        Prefetch('car')
+    reglages = (
+        Reglage.objects.all()
+        .annotate(like_count=Count("likes"))
+        .prefetch_related(Prefetch("car"))
     )
 
     # Construire la requête en fonction des critères de recherche
     query = Q()
-    marque = request.GET.get('marque')
-    modele = request.GET.get('modele')
+    marque = request.GET.get("marque")
+    modele = request.GET.get("modele")
     if marque:
         query &= Q(car__marque__icontains=marque)
     if modele:
@@ -236,17 +236,19 @@ def liste_reglages(request):
     reglages = reglages.filter(query)
 
     # Trier les résultats
-    order_by = request.GET.get('order_by', '-like_count')  # Permet de trier par d'autres champs
+    order_by = request.GET.get(
+        "order_by", "-like_count"
+    )  # Permet de trier par d'autres champs
     reglages = reglages.order_by(order_by)
 
     # Récupérer les marques et modèles distincts à partir du prefetch
-    marques = Car.objects.values_list('marque', flat=True).distinct()
-    modeles = Car.objects.values_list('modele', flat=True).distinct()
+    marques = Car.objects.values_list("marque", flat=True).distinct()
+    modeles = Car.objects.values_list("modele", flat=True).distinct()
 
     # Pagination
-    limit = int(request.GET.get('limit', 5))  # Valeur par défaut 10
+    limit = int(request.GET.get("limit", 5))  # Valeur par défaut 10
     paginator = Paginator(reglages, limit)  # 25 résultats par page
-    page = request.GET.get('page')
+    page = request.GET.get("page")
     try:
         reglages = paginator.page(page)
     except PageNotAnInteger:
@@ -256,14 +258,20 @@ def liste_reglages(request):
         # Si la page est hors limites (trop élevée), renvoyer la dernière page
         reglages = paginator.page(paginator.num_pages)
 
-    page_number = request.GET.get('page')
+    page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 
     return render(
         request,
         "tduscmap/liste_reglages.html",
-        {'reglages': page_obj, 'marques': marques, 'modeles': modeles, 
-         'paginator': paginator, 'page': page_number, 'limit': limit}
+        {
+            "reglages": page_obj,
+            "marques": marques,
+            "modeles": modeles,
+            "paginator": paginator,
+            "page": page_number,
+            "limit": limit,
+        },
     )
 
 
@@ -271,113 +279,33 @@ def liste_reglages(request):
 def detail_reglage(request, pk):
     reglage = Reglage.objects.get(pk=pk)
     nombre_likes = reglage.likes.count()
-    if request.method == 'POST':
+    if request.method == "POST":
         # Vérifier si l'utilisateur est authentifié
         if request.user.is_authenticated:
             # Vérifier si l'utilisateur a déjà liké ce réglage
             if not reglage.likes.filter(user=request.user).exists():
                 Like.objects.create(reglage=reglage, user=request.user)
             # Rediriger vers la même page pour afficher le nouveau nombre de likes
-            return redirect('detail_reglage', pk=reglage.pk)
+            return redirect("detail_reglage", pk=reglage.pk)
     return render(
-        request, "tduscmap/detail_reglage.html", {"reglage": reglage, "nombre_likes": nombre_likes}
+        request,
+        "tduscmap/detail_reglage.html",
+        {"reglage": reglage, "nombre_likes": nombre_likes},
     )
 
-
-@login_required
-def create_reglage(request):
-    if request.method == "POST":
-        form = ReglageForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect(
-                "reglage_list"
-            )  # Replace with your desired redirect URL
-    else:
-        form = ReglageForm()
+    # @login_required
+    # def create_reglage(request):
+    #     if request.method == "POST":
+    #         form = ReglageForm(request.POST)
+    #         if form.is_valid():
+    #             form.save()
+    #             return redirect(
+    #                 "reglage_list"
+    #             )  # Replace with your desired redirect URL
+    #     else:
+    #         form = ReglageForm()
     return render(request, "tduscmap/reglage_form.html", {"form": form})
 
-
-# def selectionner_reglage(request, car_id):
-#     if request.method == "POST":
-#         form = ReglageForm(request.POST)
-#         print(request.POST)
-#         if form.is_valid():
-#             # Récupérer l'utilisateur connecté (à adapter selon votre méthode d'authentification)
-#             user = request.user
-#             car = Car.objects.get(pk=car_id)
-
-#             # Créer ou mettre à jour le réglage
-#             reglage, created = ConfigurationReglage.objects.update_or_create(
-#                 car=car,
-#                 defaults={
-#                     'user': user,
-#                     'car' : car,
-#                     'configurationreglage' : reglage,
-#                     # Autres champs du formulaire
-#                 }
-#             )
-
-#             # Enregistrer les modifications
-#             reglage.save()
-
-#             return redirect("liste_reglages")
-#         else:
-#             # Afficher les erreurs de validation
-#             return render(request, "tduscmap/reglage_form.html", {
-#                 "form": form,
-#                 "car": car,  # Passer l'objet Car pour l'utiliser dans le template
-#             })
-#     else:
-#         # Afficher le formulaire initial
-#         car = Car.objects.get(pk=car_id)
-#         initial_data = {'car': car}
-#         form = ReglageForm(initial=initial_data)
-#         return render(request, "tduscmap/reglage_form.html", {
-#             "form": form,
-#             "car": car,
-#         })
-
-
-# def model_select_reglage(request):
-#     cars = Car.objects.all()
-#     if request.method == "POST":
-#         form = ReglageForm(request.POST)
-#         car_id = request.POST.get("car_id")
-#         print("car_id ds selec reglage", car_id)
-#         try:
-#             reglage = ConfigurationReglage.objects.get(car_id=car_id)
-#         except ConfigurationReglage.DoesNotExist:
-#             reglage = ConfigurationReglage(
-#                 car=Car.objects.get(pk=car_id), utilisateur=request.user
-#             )
-
-#         return redirect('intermediate_view', car_id=car_id)
-                
-#     else:
-#         return render(
-#             request, "tduscmap/template_principal.html", {"cars": cars}
-#         )
-
-# def intermediate_view(request, car_id):
-#     # Récupérer le véhicule correspondant au car_id
-#     car = Car.objects.get(pk=car_id)
-
-#     # Créer un formulaire pré-rempli avec les données du véhicule (si nécessaire)
-#     initial_data = {'car': car}
-#     form = ReglageForm(initial=initial_data)
-
-#     # Récupérer le réglage associé au véhicule (si existe)
-#     try:
-#         reglage = ConfigurationReglage.objects.get(car=car)
-#     except ConfigurationReglage.DoesNotExist:
-#         reglage = None
-
-#     return render(request, "tduscmap/reglage_form.html", {
-#         "reglage": reglage,
-#         "form": form,
-#         "car_id": car_id,
-#     })
 
 @login_required
 def get_configuration(request, car_id):
@@ -398,18 +326,22 @@ def get_configuration(request, car_id):
 
 @login_required
 def choix_modele(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = ChoixModeleForm(request.POST)
         if form.is_valid():
-            modele = form.cleaned_data['modele']
+            modele = form.cleaned_data["modele"]
             # Récupérer la voiture en fonction du modèle (vous pouvez ajouter d'autres critères si nécessaire)
             car = Car.objects.get(modele=modele)
-            return redirect('saisie_reglage', car_id=car.id)
+            return redirect("saisie_reglage", car_id=car.id)
     else:
         form = ChoixModeleForm()
         # Récupérer tous les modèles de voitures distincts
-        modeles = Car.objects.values_list('modele', flat=True).distinct()
-        return render(request, 'tduscmap/template_principal.html', {'form': form, 'modeles': modeles})
+        modeles = Car.objects.values_list("modele", flat=True).distinct()
+        return render(
+            request,
+            "tduscmap/template_principal.html",
+            {"form": form, "modeles": modeles},
+        )
 
 
 def saisie_reglage(request, car_id):
@@ -418,13 +350,13 @@ def saisie_reglage(request, car_id):
         configuration = ConfigurationReglage.objects.get(car=car)
         reglage = ConfigurationReglage.objects.get(car_id=car_id)
         initial_data = {
-            'car': car,
-            'user': request.user,
-            'configurationreglage': configuration,
+            "car": car,
+            "user": request.user,
+            "configurationreglage": configuration,
         }
     except (Car.DoesNotExist, ConfigurationReglage.DoesNotExist):
-        return redirect('error')
-    if request.method == 'POST':
+        return redirect("error")
+    if request.method == "POST":
         form = ReglageForm(request.POST)
         print(request.POST)
         if form.is_valid():
@@ -435,12 +367,16 @@ def saisie_reglage(request, car_id):
             reglage.user = request.user
             reglage.configurationreglage = configuration
             reglage.save()
-            return redirect('home')
+            return redirect("home")
     else:
         form = ReglageForm(initial=initial_data)
 
-    return render(request, 'tduscmap/reglage_form.html', {'form': form, 'car': car, 'reglage': reglage})
+    return render(
+        request,
+        "tduscmap/reglage_form.html",
+        {"form": form, "car": car, "reglage": reglage},
+    )
 
 
 def error(request):  # Add message argument
-    return render(request, 'tduscmap/error.html')
+    return render(request, "tduscmap/error.html")

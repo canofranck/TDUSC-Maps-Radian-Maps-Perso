@@ -104,7 +104,7 @@ img {
   .like-container {
     display: flex;
     justify-content: center;
-    align-items: center; /* Aligne verticalement les éléments */
+    align-items: center; 
 }
 .like-container2 {
   display: flex;
@@ -121,11 +121,14 @@ img {
 
 
   
-  .reglage {
+.reglage {
     border: 1px solid #ccc; /* Bordure de 1px, solide, de couleur gris clair */
     border-radius: 5px; /* Arrondis les coins de la bordure */
     padding: 10px; /* Espace interne pour aérer le contenu */
   }
-  .titre-reglage {
+.titre-reglage {
     text-align: center;
+}
+.my-select {
+  background-color:  #007bff;
 }

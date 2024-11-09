@@ -37,9 +37,7 @@ class ReglageAdminForm(ModelForm):
 
         if instance.car:
             configuration, created = (
-                ConfigurationReglage.objects.get_or_create(
-                    car=instance.car
-                )
+                ConfigurationReglage.objects.get_or_create(car=instance.car)
             )
             instance.configurationreglage = configuration
         else:
@@ -59,7 +57,6 @@ class ReglageAdminForm(ModelForm):
             "deuxieme_vitesse": "2ème vitesse",
             "appui_aerodynamique_avant": "Appui aérodynamique Avant( -1 , 1 )",
             "appui_aerodynamique_arriere": "Appuiaerodynamique Arriere ( -1 , 1 )",
-            # ... et ainsi de suite pour tous les autres labels
         }
 
 
@@ -167,4 +164,3 @@ class ConfigurationReglageAdmin(admin.ModelAdmin):
         "rapport_final_max",
     )  # Champs à afficher dans la liste
     search_fields = ["car"]  # Champs pour la recherche
-    # Ajoutez d'autres options de personnalisation si nécessaire (filtres, tri, etc.)

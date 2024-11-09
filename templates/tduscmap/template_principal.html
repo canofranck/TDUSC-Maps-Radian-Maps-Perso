@@ -7,7 +7,7 @@
 
     <form method="post">
         {% csrf_token %}
-        <select name="modele">
+        <select class="my-select" name="modele">
             {% for modele in modeles %}
                 <option value="{{ modele }}">{{ modele }}</option>
             {% endfor %}

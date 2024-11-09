@@ -1,5 +1,4 @@
 from django.db import models
-from django.forms import ValidationError
 from django.utils import timezone
 from authentication.models import CustomUser
 from django.core.validators import MinValueValidator, MaxValueValidator
