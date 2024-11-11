@@ -6,3 +6,8 @@ venv
 .env
 /ENV/
 __pycache__/
+.cars.xlsx
+.configuration reglage_tous.xlsx
+.configuration reglage.xlsx
+.create_car_table.py
+.create_configurationreglage.py
