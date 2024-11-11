@@ -2,8 +2,24 @@
 {% block content %}
 
 {% load static %}
-
 <link rel="stylesheet" href="{% static 'stylesmymaps.css' %}" type="text/css">
+<div class="container text-center px-5">
+    <!-- Début du conteneur avec fond blanc -->
+      <div class="white-background">
+       
+        <div class="row justify-content-center py-4">
+          <a
+            class="col-3 btn btn-outline-secondary me-3"
+             href="{% url 'choix_modele' %}" 
+          >Creer un réglage</a>
+          <a
+            class="col-3 btn btn-outline-secondary ms-3"
+            href="{% url 'mes_reglages' %}" 
+          >Modifier mes réglages</a
+            >
+        </div>
+    </div>
+
 <h6>Liste de tout les réglages , ou faites un tri par :</h6>
 
 <form method="get" data-url="{% url 'liste_reglages' %}" id="reglages-form">
@@ -32,7 +48,7 @@
             <option value="25">25</option>
             <option value="30">30</option>
         </select>
-        <button type="submit">Appliquer</button>
+        <button class="col-1 btn btn-secondary ms-1" type="submit">Appliquer</button>
     </form>
 
 <h6>Liste des réglages</h6>
@@ -47,7 +63,7 @@
         
         <p class="titre-reglage">Description : {{ reglage.description }}</p>
         <div class="like-container">
-        <a href="{% url 'detail_reglage' reglage.id %}">+ de détails</a>
+        <a class="col-2 btn btn-secondary ms-1" href="{% url 'detail_reglage' reglage.id %}">+ de détails</a>
         
             <img src="{% static 'images/like.png' %}" alt="icône de like" >
             <span> Nb :{{ reglage.like_count }}</span>

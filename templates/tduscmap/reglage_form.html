@@ -11,7 +11,7 @@
 <style>
     .slider-container {
         display: grid;
-        grid-template-columns: 250px 2% 1fr 2fr 3fr;
+        grid-template-columns: 280px 3% 1fr 2fr 3fr;
         grid-gap: 10px;
         align-items: center;
         margin-bottom: 45px
@@ -39,13 +39,21 @@
         pointer-events: none;
        
       }
+      textarea {
+        width: 300px;
+        height: 100px;
+        resize: none;
+    }
   </style>
+  <div class="container text-center px-5">
   <form method="POST">
     {% csrf_token %}
-    {{ form.description }}
-
-    <h3>Vitesse</h3>
-    <h4>Boîte de Vitesse</h4>
+    <p>Descritiption {{ form.description }}</p>
+    <body>
+    <div class="reglage">
+    <span>Vitesse</span>
+    <br>
+    <span>Boîte de Vitesse</span>
     <div class="slider-container">
       <span class="slider-label">Rapport final :</span>
       <span class="slider-value" id="min-value-rapport"></span>
@@ -112,7 +120,7 @@
     <span class="slider-value" id="max-value-vitesse8"></span>
   </div>
   {%endif%}
-  <h4>aérodynamisme</h4>
+  <span>aérodynamisme</span>
 <div class="slider-container">
   <span class="slider-label">appui aérodynamique avant :</span>
   <span class="slider-value" id="min-value-appui-aerodynamique-avant"></span>
@@ -125,8 +133,11 @@
   <div id="slider10" class="slider"></div>
   <span class="slider-value" id="max-value-appui-aerodynamique-arriere"></span>
 </div>
-<h3>Stabilité</h3>
-<h4>Hauteur de caisse</h4>
+</div>
+<div class="reglage">
+<span>Stabilité</span>
+<br>
+<span>Hauteur de caisse</span>
 <div class="slider-container">
   <span class="slider-label">Taille suspension arrière :</span>
   <span class="slider-value" id="min-value-taille-suspension-arriere"></span>
@@ -140,7 +151,7 @@
   <div id="slider12" class="slider"></div>
   <span class="slider-value" id="max-value-taille-suspension-avant"></span>
 </div>
-<h4>Ressorts</h4>
+<span>Ressorts</span>
 <div class="slider-container">
 <span class="slider-label">Dureté ressorts arrière</span>
   <span class="slider-value" id="min-value-durete-ressorts-arriere"></span>
@@ -153,7 +164,7 @@
     <div id="slider14" class="slider"></div>
     <span class="slider-value" id="max-value-durete-ressorts-avant"></span>
   </div>
-<h4>Amortisseurs</h4>
+<span>Amortisseurs</span>
 <div class="slider-container">
   <span class="slider-label">Compression amortisseurs avant </span>
   <span class="slider-value" id="min-value-compression-amortisseurs-avant"></span>
@@ -178,9 +189,12 @@
   <div id="slider18" class="slider"></div>
   <span class="slider-value" id="max-value-decompression-amortisseurs-arriere"></span>
 </div>
-<h3>Tenue de route</h3>
+</div>
+<div class="reglage">
+<span>Tenue de route</span>
+<br>
 {% if reglage.acceleration_avant_min != 9999 %}
-  <h4>Differentiel avant</h4>
+  <span>Differentiel avant</span>
   <div class="slider-container">
     <span class="slider-label">Acceleration avant :</span>
     <span class="slider-value" id="min-value-acceleration-avant"></span>
@@ -205,7 +219,7 @@
   </div>
 {%endif%}
 {% if reglage.distribution_puissance_avant_arriere_min != 9999 %}
-  <h4>Differentiel central</h4>
+  <span>Differentiel central</span>
   
   <div class="slider-container">
   <span class="slider-label">Distribution puissance avant arriere :</span>
@@ -239,7 +253,7 @@
   </div>
 {%endif%}
 {% if reglage.differentiel_arriere != 9999 %}
-<h4>Differentiel arriere</h4>
+<span>Differentiel arriere</span>
 
 <div class="slider-container">
 <span class="slider-label">Acceleration arriere :</span>
@@ -264,7 +278,7 @@
   <span class="slider-value" id="max-value-freinage-arriere"></span>
 </div>
 {%endif%}
-<h4>Barre anti roulis</h4>
+<span>Barre anti roulis</span>
 
 <div class="slider-container">
 <span class="slider-label">Durete barre antiroulis avant :</span>
@@ -278,7 +292,7 @@
   <div id="slider30" class="slider"></div>
   <span class="slider-value" id="max-value-durete-barre-antiroulis-arriere"></span>
   </div>
-  <h4>Carrosage</h4>
+  <span>Carrosage</span>
 
   <div class="slider-container">
   <span class="slider-label">Angle de carrossage arriere :</span>
@@ -293,7 +307,7 @@
     <span class="slider-value" id="max-value-angle-carrossage-avant"></span>
     </div>
     {% if reglage.pression_pneus_arriere_min != 9999 %}
-    <h4>Pression des pneus</h4>
+    <span>Pression des pneus</span>
 
     <div class="slider-container">
     <span class="slider-label">Pression pneus arriere :</span>
@@ -310,9 +324,11 @@
       <span class="slider-value" id="max-value-pression-pneus-avant"></span>
       </div>
       {%endif%}
-      <h3>freinage</h3>
-      
-        <h4>Répartiteur de freinage</h4>
+    </div>
+    <div class="reglage">
+      <span>freinage</span>
+      <br>
+        <span>Répartiteur de freinage</span>
         <div class="slider-container">
           <span class="slider-label">Repartiteur de freinage avant</span>
           <span class="slider-value" id="min-value-repartiteur-freinage-avant"></span>
@@ -320,7 +336,7 @@
           <span class="slider-value" id="max-value-repartiteur-freinage-avant"></span>
         </div>
       
-        <h4>Puissance de freinage</h4>
+        <span>Puissance de freinage</span>
         <div class="slider-container">
           <span class="slider-label">Pression de freinage :</span>
           <span class="slider-value" id="min-value-pression-freinage"></span>
@@ -329,9 +345,10 @@
         </div>
       
 
-    <button type="submit">Enregistrer</button>
+    <button class="col-2 btn btn-secondary ms-1" type="submit">Enregistrer</button>
+  </body>
 </form>
-
+</div>
 <script>
   window.addEventListener("load", function() {
     // Fonction réutilisable pour créer un slider
@@ -446,8 +463,8 @@
     const slider37Value = (slider37Min + slider37Max) / 2
     const vitesse8 ={{reglage.huitieme_vitesse_max|format_decimal }};
     if ( vitesse8 !== 9999 ){
-      createSlider('slider8', slider37Value, slider37Min,slider37Max);
-      afficheSlider(slider8, 'min-value-vitesse8', 'max-value-vitesse8', slider37Min, slider8Max);
+      createSlider('slider37', slider37Value, slider37Min,slider37Max);
+      afficheSlider(slider37, 'min-value-vitesse8', 'max-value-vitesse8', slider37Min, slider8Max);
     }
 
     createSlider('slider9', 0, -1, 1);
@@ -648,7 +665,7 @@
       'slider34': 'pression_pneus_avant',
       'slider35': 'repartiteur_freinage_avant',
       'slider36': 'pression_freinage',
-      'slider37': 'septieme_vitesse',
+      'slider37': 'huitieme_vitesse',
       // ... et ainsi de suite pour tous les autres sliders
     };
 

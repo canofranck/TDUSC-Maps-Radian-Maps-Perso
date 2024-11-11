@@ -113,6 +113,7 @@ img {
 
 .like-container2 button {
   margin-right: 0px; /* Ajuste la valeur selon vos besoins */
+  
 }
 
 .like-container2 img {
@@ -125,10 +126,18 @@ img {
     border: 1px solid #ccc; /* Bordure de 1px, solide, de couleur gris clair */
     border-radius: 5px; /* Arrondis les coins de la bordure */
     padding: 10px; /* Espace interne pour aérer le contenu */
+    
+    text-align: left;
+    
   }
 .titre-reglage {
     text-align: center;
 }
 .my-select {
   background-color:  #007bff;
+}
+.mon-div-noir {
+  background-color: black;
+  padding: 20px; /* Ajoutez un espace autour du contenu */
+  color: white; /* Pour un meilleur contraste */
 }

@@ -31,6 +31,13 @@ class ReglageAdminForm(ModelForm):
     class Meta:
         model = Reglage
         fields = "__all__"
+        labels = {
+            "rapport_final": "Rapport final (3 , 5)",
+            "premiere_vitesse": "1ère vitesse",
+            "deuxieme_vitesse": "2ème vitesse",
+            "appui_aerodynamique_avant": "Appui aérodynamique Avant( -1 , 1 )",
+            "appui_aerodynamique_arriere": "Appuiaerodynamique Arriere ( -1 , 1 )",
+        }
 
     def save(self, commit=True):
         instance = super().save(commit=False)
@@ -46,18 +53,6 @@ class ReglageAdminForm(ModelForm):
         if commit:
             instance.save()
         return instance
-
-    class Meta:
-        model = Reglage
-        fields = "__all__"
-
-        labels = {
-            "rapport_final": "Rapport final (3 , 5)",
-            "premiere_vitesse": "1ère vitesse",
-            "deuxieme_vitesse": "2ème vitesse",
-            "appui_aerodynamique_avant": "Appui aérodynamique Avant( -1 , 1 )",
-            "appui_aerodynamique_arriere": "Appuiaerodynamique Arriere ( -1 , 1 )",
-        }
 
 
 @admin.register(Reglage)
@@ -83,6 +78,7 @@ class ReglageAdmin(admin.ModelAdmin):
                     "cinquieme_vitesse",
                     "sixieme_vitesse",
                     "septieme_vitesse",
+                    "huitieme_vitesse",
                 )
             },
         ),

@@ -1,0 +1,21 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'stylesmymaps.css' %}" type="text/css">
+
+
+     <h1>Une erreur s'est produite.</h1>
+        <a>La configuration pour cette voiture n'existe pas. Veuillez contacter l'administrateur.</a>
+  
+        <h1>Configuration du réglage</h1>
+
+       
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Enregistrer</button>
+        </form>
+        
+{% endblock %}

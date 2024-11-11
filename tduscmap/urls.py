@@ -82,8 +82,11 @@ urlpatterns = [
         tduscmap.views.saisie_reglage,
         name="saisie_reglage",
     ),
-    path("error/", tduscmap.views.error, name="error"),
-]
+    path("user_configurationreglage/<int:car_id>/", tduscmap.views.user_configurationreglage, name="user_configurationreglage"),
+    path('modifier_reglages/<int:id>/', tduscmap.views.modifier_reglages, name='modifier_reglages'),
+    path('mes_reglages/', tduscmap.views.mes_reglages, name='mes_reglages'),
+    path('supprimer_reglage/<int:id>/', tduscmap.views.supprimer_reglage, name='supprimer_reglage'),
+]  
 if settings.DEBUG:
     urlpatterns += static(
         settings.MEDIA_URL, document_root=settings.MEDIA_ROOT

@@ -1,3 +1,5 @@
+from pyexpat.errors import messages
+from django.forms import ValidationError
 from django.shortcuts import render, redirect
 from .models import Favorite, Car, Reglage, ConfigurationReglage, Like
 from django.http import JsonResponse
@@ -6,7 +8,7 @@ import json
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods
 from .models import CustomUser
-from tduscmap.form import ReglageForm, ChoixModeleForm
+from tduscmap.form import ConfigurationReglageUserForm, ReglageForm, ChoixModeleForm
 from django.db.models import Count, Q, Prefetch
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
@@ -293,19 +295,6 @@ def detail_reglage(request, pk):
         {"reglage": reglage, "nombre_likes": nombre_likes},
     )
 
-    # @login_required
-    # def create_reglage(request):
-    #     if request.method == "POST":
-    #         form = ReglageForm(request.POST)
-    #         if form.is_valid():
-    #             form.save()
-    #             return redirect(
-    #                 "reglage_list"
-    #             )  # Replace with your desired redirect URL
-    #     else:
-    #         form = ReglageForm()
-    return render(request, "tduscmap/reglage_form.html", {"form": form})
-
 
 @login_required
 def get_configuration(request, car_id):
@@ -355,7 +344,7 @@ def saisie_reglage(request, car_id):
             "configurationreglage": configuration,
         }
     except (Car.DoesNotExist, ConfigurationReglage.DoesNotExist):
-        return redirect("error")
+        return redirect("user_configurationreglage", car_id)
     if request.method == "POST":
         form = ReglageForm(request.POST)
         print(request.POST)
@@ -367,7 +356,7 @@ def saisie_reglage(request, car_id):
             reglage.user = request.user
             reglage.configurationreglage = configuration
             reglage.save()
-            return redirect("home")
+            return redirect("liste_reglages")
     else:
         form = ReglageForm(initial=initial_data)
 
@@ -378,5 +367,78 @@ def saisie_reglage(request, car_id):
     )
 
 
-def error(request):  # Add message argument
-    return render(request, "tduscmap/error.html")
+def user_configurationreglage(request, car_id):  # Add message argument
+    if request.method == 'POST':
+        form = ConfigurationReglageUserForm(request.POST)
+        if form.is_valid():
+            form.instance.car_id = car_id
+            form.save()
+            # Rediriger vers une page de succès
+            return redirect('choix_modele')
+            
+        else:
+            # Afficher le formulaire avec les erreurs
+            form = ConfigurationReglageUserForm()
+            form.instance.car_id = car_id
+            return render(request, 'tduscmap/user_configurationreglage.html', {'form': form})
+    else:
+        form = ConfigurationReglageUserForm()
+        form.instance.car_id = car_id
+        return render(request, 'tduscmap/user_configurationreglage.html', {'form': form})
+
+
+def modifier_reglages(request, id):
+
+    reglage = Reglage.objects.get(id=id)
+    configuration = reglage.configurationreglage
+    if request.method == 'POST':
+        form = ReglageForm(request.POST, instance=reglage)
+        if form.is_valid():
+            reglage.save()
+            return redirect('liste_reglages')  
+    else:
+        form = ReglageForm(instance=reglage)
+    return render(
+        request,
+        "tduscmap/modifier_reglage_form.html",
+        {"form": form,  "reglage": reglage, "configuration": configuration,}
+    )
+
+def mes_reglages(request):
+    # Récupérer les réglages de l'utilisateur connecté
+    reglages = Reglage.objects.filter(user=request.user)
+    reglages = reglages.annotate(like_count=Count('likes'))
+    # Pagination
+      # Valeur par défaut 10
+    paginator = Paginator(reglages, 10)  # 25 résultats par page
+    page = request.GET.get("page")
+    try:
+        reglages = paginator.page(page)
+    except PageNotAnInteger:
+        # Si la page n'est pas un entier, renvoyer la première page
+        reglages = paginator.page(1)
+    except EmptyPage:
+        # Si la page est hors limites (trop élevée), renvoyer la dernière page
+        reglages = paginator.page(paginator.num_pages)
+
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'tduscmap/mes_reglages.html', {'reglages': page_obj, "paginator": paginator,
+                  "page": page_number, })
+
+
+def supprimer_reglage(request, id):
+    """
+    Vue pour supprimer un réglage par son identifiant.
+
+    Args:
+        request: La requête HTTP.
+        reglage_id: L'identifiant du réglage à supprimer.
+
+    Returns:
+        Une réponse HTTP redirigeant vers la liste des réglages avec un message de confirmation.
+    """
+
+    reglage = Reglage.objects.get(id=id)
+    reglage.delete()
+    return redirect('liste_reglages')

@@ -234,6 +234,7 @@ class ConfigurationReglage(models.Model):
     pression_pneus_avant_max = models.DecimalField(
         max_digits=6, decimal_places=2, null=True, blank=True
     )
+    # background = models.CharField(max_length=50, default='default_background.png')
 
 
 class Reglage(models.Model):
