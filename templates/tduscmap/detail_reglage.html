@@ -413,15 +413,21 @@
             createSlider('slider4', {{ reglage.troisieme_vitesse|format_decimal }}, {{ reglage.configurationreglage.troisieme_vitesse_min|format_decimal }}, {{ reglage.configurationreglage.troisieme_vitesse_max|format_decimal }});
             afficheSlider(slider4, 'min-value-vitesse3', 'max-value-vitesse3', {{ reglage.configurationreglage.troisieme_vitesse_min|format_decimal }}, {{ reglage.configurationreglage.troisieme_vitesse_max|format_decimal }});
           }
+          const vitesse4 ={{reglage.configurationreglage.quatrieme_vitesse_max|format_decimal }};
+          if ( vitesse4 !== 9999 ){
           createSlider('slider5', {{ reglage.quatrieme_vitesse|format_decimal }}, {{ reglage.configurationreglage.quatrieme_vitesse_min|format_decimal }}, {{ reglage.configurationreglage.quatrieme_vitesse_max|format_decimal }});
           afficheSlider(slider5, 'min-value-vitesse4', 'max-value-vitesse4', {{ reglage.configurationreglage.quatrieme_vitesse_min|format_decimal }}, {{ reglage.configurationreglage.quatrieme_vitesse_max|format_decimal }});
-        
+          }
+          const vitesse5 ={{reglage.configurationreglage.cinquieme_vitesse_max|format_decimal }};
+          if ( vitesse5 !== 9999 ){
           createSlider('slider6', {{ reglage.cinquieme_vitesse|format_decimal }}, {{ reglage.configurationreglage.cinquieme_vitesse_min|format_decimal }}, {{ reglage.configurationreglage.cinquieme_vitesse_max|format_decimal }});
           afficheSlider(slider6, 'min-value-vitesse5', 'max-value-vitesse5', {{ reglage.configurationreglage.cinquieme_vitesse_min|format_decimal }}, {{ reglage.configurationreglage.cinquieme_vitesse_max|format_decimal }});
-          
+          }
+          const vitesse6 ={{reglage.configurationreglage.sixieme_vitesse_max|format_decimal }};
+          if ( vitesse6 !== 9999 ){ 
           createSlider('slider7', {{ reglage.sixieme_vitesse|format_decimal }}, {{ reglage.configurationreglage.sixieme_vitesse_min|format_decimal }}, {{ reglage.configurationreglage.sixieme_vitesse_max|format_decimal }});
           afficheSlider(slider7, 'min-value-vitesse6', 'max-value-vitesse6', {{ reglage.configurationreglage.sixieme_vitesse_min|format_decimal }}, {{ reglage.configurationreglage.sixieme_vitesse_max|format_decimal }});
-          
+          }
           const vitesse7 ={{reglage.configurationreglage.septieme_vitesse_max|format_decimal }};
           if ( vitesse7 !== 9999 ){
           createSlider('slider8', {{ reglage.septieme_vitesse|format_decimal }}, {{ reglage.configurationreglage.septieme_vitesse_min|format_decimal }}, {{ reglage.configurationreglage.septieme_vitesse_max|format_decimal }});

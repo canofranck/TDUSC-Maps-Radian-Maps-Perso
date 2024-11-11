@@ -2,7 +2,9 @@ from django.db import models
 from django.utils import timezone
 from authentication.models import CustomUser
 from django.core.validators import MinValueValidator, MaxValueValidator
-
+from django.utils.safestring import mark_safe
+import os
+from tduscmap import settings
 
 class Favorite(models.Model):
     user = models.ForeignKey(
@@ -390,12 +392,19 @@ class Reglage(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True)
 
-
     def __str__(self):
         return f"Réglage de {self.user} pour {self.car}"
 
     def get_configuration(self):
         return ConfigurationReglage.objects.get(car=self.car)
+
+    FICHIER_CONFIG_RELATIF = settings.FILE_TO_DOWNLOAD
+
+    def get_download_link(self):
+
+        base_dir = settings.BASE_DIR  # Répertoire de base de votre projet
+        fichier_path = os.path.join(base_dir, self.FICHIER_CONFIG_RELATIF)
+        return mark_safe(f'<a href="{fichier_path}" download="{self.FICHIER_CONFIG_RELATIF.split("/")[-1]}">Télécharger</a>')
 
 
 class Like(models.Model):

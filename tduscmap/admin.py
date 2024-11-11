@@ -161,3 +161,4 @@ class ConfigurationReglageAdmin(admin.ModelAdmin):
         "background",
     )  # Champs à afficher dans la liste
     search_fields = ["car"]  # Champs pour la recherche
+

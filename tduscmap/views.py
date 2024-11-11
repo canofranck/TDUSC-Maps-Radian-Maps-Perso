@@ -443,3 +443,4 @@ def supprimer_reglage(request, id):
     reglage = Reglage.objects.get(id=id)
     reglage.delete()
     return redirect('liste_reglages')
+

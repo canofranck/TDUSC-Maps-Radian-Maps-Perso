@@ -77,13 +77,13 @@
     <div class="pagination centered">
         <span class="step-links">
             {% if reglages.has_previous %}
-                <a href="?page={{ reglages.previous_page_number }}">Précédent</a>
+                <a class="col-6 btn btn-secondary" href="?page={{ reglages.previous_page_number }}">Précédent</a>
             {% endif %}
             <span class="current">
                 Page {{ reglages.number }} / {{ paginator.num_pages }}
             </span>
             {% if reglages.has_next %}
-                <a href="?page={{ reglages.next_page_number }}">Suivant</a>
+                <a class="col-6 btn btn-secondary "href="?page={{ reglages.next_page_number }}">Suivant</a>
             {% endif %}
         </span>
     </div>
