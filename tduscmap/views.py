@@ -280,6 +280,7 @@ def liste_reglages(request):
 @login_required
 def detail_reglage(request, pk):
     reglage = Reglage.objects.get(pk=pk)
+    print("image",reglage.configurationreglage.background)
     nombre_likes = reglage.likes.count()
     if request.method == "POST":
         # Vérifier si l'utilisateur est authentifié

@@ -34,7 +34,7 @@
        
       }
        body {
-        background-image: url({% static 'images/1.png'%}); /* Remplacez par le chemin de votre image */
+        background-image: url({% static 'images/default_background.png'%}); /* Remplacez par le chemin de votre image */
         background-repeat: repeat-y;
         background-size: contain;
         background-attachment: fixed;
@@ -46,7 +46,6 @@
 <div class="container text-center px-5">
     <div class="mon-div-noir">
         <h5>Détails du réglage</h5>
-
         <p>Voiture :</strong> {{ reglage.car }}</p>
         <p>Proposé par :</strong> {{ reglage.user }}</p>
         <p>Description :</strong> {{ reglage.description }}</p>
@@ -344,8 +343,14 @@
 
     </body>
     <script>
+        
         window.addEventListener("load", function() {
           // Fonction réutilisable pour créer un slider
+          const backgroundImage = '{{ reglage.configurationreglage.background }}.png'
+          const body = document.body;
+          const imagePath = `{% static 'images/' %}${backgroundImage}`;
+          body.style.backgroundImage = `url(${imagePath})`;
+        
           function createSlider(sliderId, value, minValue, maxValue) {
             const slider = document.getElementById(sliderId);
         
@@ -548,6 +553,7 @@
         
         // Appel de la fonction pour désactiver tous les sliders
         disableAllSliders();
+        
         });
     </script>
 

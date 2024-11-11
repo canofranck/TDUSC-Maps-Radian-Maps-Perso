@@ -234,7 +234,7 @@ class ConfigurationReglage(models.Model):
     pression_pneus_avant_max = models.DecimalField(
         max_digits=6, decimal_places=2, null=True, blank=True
     )
-    # background = models.CharField(max_length=50, default='default_background.png')
+    background = models.CharField(max_length=50, default='default_background')
 
 
 class Reglage(models.Model):
@@ -388,6 +388,8 @@ class Reglage(models.Model):
     pression_freinage = models.IntegerField(
         validators=[MinValueValidator(-1000), MaxValueValidator(1000)]
     )
+    created_at = models.DateTimeField(auto_now_add=True)
+
 
     def __str__(self):
         return f"Réglage de {self.user} pour {self.car}"

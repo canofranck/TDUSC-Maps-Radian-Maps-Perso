@@ -158,5 +158,6 @@ class ConfigurationReglageAdmin(admin.ModelAdmin):
         "car",
         "rapport_final_min",
         "rapport_final_max",
+        "background",
     )  # Champs à afficher dans la liste
     search_fields = ["car"]  # Champs pour la recherche
