@@ -398,14 +398,6 @@ class Reglage(models.Model):
     def get_configuration(self):
         return ConfigurationReglage.objects.get(car=self.car)
 
-    FICHIER_CONFIG_RELATIF = settings.FILE_TO_DOWNLOAD
-
-    def get_download_link(self):
-
-        base_dir = settings.BASE_DIR  # Répertoire de base de votre projet
-        fichier_path = os.path.join(base_dir, self.FICHIER_CONFIG_RELATIF)
-        return mark_safe(f'<a href="{fichier_path}" download="{self.FICHIER_CONFIG_RELATIF.split("/")[-1]}">Télécharger</a>')
-
 
 class Like(models.Model):
     reglage = models.ForeignKey(

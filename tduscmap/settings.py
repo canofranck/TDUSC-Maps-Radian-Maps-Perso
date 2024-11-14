@@ -151,4 +151,3 @@ LOGOUT_REDIRECT_URL = LOGIN_URL
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR.joinpath("media/")
-FILE_TO_DOWNLOAD = 'db.sqlite3'

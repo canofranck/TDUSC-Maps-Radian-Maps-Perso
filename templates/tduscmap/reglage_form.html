@@ -352,13 +352,14 @@
 <script>
   window.addEventListener("load", function() {
     // Fonction réutilisable pour créer un slider
-    function createSlider(sliderId, value, minValue, maxValue) {
+    function createSlider(sliderId, value, minValue, maxValue,step) {
       const slider = document.getElementById(sliderId);
   
       noUiSlider.create(slider, {
         // ... configuration du slider ...
         start: [value],
         connect: 'lower',
+        step: step,
         range: {
           'min': [minValue],
           'max': [maxValue]
@@ -401,20 +402,20 @@
     const slider1Min = {{ reglage.rapport_final_min|format_decimal }};
     const slider1Max = {{ reglage.rapport_final_max|format_decimal }};
     const slider1Value = (slider1Min + slider1Max) / 2
-    createSlider('slider1', slider1Value, slider1Min, slider1Max);
+    createSlider('slider1', slider1Value, slider1Min, slider1Max, 0.01);
     afficheSlider(document.getElementById('slider1'), 'min-value-rapport', 'max-value-rapport', 
     slider1Min,slider1Max);
 
     const slider2Min = {{ reglage.premiere_vitesse_min|format_decimal }};
     const slider2Max = {{ reglage.premiere_vitesse_max|format_decimal  }};
     const slider2Value = (slider2Min + slider2Max) / 2
-    createSlider('slider2',slider2Value, slider2Min , slider2Max );
+    createSlider('slider2',slider2Value, slider2Min , slider2Max, 0.01 );
     afficheSlider(document.getElementById('slider2'), 'min-value-vitesse', 'max-value-vitesse', slider2Min, slider2Max );
 
     const slider3Min = {{ reglage.deuxieme_vitesse_min|format_decimal }};
     const slider3Max = {{ reglage.deuxieme_vitesse_max|format_decimal  }};
     const slider3Value = (slider3Min + slider3Max) / 2
-    createSlider('slider3', slider3Value, slider3Min, slider3Max);
+    createSlider('slider3', slider3Value, slider3Min, slider3Max, 0.01);
     afficheSlider(slider3, 'min-value-vitesse2', 'max-value-vitesse2', slider3Min, slider3Max);
   
     const slider4Min = {{ reglage.troisieme_vitesse_min|format_decimal }};
@@ -422,7 +423,7 @@
     const slider4Value = (slider4Min + slider4Max) / 2
     const vitesse3 ={{reglage.troisieme_vitesse_max|format_decimal }};
     if ( vitesse3 !== 9999 ){
-      createSlider('slider4', slider4Value, slider4Min, slider4Max);
+      createSlider('slider4', slider4Value, slider4Min, slider4Max, 0.01);
       afficheSlider(slider4, 'min-value-vitesse3', 'max-value-vitesse3', slider4Min, slider4Max);
     }
 
@@ -431,7 +432,7 @@
     const slider5Value = (slider5Min + slider5Max) / 2
     const vitesse4 ={{reglage.quatrieme_vitesse_max|format_decimal }};
     if ( vitesse4 !== 9999 ){  
-    createSlider('slider5', slider5Value, slider5Min, slider5Max);
+    createSlider('slider5', slider5Value, slider5Min, slider5Max, 0.01);
     afficheSlider(slider5, 'min-value-vitesse4', 'max-value-vitesse4', slider5Min, slider5Max);
     }
     const slider6Min = {{ reglage.cinquieme_vitesse_min|format_decimal }};
@@ -439,7 +440,7 @@
     const slider6Value = (slider6Min + slider6Max) / 2
     const vitesse5 ={{reglage.cinquieme_vitesse_max|format_decimal }};
     if ( vitesse5 !== 9999 ){  
-    createSlider('slider6', slider6Value, slider6Min, slider6Max);
+    createSlider('slider6', slider6Value, slider6Min, slider6Max, 0.01);
     afficheSlider(slider6, 'min-value-vitesse5', 'max-value-vitesse5', slider6Min, slider6Max);
     }
     const slider7Min = {{ reglage.sixieme_vitesse_min|format_decimal }};
@@ -447,7 +448,7 @@
     const slider7Value = (slider7Min + slider7Max) / 2
     const vitesse6 ={{reglage.sixieme_vitesse_max|format_decimal }};
     if ( vitesse6 !== 9999 ){ 
-    createSlider('slider7', slider7Value, slider7Min, slider7Max);
+    createSlider('slider7', slider7Value, slider7Min, slider7Max, 0.01);
     afficheSlider(slider7, 'min-value-vitesse6', 'max-value-vitesse6', slider7Min, slider7Max);
     }
     const slider8Min = {{ reglage.septieme_vitesse_min|format_decimal }};
@@ -455,7 +456,7 @@
     const slider8Value = (slider8Min + slider8Max) / 2
     const vitesse7 ={{reglage.septieme_vitesse_max|format_decimal }};
     if ( vitesse7 !== 9999 ){
-      createSlider('slider8', slider8Value, slider8Min, slider8Max);
+      createSlider('slider8', slider8Value, slider8Min, slider8Max, 0.01);
       afficheSlider(slider8, 'min-value-vitesse7', 'max-value-vitesse7', slider8Min, slider8Max);
     }  
     const slider37Min = {{ reglage.huitieme_vitesse_min|format_decimal }};
@@ -463,14 +464,14 @@
     const slider37Value = (slider37Min + slider37Max) / 2
     const vitesse8 ={{reglage.huitieme_vitesse_max|format_decimal }};
     if ( vitesse8 !== 9999 ){
-      createSlider('slider37', slider37Value, slider37Min,slider37Max);
+      createSlider('slider37', slider37Value, slider37Min,slider37Max, 0.01);
       afficheSlider(slider37, 'min-value-vitesse8', 'max-value-vitesse8', slider37Min, slider8Max);
     }
 
-    createSlider('slider9', 0, -1, 1);
+    createSlider('slider9', 0, -1, 1,0.1);
     afficheSlider(slider9, 'min-value-appui-aerodynamique-avant', 'max-value-appui-aerodynamique-avant', -1, 1);
         
-    createSlider('slider10', 0, -1, 1);
+    createSlider('slider10', 0, -1, 1,.1);
     afficheSlider(slider10, 'min-value-appui-aerodynamique-arriere', 'max-value-appui-aerodynamique-arriere', -1, 1);
     
     const tailleSuspensionArriere = {{ reglage.taille_suspension_arriere_min|format_decimal }};
@@ -494,32 +495,32 @@
     }
 
     
-    createSlider('slider13', 100, 80, 120);
+    createSlider('slider13', 100, 80, 120, 0.1);
     afficheSlider(slider13, 'min-value-durete-ressorts-arriere', 'max-value-durete-ressorts-arriere', 80, 120);
     
 
     
-    createSlider('slider14', 100, 80, 120);
+    createSlider('slider14', 100, 80, 120, 0.1);
     afficheSlider(slider14, 'min-value-durete-ressorts-avant', 'max-value-durete-ressorts-avant', 80, 120);
     
 
     
-    createSlider('slider15', 100, 80, 120);
+    createSlider('slider15', 100, 80, 120, 0.1);
     afficheSlider(slider15, 'min-value-compression-amortisseurs-avant', 'max-value-compression-amortisseurs-avant', 80, 120);
     
 
     
-    createSlider('slider16', 100, 80, 120);
+    createSlider('slider16', 100, 80, 120, 0.1);
     afficheSlider(slider16, 'min-value-compression-amortisseurs-arriere', 'max-value-compression-amortisseurs-arriere', 80, 120);
     
 
     
-    createSlider('slider17', 100, 80, 120);
+    createSlider('slider17', 100, 80, 120, 0.1);
     afficheSlider(slider17, 'min-value-decompression-amortisseurs-avant', 'max-value-decompression-amortisseurs-avant', 80, 120);
     
 
     
-    createSlider('slider18', 100, 80, 120);
+    createSlider('slider18', 100, 80, 120, 0.1);
     afficheSlider(slider18, 'min-value-decompression-amortisseurs-arriere', 'max-value-decompression-amortisseurs-arriere', 80, 120);
     
     const slider19Min = {{ reglage.acceleration_avant_min|floatformat:0 }};
@@ -527,7 +528,7 @@
     const slider19Value = (slider19Min + slider19Max) / 2;
     const accav = {{ reglage.acceleration_avant_min|floatformat:0 }};
     if (accav !== 9999) {
-        createSlider('slider19',slider19Value , slider19Min,slider19Max );
+        createSlider('slider19',slider19Value , slider19Min,slider19Max, 0.1 );
         afficheSlider(slider19, 'min-value-acceleration-avant', 'max-value-acceleration-avant', slider19Min, slider19Max);
     }
 
@@ -536,7 +537,7 @@
     const slider20Max = {{ reglage.deceleration_avant_max|floatformat:0 }};
     const slider20Value = (slider20Min + slider20Max) / 2;
     if ( decav!== 9999 ){
-      createSlider('slider20', slider20Value, slider20Min, slider20Max );
+      createSlider('slider20', slider20Value, slider20Min, slider20Max, 0.1 );
       afficheSlider(slider20, 'min-value-deceleration-avant', 'max-value-deceleration-avant',slider20Min, slider20Max);
     }
     const freav ={{reglage.freinage_avant_min|floatformat:0  }};
@@ -544,7 +545,7 @@
     const slider21Max = {{ reglage.freinage_avant_max|floatformat:0 }};
     const slider21Value = (slider21Min + slider21Max) / 2;
     if ( freav!== 9999 ){
-      createSlider('slider21',slider21Value , slider21Min , slider21Max);
+      createSlider('slider21',slider21Value , slider21Min , slider21Max, 0.1);
       afficheSlider(slider21, 'min-value-freinage-avant', 'max-value-freinage-avant', slider21Min, slider21Max);
     }
     const dispui ={{reglage.distribution_puissance_avant_arriere_min|floatformat:0 }};
@@ -552,7 +553,7 @@
     const slider22Max =  {{ reglage.distribution_puissance_avant_arriere_max|floatformat:0 }};
     const slider22Value = (slider22Min + slider22Max) / 2;
     if ( dispui!== 9999 ){
-      createSlider('slider22',slider22Value , slider22Min,slider22Max);
+      createSlider('slider22',slider22Value , slider22Min,slider22Max, 0.1);
       afficheSlider(slider22, 'min-value-distribution-avant-arriere', 'max-value-distribution-avant-arriere',  slider22Min, slider22Max);
     }
     const acav ={{reglage.acceleration_centrale_min|floatformat:0 }};
@@ -560,7 +561,7 @@
     const slider23Max =  {{ reglage.acceleration_centrale_max|floatformat:0 }};
     const slider23Value = (slider23Min + slider23Max) / 2;
     if ( acav!== 9999 ){
-      createSlider('slider23', slider23Value, slider23Min,  slider23Max);
+      createSlider('slider23', slider23Value, slider23Min,  slider23Max, 0.1);
       afficheSlider(slider23, 'min-value-acceleration-centrale', 'max-value-acceleration-centrale', slider23Min ,  slider23Max);
     }
     const decce ={{reglage.deceleration_centrale_min|floatformat:0}};
@@ -568,7 +569,7 @@
     const slider24Max =  {{ reglage.deceleration_centrale_max|floatformat:0 }};
     const slider24Value = (slider24Min + slider24Max) / 2;
     if ( decce!== 9999 ){
-      createSlider('slider24', slider24Value, slider24Min, slider24Max );
+      createSlider('slider24', slider24Value, slider24Min, slider24Max, 0.1 );
       afficheSlider(slider24, 'min-value-deceleration-centrale', 'max-value-deceleration-centrale', slider24Min ,  slider24Max);
     }
     const frece = {{ reglage.freinage_centrale_min|floatformat:0 }};
@@ -576,29 +577,29 @@
     const slider25Max =  {{ reglage.freinage_centrale_max|floatformat:0 }};
     const slider25Value = (slider25Min + slider25Max) / 2;
     if ( frece!== 9999 ){
-      createSlider('slider25', slider25Value, slider25Min, slider25Max );
+      createSlider('slider25', slider25Value, slider25Min, slider25Max, 0.1 );
       afficheSlider(slider25, 'min-value-freinage-centrale', 'max-value-freinage-centrale', slider25Min ,  slider25Max);
     }
     
-    createSlider('slider26', 50, 0,100  );
+    createSlider('slider26', 50, 0,100, 0.1  );
     afficheSlider(slider26, 'min-value-acceleration-arriere', 'max-value-acceleration-arriere', 0, 100);
   
-    createSlider('slider27', 50,0,100  );
+    createSlider('slider27', 50,0,100, 0.1  );
     afficheSlider(slider27, 'min-value-deceleration-arriere', 'max-value-deceleration-arriere',0,100  );
     
-    createSlider('slider28', 50, 0,100  );
+    createSlider('slider28', 50, 0,100, 0.1  );
     afficheSlider(slider28, 'min-value-freinage-arriere', 'max-value-freinage-arriere', 0,100  );
 
-    createSlider('slider29', 50, 0,100  );
+    createSlider('slider29', 50, 0,100, 0.1  );
     afficheSlider(slider29, 'min-value-durete-barre-antiroulis-avant', 'max-value-durete-barre-antiroulis-avant', 0,100  );
 
-    createSlider('slider30', 50, 0,100  );
+    createSlider('slider30', 50, 0,100, 0.1  );
     afficheSlider(slider30, 'min-value-durete-barre-antiroulis-arriere', 'max-value-durete-barre-antiroulis-arriere', 0,100  );
 
-    createSlider('slider31', 0, -6 , 3  );
+    createSlider('slider31', 0, -6 , 3, 0.1  );
     afficheSlider(slider31, 'min-value-angle-carrossage-arriere', 'max-value-angle-carrossage-arriere', -6 , 3  );
 
-    createSlider('slider32', 0, -6 , 3  );
+    createSlider('slider32', 0, -6 , 3, 0.1  );
     afficheSlider(slider32, 'min-value-angle-carrossage-avant', 'max-value-angle-carrossage-avant', -6 , 3  );
     const prear ={{reglage.pression_pneus_arriere_min|floatformat:0 }};
     const slider33Min =  {{ reglage.pression_pneus_arriere_min|floatformat:0 }};
@@ -617,11 +618,11 @@
       afficheSlider(slider34, 'min-value-pression-pneus-avant', 'max-value-pression-pneus-avant', slider34Min, slider34Max );
     }
     
-    createSlider('slider35', 50, 0 , 100  );
+    createSlider('slider35', 50, 0 , 100, 0.1  );
     afficheSlider(slider35, 'min-value-repartiteur-freinage-avant', 'max-value-repartiteur-freinage-avant', 0 , 100  );
     
     
-    createSlider('slider36', 0, -1000 , 1000 );
+    createSlider('slider36', 0, -1000 , 1000, 0.1 );
     afficheSlider(slider36, 'min-value-pression-freinage', 'max-value-pression-freinage', -1000 , 1000 );
     
     // Sélectionner le formulaire
