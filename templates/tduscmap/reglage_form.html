@@ -1,9 +1,4 @@
-{% extends 'base.html' %}
-
-{% load custom_filters %}
-{% block content %}
-
-{% load static %}
+{% extends 'base.html' %} {% load custom_filters %} {% block content %} {% load static %}
 <link rel="stylesheet" href="{% static 'stylesmymaps.css' %}" type="text/css">
 
 <link rel="stylesheet" href="{% static 'node_modules/nouislider/dist/nouislider.css' %}">
@@ -44,666 +39,652 @@
         height: 100px;
         resize: none;
     }
-  </style>
-  <div class="container text-center px-5">
-  <form method="POST">
-    {% csrf_token %}
-    <p>Descritiption {{ form.description }}</p>
-    <body>
-    <div class="reglage">
-    <span>Vitesse</span>
-    <br>
-    <span>Boîte de Vitesse</span>
-    <div class="slider-container">
-      <span class="slider-label">Rapport final :</span>
-      <span class="slider-value" id="min-value-rapport"></span>
-      <div id="slider1" class="slider"></div>
-      <span class="slider-value" id="max-value-rapport"></span>
-    </div>
-    <div class="slider-container">
-      <span class="slider-label">1ère vitesse :</span>
-      <span class="slider-value" id="min-value-vitesse"></span>
-      <div id="slider2" class="slider"></div>
-      <span class="slider-value" id="max-value-vitesse"></span>
-    </div>
-    <div class="slider-container">
-      <span class="slider-label">2ème vitesse :</span>
-      <span class="slider-value" id="min-value-vitesse2"></span>
-      <div id="slider3" class="slider"></div>
-      <span class="slider-value" id="max-value-vitesse2"></span>
-    </div>
-    {% if reglage.troisieme_vitesse_max != 9999 %}
-<div class="slider-container">
-  <span class="slider-label">3ème vitesse :</span>
-  <span class="slider-value" id="min-value-vitesse3"></span>
-  <div id="slider4" class="slider"></div>
-  <span class="slider-value" id="max-value-vitesse3"></span>
-</div>
-{%endif%}
-{% if reglage.quatrieme_vitesse_max != 9999 %}
-  <div class="slider-container">
-    <span class="slider-label">4ème vitesse :</span>
-    <span class="slider-value" id="min-value-vitesse4"></span>
-    <div id="slider5" class="slider"></div>
-    <span class="slider-value" id="max-value-vitesse4"></span>
-  </div>
-{%endif%}
-{% if reglage.cinquieme_vitesse_max != 9999 %}  
-  <div class="slider-container">
-    <span class="slider-label">5ème vitesse :</span>
-    <span class="slider-value" id="min-value-vitesse5"></span>
-    <div id="slider6" class="slider"></div>
-    <span class="slider-value" id="max-value-vitesse5"></span>
-  </div>
-  {%endif%}
-  {% if reglage.sixieme_vitesse_max != 9999 %}
-  <div class="slider-container">
-    <span class="slider-label">6ème vitesse :</span>
-    <span class="slider-value" id="min-value-vitesse6"></span>
-    <div id="slider7" class="slider"></div>
-    <span class="slider-value" id="max-value-vitesse6"></span>
-  </div>
-  {%endif%}
-  {% if reglage.septieme_vitesse_max != 9999 %}
-  <div class="slider-container">
-    <span class="slider-label">7ème vitesse :</span>
-    <span class="slider-value" id="min-value-vitesse7"></span>
-    <div id="slider8" class="slider"></div>
-    <span class="slider-value" id="max-value-vitesse7"></span>
-  </div>
-  {%endif%}
-  {% if reglage.huitieme_vitesse_max != 9999 %}
-  <div class="slider-container">
-    <span class="slider-label">8ème vitesse :</span>
-    <span class="slider-value" id="min-value-vitesse8"></span>
-    <div id="slider37" class="slider"></div>
-    <span class="slider-value" id="max-value-vitesse8"></span>
-  </div>
-  {%endif%}
-  <span>aérodynamisme</span>
-<div class="slider-container">
-  <span class="slider-label">appui aérodynamique avant :</span>
-  <span class="slider-value" id="min-value-appui-aerodynamique-avant"></span>
-  <div id="slider9" class="slider"></div>
-  <span class="slider-value" id="max-value-appui-aerodynamique-avant"></span>
-</div>
-<div class="slider-container">
-  <span class="slider-label">appui aérodynamique arrière :</span>
-  <span class="slider-value" id="min-value-appui-aerodynamique-arriere"></span>
-  <div id="slider10" class="slider"></div>
-  <span class="slider-value" id="max-value-appui-aerodynamique-arriere"></span>
-</div>
-</div>
-<div class="reglage">
-<span>Stabilité</span>
-<br>
-<span>Hauteur de caisse</span>
-<div class="slider-container">
-  <span class="slider-label">Taille suspension arrière :</span>
-  <span class="slider-value" id="min-value-taille-suspension-arriere"></span>
-  <div id="slider11" class="slider"></div>
-  <span class="slider-value" id="max-value-taille-suspension-arriere"></span>
-</div>
+</style>
+<div class="container text-center px-5">
+    <form method="POST">
+        {% csrf_token %}
+        <p>Descritiption {{ form.description }}</p>
+    
+        <body>
+            <div class="reglage">
+                <span>Vitesse</span>
+                <br>
+                <span>Boîte de Vitesse</span>
+                <div class="slider-container">
+                    <span class="slider-label">Rapport final :</span>
+                    <span class="slider-value" id="min-value-rapport"></span>
+                    <div id="slider1" class="slider"></div>
+                    <span class="slider-value" id="max-value-rapport"></span>
+                </div>
+                <div class="slider-container">
+                    <span class="slider-label">1ère vitesse :</span>
+                    <span class="slider-value" id="min-value-vitesse"></span>
+                    <div id="slider2" class="slider"></div>
+                    <span class="slider-value" id="max-value-vitesse"></span>
+                </div>
+                <div class="slider-container">
+                    <span class="slider-label">2ème vitesse :</span>
+                    <span class="slider-value" id="min-value-vitesse2"></span>
+                    <div id="slider3" class="slider"></div>
+                    <span class="slider-value" id="max-value-vitesse2"></span>
+                </div>
+                {% if configuration.troisieme_vitesse_max != 9999 %}
+                <div class="slider-container">
+                    <span class="slider-label">3ème vitesse :</span>
+                    <span class="slider-value" id="min-value-vitesse3"></span>
+                    <div id="slider4" class="slider"></div>
+                    <span class="slider-value" id="max-value-vitesse3"></span>
+                </div>
+                {%endif%} {% if configuration.quatrieme_vitesse_max != 9999 %}
+                <div class="slider-container">
+                    <span class="slider-label">4ème vitesse :</span>
+                    <span class="slider-value" id="min-value-vitesse4"></span>
+                    <div id="slider5" class="slider"></div>
+                    <span class="slider-value" id="max-value-vitesse4"></span>
+                </div>
+                {%endif%} {% if configuration.cinquieme_vitesse_max != 9999 %}
+                <div class="slider-container">
+                    <span class="slider-label">5ème vitesse :</span>
+                    <span class="slider-value" id="min-value-vitesse5"></span>
+                    <div id="slider6" class="slider"></div>
+                    <span class="slider-value" id="max-value-vitesse5"></span>
+                </div>
+                {%endif%} {% if configuration.sixieme_vitesse_max != 9999 %}
+                <div class="slider-container">
+                    <span class="slider-label">6ème vitesse :</span>
+                    <span class="slider-value" id="min-value-vitesse6"></span>
+                    <div id="slider7" class="slider"></div>
+                    <span class="slider-value" id="max-value-vitesse6"></span>
+                </div>
+                {%endif%} {% if configuration.septieme_vitesse_max != 9999 %}
+                <div class="slider-container">
+                    <span class="slider-label">7ème vitesse :</span>
+                    <span class="slider-value" id="min-value-vitesse7"></span>
+                    <div id="slider8" class="slider"></div>
+                    <span class="slider-value" id="max-value-vitesse7"></span>
+                </div>
+                {%endif%} {% if configuration.huitieme_vitesse_max != 9999 %}
+                <div class="slider-container">
+                    <span class="slider-label">8ème vitesse :</span>
+                    <span class="slider-value" id="min-value-vitesse8"></span>
+                    <div id="slider37" class="slider"></div>
+                    <span class="slider-value" id="max-value-vitesse8"></span>
+                </div>
+                {%endif%}
+                <span>aérodynamisme</span>
+                <div class="slider-container">
+                    <span class="slider-label">appui aérodynamique avant :</span>
+                    <span class="slider-value" id="min-value-appui-aerodynamique-avant"></span>
+                    <div id="slider9" class="slider"></div>
+                    <span class="slider-value" id="max-value-appui-aerodynamique-avant"></span>
+                </div>
+                <div class="slider-container">
+                    <span class="slider-label">appui aérodynamique arrière :</span>
+                    <span class="slider-value" id="min-value-appui-aerodynamique-arriere"></span>
+                    <div id="slider10" class="slider"></div>
+                    <span class="slider-value" id="max-value-appui-aerodynamique-arriere"></span>
+                </div>
+            </div>
+            <div class="reglage">
+                <span>Stabilité</span>
+                <br>
+                <span>Hauteur de caisse</span>
+                <div class="slider-container">
+                    <span class="slider-label">Taille suspension arrière :</span>
+                    <span class="slider-value" id="min-value-taille-suspension-arriere"></span>
+                    <div id="slider11" class="slider"></div>
+                    <span class="slider-value" id="max-value-taille-suspension-arriere"></span>
+                </div>
 
-<div class="slider-container">
-  <span class="slider-label">Taille suspension avant :</span>
-  <span class="slider-value" id="min-value-taille-suspension-avant"></span>
-  <div id="slider12" class="slider"></div>
-  <span class="slider-value" id="max-value-taille-suspension-avant"></span>
-</div>
-<span>Ressorts</span>
-<div class="slider-container">
-<span class="slider-label">Dureté ressorts arrière</span>
-  <span class="slider-value" id="min-value-durete-ressorts-arriere"></span>
-  <div id="slider13" class="slider"></div>
-  <span class="slider-value" id="max-value-durete-ressorts-arriere"></span>
-</div>
-<div class="slider-container">
-  <span class="slider-label">Dureté ressorts avant</span>
-    <span class="slider-value" id="min-value-durete-ressorts-avant"></span>
-    <div id="slider14" class="slider"></div>
-    <span class="slider-value" id="max-value-durete-ressorts-avant"></span>
-  </div>
-<span>Amortisseurs</span>
-<div class="slider-container">
-  <span class="slider-label">Compression amortisseurs avant </span>
-  <span class="slider-value" id="min-value-compression-amortisseurs-avant"></span>
-  <div id="slider15" class="slider"></div>
-    <span class="slider-value" id="max-value-compression-amortisseurs-avant"></span>
-</div>
-<div class="slider-container">
-  <span class="slider-label">Compression amortisseurs arrière </span>
-  <span class="slider-value" id="min-value-compression-amortisseurs-arriere"></span>
-  <div id="slider16" class="slider"></div>
-  <span class="slider-value" id="max-value-compression-amortisseurs-arriere"></span>
-</div>
-<div class="slider-container">
-  <span class="slider-label">Décompression amortisseurs avant </span>
-  <span class="slider-value" id="min-value-decompression-amortisseurs-avant"></span>
-  <div id="slider17" class="slider"></div>
-  <span class="slider-value" id="max-value-decompression-amortisseurs-avant"></span>
-</div>
-<div class="slider-container">
-  <span class="slider-label">Décompression amortisseurs arrière </span>
-  <span class="slider-value" id="min-value-decompression-amortisseurs-arriere"></span>
-  <div id="slider18" class="slider"></div>
-  <span class="slider-value" id="max-value-decompression-amortisseurs-arriere"></span>
-</div>
-</div>
-<div class="reglage">
-<span>Tenue de route</span>
-<br>
-{% if reglage.acceleration_avant_min != 9999 %}
-  <span>Differentiel avant</span>
-  <div class="slider-container">
-    <span class="slider-label">Acceleration avant :</span>
-    <span class="slider-value" id="min-value-acceleration-avant"></span>
-    <div id="slider19" class="slider"></div>
-    <span class="slider-value" id="max-value-acceleration-avant"></span>
-  </div>
-{%endif%}
-{% if reglage.deceleration_avant_min != 9999 %}
-  <div class="slider-container">
-    <span class="slider-label">Déceleration avant :</span>
-    <span class="slider-value" id="min-value-deceleration-avant"></span>
-    <div id="slider20" class="slider"></div>
-    <span class="slider-value" id="max-value-deceleration-avant"></span>
-  </div>
-{%endif%}
-{% if reglage.freinage_avant_min != 9999 %}
-  <div class="slider-container">
-    <span class="slider-label">Freinage avant :</span>
-    <span class="slider-value" id="min-value-freinage-avant"></span>
-    <div id="slider21" class="slider"></div>
-    <span class="slider-value" id="max-value-freinage-avant"></span>
-  </div>
-{%endif%}
-{% if reglage.distribution_puissance_avant_arriere_min != 9999 %}
-  <span>Differentiel central</span>
-  
-  <div class="slider-container">
-  <span class="slider-label">Distribution puissance avant arriere :</span>
-  <span class="slider-value" id="min-value-distribution-avant-arriere"></span>
-  <div id="slider22" class="slider"></div>
-  <span class="slider-value" id="max-value-distribution-avant-arriere"></span>
-  </div>
-{%endif%}
-    {% if reglage.acceleration_centrale_min != 9999 %}
-      <div class="slider-container">
-      <span class="slider-label">Acceleration centrale :</span>
-      <span class="slider-value" id="min-value-acceleration-centrale"></span>
-      <div id="slider23" class="slider"></div>
-      <span class="slider-value" id="max-value-acceleration-centrale"></span>
-      </div>
-{%endif%}
-{% if reglage.deceleration_centrale_min != 9999 %}
-  <div class="slider-container">
-    <span class="slider-label">Déceleration centrale :</span>
-    <span class="slider-value" id="min-value-deceleration-centrale"></span>
-    <div id="slider24" class="slider"></div>
-    <span class="slider-value" id="max-value-deceleration-centrale"></span>
-  </div>
-{%endif%}
-{% if reglage.freinage_centrale_min != 9999 %}
-  <div class="slider-container">
-    <span class="slider-label">Freinage central :</span>
-    <span class="slider-value" id="min-value-freinage-centrale"></span>
-    <div id="slider25" class="slider"></div>
-    <span class="slider-value" id="max-value-freinage-centrale"></span>
-  </div>
-{%endif%}
-{% if reglage.differentiel_arriere != 9999 %}
-<span>Differentiel arriere</span>
+                <div class="slider-container">
+                    <span class="slider-label">Taille suspension avant :</span>
+                    <span class="slider-value" id="min-value-taille-suspension-avant"></span>
+                    <div id="slider12" class="slider"></div>
+                    <span class="slider-value" id="max-value-taille-suspension-avant"></span>
+                </div>
+                <span>Ressorts</span>
+                <div class="slider-container">
+                    <span class="slider-label">Dureté ressorts arrière</span>
+                    <span class="slider-value" id="min-value-durete-ressorts-arriere"></span>
+                    <div id="slider13" class="slider"></div>
+                    <span class="slider-value" id="max-value-durete-ressorts-arriere"></span>
+                </div>
+                <div class="slider-container">
+                    <span class="slider-label">Dureté ressorts avant</span>
+                    <span class="slider-value" id="min-value-durete-ressorts-avant"></span>
+                    <div id="slider14" class="slider"></div>
+                    <span class="slider-value" id="max-value-durete-ressorts-avant"></span>
+                </div>
+                <span>Amortisseurs</span>
+                <div class="slider-container">
+                    <span class="slider-label">Compression amortisseurs avant </span>
+                    <span class="slider-value" id="min-value-compression-amortisseurs-avant"></span>
+                    <div id="slider15" class="slider"></div>
+                    <span class="slider-value" id="max-value-compression-amortisseurs-avant"></span>
+                </div>
+                <div class="slider-container">
+                    <span class="slider-label">Compression amortisseurs arrière </span>
+                    <span class="slider-value" id="min-value-compression-amortisseurs-arriere"></span>
+                    <div id="slider16" class="slider"></div>
+                    <span class="slider-value" id="max-value-compression-amortisseurs-arriere"></span>
+                </div>
+                <div class="slider-container">
+                    <span class="slider-label">Décompression amortisseurs avant </span>
+                    <span class="slider-value" id="min-value-decompression-amortisseurs-avant"></span>
+                    <div id="slider17" class="slider"></div>
+                    <span class="slider-value" id="max-value-decompression-amortisseurs-avant"></span>
+                </div>
+                <div class="slider-container">
+                    <span class="slider-label">Décompression amortisseurs arrière </span>
+                    <span class="slider-value" id="min-value-decompression-amortisseurs-arriere"></span>
+                    <div id="slider18" class="slider"></div>
+                    <span class="slider-value" id="max-value-decompression-amortisseurs-arriere"></span>
+                </div>
+            </div>
+            <div class="reglage">
+                <span>Tenue de route</span> {% if configuration.acceleration_avant_min != 9999 %}
+                <br>
+                <span>Differentiel avant</span>
+                <div class="slider-container">
+                    <span class="slider-label">Acceleration avant :</span>
+                    <span class="slider-value" id="min-value-acceleration-avant"></span>
+                    <div id="slider19" class="slider"></div>
+                    <span class="slider-value" id="max-value-acceleration-avant"></span>
+                </div>
+                {%endif%} {% if configuration.deceleration_avant_min != 9999 %}
+                <div class="slider-container">
+                    <span class="slider-label">Déceleration avant :</span>
+                    <span class="slider-value" id="min-value-deceleration-avant"></span>
+                    <div id="slider20" class="slider"></div>
+                    <span class="slider-value" id="max-value-deceleration-avant"></span>
+                </div>
+                {%endif%} {% if configuration.freinage_avant_min != 9999 %}
+                <div class="slider-container">
+                    <span class="slider-label">Freinage avant :</span>
+                    <span class="slider-value" id="min-value-freinage-avant"></span>
+                    <div id="slider21" class="slider"></div>
+                    <span class="slider-value" id="max-value-freinage-avant"></span>
+                </div>
+                {%endif%} {% if configuration.distribution_puissance_avant_arriere_min != 9999 %}
+                <span>Differentiel central</span>
 
-<div class="slider-container">
-<span class="slider-label">Acceleration arriere :</span>
-<span class="slider-value" id="min-value-acceleration-arriere"></span>
-<div id="slider26" class="slider"></div>
-<span class="slider-value" id="max-value-acceleration-arriere"></span>
-</div>
-{%endif%}
-  {% if reglage.decceleration_arriere != 9999 %}
-    <div class="slider-container">
-    <span class="slider-label">deceleration arriere :</span>
-    <span class="slider-value" id="min-value-deceleration-arriere"></span>
-    <div id="slider27" class="slider"></div>
-    <span class="slider-value" id="max-value-deceleration-arriere"></span>
+                <div class="slider-container">
+                    <span class="slider-label">Distribution puissance avant arriere :</span>
+                    <span class="slider-value" id="min-value-distribution-avant-arriere"></span>
+                    <div id="slider22" class="slider"></div>
+                    <span class="slider-value" id="max-value-distribution-avant-arriere"></span>
+                </div>
+                {%endif%} {% if configuration.acceleration_centrale_min != 9999 %}
+                <div class="slider-container">
+                    <span class="slider-label">Acceleration centrale :</span>
+                    <span class="slider-value" id="min-value-acceleration-centrale"></span>
+                    <div id="slider23" class="slider"></div>
+                    <span class="slider-value" id="max-value-acceleration-centrale"></span>
+                </div>
+                {%endif%} {% if configuration.deceleration_centrale_min != 9999 %}
+                <div class="slider-container">
+                    <span class="slider-label">Déceleration centrale :</span>
+                    <span class="slider-value" id="min-value-deceleration-centrale"></span>
+                    <div id="slider24" class="slider"></div>
+                    <span class="slider-value" id="max-value-deceleration-centrale"></span>
+                </div>
+                {%endif%} {% if configuration.freinage_centrale_min != 9999 %}
+                <div class="slider-container">
+                    <span class="slider-label">Freinage central :</span>
+                    <span class="slider-value" id="min-value-freinage-centrale"></span>
+                    <div id="slider25" class="slider"></div>
+                    <span class="slider-value" id="max-value-freinage-centrale"></span>
+                </div>
+                {%endif%} {% if configuration.differentiel_arriere != 9999 %}
+                <span>Differentiel arriere</span>
+
+                <div class="slider-container">
+                    <span class="slider-label">Acceleration arriere :</span>
+                    <span class="slider-value" id="min-value-acceleration-arriere"></span>
+                    <div id="slider26" class="slider"></div>
+                    <span class="slider-value" id="max-value-acceleration-arriere"></span>
+                </div>
+                {%endif%} {% if configuration.decceleration_arriere != 9999 %}
+                <div class="slider-container">
+                    <span class="slider-label">deceleration arriere :</span>
+                    <span class="slider-value" id="min-value-deceleration-arriere"></span>
+                    <div id="slider27" class="slider"></div>
+                    <span class="slider-value" id="max-value-deceleration-arriere"></span>
+                </div>
+                {%endif%} {% if configuration.freinage_arriere != 9999 %}
+                <div class="slider-container">
+                    <span class="slider-label">Freinage arriere :</span>
+                    <span class="slider-value" id="min-value-freinage-arriere"></span>
+                    <div id="slider28" class="slider"></div>
+                    <span class="slider-value" id="max-value-freinage-arriere"></span>
+                </div>
+                {%endif%}
+                <span>Barre anti roulis</span>
+
+                <div class="slider-container">
+                    <span class="slider-label">Durete barre antiroulis avant :</span>
+                    <span class="slider-value" id="min-value-durete-barre-antiroulis-avant"></span>
+                    <div id="slider29" class="slider"></div>
+                    <span class="slider-value" id="max-value-durete-barre-antiroulis-avant"></span>
+                </div>
+                <div class="slider-container">
+                    <span class="slider-label">Durete barre antiroulis arriere :</span>
+                    <span class="slider-value" id="min-value-durete-barre-antiroulis-arriere"></span>
+                    <div id="slider30" class="slider"></div>
+                    <span class="slider-value" id="max-value-durete-barre-antiroulis-arriere"></span>
+                </div>
+                <span>Carrosage</span>
+
+                <div class="slider-container">
+                    <span class="slider-label">Angle de carrossage arriere :</span>
+                    <span class="slider-value" id="min-value-angle-carrossage-arriere"></span>
+                    <div id="slider31" class="slider"></div>
+                    <span class="slider-value" id="max-value-angle-carrossage-arriere"></span>
+                </div>
+                <div class="slider-container">
+                    <span class="slider-label">Angle de carrossage avant :</span>
+                    <span class="slider-value" id="min-value-angle-carrossage-avant"></span>
+                    <div id="slider32" class="slider"></div>
+                    <span class="slider-value" id="max-value-angle-carrossage-avant"></span>
+                </div>
+                {% if configuration.pression_pneus_arriere_min != 9999 %}
+                <span>Pression des pneus</span>
+
+                <div class="slider-container">
+                    <span class="slider-label">Pression pneus arriere :</span>
+                    <span class="slider-value" id="min-value-pression-pneus-arriere"></span>
+                    <div id="slider33" class="slider"></div>
+                    <span class="slider-value" id="max-value-pression-pneus-arriere"></span>
+                </div>
+                {%endif%} {% if configuration.pression_pneus_avant_min != 9999 %}
+                <div class="slider-container">
+                    <span class="slider-label">Pression pneus avant :</span>
+                    <span class="slider-value" id="min-value-pression-pneus-avant"></span>
+                    <div id="slider34" class="slider"></div>
+                    <span class="slider-value" id="max-value-pression-pneus-avant"></span>
+                </div>
+                {%endif%}
+            </div>
+            <div class="reglage">
+                <span>freinage</span>
+
+                <span>Répartiteur de freinage</span>
+                <div class="slider-container">
+                    <span class="slider-label">Repartiteur de freinage avant</span>
+                    <span class="slider-value" id="min-value-repartiteur-freinage-avant"></span>
+                    <div id="slider35" class="slider"></div>
+                    <span class="slider-value" id="max-value-repartiteur-freinage-avant"></span>
+                </div>
+
+                <span>Puissance de freinage</span>
+                <div class="slider-container">
+                    <span class="slider-label">Pression de freinage :</span>
+                    <span class="slider-value" id="min-value-pression-freinage"></span>
+                    <div id="slider36" class="slider"></div>
+                    <span class="slider-value" id="max-value-pression-freinage"></span>
+                </div>
+
+
+                <button class="col-2 btn btn-secondary ms-1" type="submit">Enregistrer</button>
+              </body>
+              </form>
     </div>
-{%endif%}
-{% if reglage.freinage_arriere != 9999 %}
-<div class="slider-container">
-  <span class="slider-label">Freinage arriere :</span>
-  <span class="slider-value" id="min-value-freinage-arriere"></span>
-  <div id="slider28" class="slider"></div>
-  <span class="slider-value" id="max-value-freinage-arriere"></span>
-</div>
-{%endif%}
-<span>Barre anti roulis</span>
 
-<div class="slider-container">
-<span class="slider-label">Durete barre antiroulis avant :</span>
-<span class="slider-value" id="min-value-durete-barre-antiroulis-avant"></span>
-<div id="slider29" class="slider"></div>
-<span class="slider-value" id="max-value-durete-barre-antiroulis-avant"></span>
-</div>
-<div class="slider-container">
-  <span class="slider-label">Durete barre antiroulis arriere :</span>
-  <span class="slider-value" id="min-value-durete-barre-antiroulis-arriere"></span>
-  <div id="slider30" class="slider"></div>
-  <span class="slider-value" id="max-value-durete-barre-antiroulis-arriere"></span>
-  </div>
-  <span>Carrosage</span>
-
-  <div class="slider-container">
-  <span class="slider-label">Angle de carrossage arriere :</span>
-  <span class="slider-value" id="min-value-angle-carrossage-arriere"></span>
-  <div id="slider31" class="slider"></div>
-  <span class="slider-value" id="max-value-angle-carrossage-arriere"></span>
-  </div>
-  <div class="slider-container">
-    <span class="slider-label">Angle de carrossage avant :</span>
-    <span class="slider-value" id="min-value-angle-carrossage-avant"></span>
-    <div id="slider32" class="slider"></div>
-    <span class="slider-value" id="max-value-angle-carrossage-avant"></span>
-    </div>
-    {% if reglage.pression_pneus_arriere_min != 9999 %}
-    <span>Pression des pneus</span>
-
-    <div class="slider-container">
-    <span class="slider-label">Pression pneus arriere :</span>
-    <span class="slider-value" id="min-value-pression-pneus-arriere"></span>
-    <div id="slider33" class="slider"></div>
-    <span class="slider-value" id="max-value-pression-pneus-arriere"></span>
-    </div>
-    {%endif%}
-    {% if reglage.pression_pneus_avant_min != 9999 %}
-    <div class="slider-container">
-      <span class="slider-label">Pression pneus avant :</span>
-      <span class="slider-value" id="min-value-pression-pneus-avant"></span>
-      <div id="slider34" class="slider"></div>
-      <span class="slider-value" id="max-value-pression-pneus-avant"></span>
-      </div>
-      {%endif%}
-    </div>
-    <div class="reglage">
-      <span>freinage</span>
-      <br>
-        <span>Répartiteur de freinage</span>
-        <div class="slider-container">
-          <span class="slider-label">Repartiteur de freinage avant</span>
-          <span class="slider-value" id="min-value-repartiteur-freinage-avant"></span>
-          <div id="slider35" class="slider"></div>
-          <span class="slider-value" id="max-value-repartiteur-freinage-avant"></span>
-        </div>
-      
-        <span>Puissance de freinage</span>
-        <div class="slider-container">
-          <span class="slider-label">Pression de freinage :</span>
-          <span class="slider-value" id="min-value-pression-freinage"></span>
-          <div id="slider36" class="slider"></div>
-          <span class="slider-value" id="max-value-pression-freinage"></span>
-        </div>
-      
-
-    <button class="col-2 btn btn-secondary ms-1" type="submit">Enregistrer</button>
-  </body>
-</form>
-</div>
-<script>
-  window.addEventListener("load", function() {
-    // Fonction réutilisable pour créer un slider
-    function createSlider(sliderId, value, minValue, maxValue,step) {
-      const slider = document.getElementById(sliderId);
-  
-      noUiSlider.create(slider, {
-        // ... configuration du slider ...
-        start: [value],
-        connect: 'lower',
-        step: step,
-        range: {
-          'min': [minValue],
-          'max': [maxValue]
-        },
-        width: '50px',
-          tooltips: true, // Active les tooltips
-          format: {
-            to: function ( value ) {
-                if (value === minValue) {
-                    return minValue ;
-                } else if (value === maxValue) {
-                    return maxValue ;
-                } else {
-                    return value.toFixed(2);
+    
+        <script>
+            window.addEventListener("load", function() {
+                // Fonction réutilisable pour créer un slider
+                function createSlider(sliderId, value, minValue, maxValue, step) {
+                  const slider = document.getElementById(sliderId);
+              
+                  noUiSlider.create(slider, {
+                    // ... configuration du slider ...
+                    start: [value],
+                    connect: 'lower',
+                    step: step,
+                    range: {
+                      'min': [minValue],
+                      'max': [maxValue]
+                    },
+                    width: '50px',
+                      tooltips: true, // Active les tooltips
+                      format: {
+                        to: function ( value ) {
+                            if (value === minValue) {
+                                return minValue ;
+                            } else if (value === maxValue) {
+                                return maxValue ;
+                            } else {
+                                return value.toFixed(2);
+                            }
+                        },
+                        from: function ( value ) {
+                            return parseFloat( value );
+                        }
+                    }
+                });
                 }
-            },
-            from: function ( value ) {
-                return parseFloat( value );
-            }
-        }
-    });
-    }
-  
-    // Fonction pour afficher les valeurs minimales et maximales
-    function afficheSlider(slider, minValueElementId, maxValueElementId, minValue, maxValue) {
-      const minValueElement = document.getElementById(minValueElementId);
-      const maxValueElement = document.getElementById(maxValueElementId);
-  
-    
-      minValueElement.textContent = slider.noUiSlider.options.range.min;
-      maxValueElement.textContent = slider.noUiSlider.options.range.max;
-    }
-    function createAndDisplaySlider(sliderId, minValueId, maxValueId, min, max, initialValue) {
-      createSlider(sliderId, initialValue, min, max);
-      afficheSlider(sliderId, minValueId, maxValueId, min, max);
-    }
-  
-    
-    // Appels aux fonctions
-    const slider1Min = {{ reglage.rapport_final_min|format_decimal }};
-    const slider1Max = {{ reglage.rapport_final_max|format_decimal }};
-    const slider1Value = (slider1Min + slider1Max) / 2
-    createSlider('slider1', slider1Value, slider1Min, slider1Max, 0.01);
-    afficheSlider(document.getElementById('slider1'), 'min-value-rapport', 'max-value-rapport', 
-    slider1Min,slider1Max);
+              
+                // Fonction pour afficher les valeurs minimales et maximales
+                function afficheSlider(slider, minValueElementId, maxValueElementId, minValue, maxValue) {
+                  const minValueElement = document.getElementById(minValueElementId);
+                  const maxValueElement = document.getElementById(maxValueElementId);
+              
+                
+                  minValueElement.textContent = slider.noUiSlider.options.range.min;
+                  maxValueElement.textContent = slider.noUiSlider.options.range.max;
+                }
+                function createAndDisplaySlider(sliderId, minValueId, maxValueId, min, max, initialValue) {
+                  createSlider(sliderId, initialValue, min, max);
+                  afficheSlider(sliderId, minValueId, maxValueId, min, max);
+                }
+              
+                
+                // Appels aux fonctions
+                const slider1Min = {{ configuration.rapport_final_min|format_decimal }};
+                const slider1Max = {{ configuration.rapport_final_max|format_decimal }};
+                const slider1Value = {{reglage.rapport_final|format_decimal }}
+                createSlider('slider1', slider1Value, slider1Min, slider1Max, 0.01);
+                afficheSlider(document.getElementById('slider1'), 'min-value-rapport', 'max-value-rapport', 
+                slider1Min,slider1Max);
+            
+                const slider2Min = {{ configuration.premiere_vitesse_min|format_decimal }};
+                const slider2Max = {{ configuration.premiere_vitesse_max|format_decimal  }};
+                const slider2Value = {{reglage.premiere_vitesse|format_decimal }}
+                createSlider('slider2',slider2Value, slider2Min , slider2Max, 0.01 );
+                afficheSlider(document.getElementById('slider2'), 'min-value-vitesse', 'max-value-vitesse', slider2Min, slider2Max );
+            
+                const slider3Min = {{ configuration.deuxieme_vitesse_min|format_decimal }};
+                const slider3Max = {{ configuration.deuxieme_vitesse_max|format_decimal  }};
+                const slider3Value = {{reglage.deuxieme_vitesse|format_decimal }}
+                createSlider('slider3', slider3Value, slider3Min, slider3Max, 0.01);
+                afficheSlider(slider3, 'min-value-vitesse2', 'max-value-vitesse2', slider3Min, slider3Max);
+              
+                const slider4Min = {{ configuration.troisieme_vitesse_min|format_decimal }};
+                const slider4Max = {{ configuration.troisieme_vitesse_max|format_decimal }};
+                const slider4Value = {{reglage.troisieme_vitesse|format_decimal }}
+                const vitesse3 ={{configuration.troisieme_vitesse_max|format_decimal }};
+                if ( vitesse3 !== 9999 ){
+                  createSlider('slider4', slider4Value, slider4Min, slider4Max, 0.01);
+                  afficheSlider(slider4, 'min-value-vitesse3', 'max-value-vitesse3', slider4Min, slider4Max);
+                }
+            
+                const slider5Min = {{ configuration.quatrieme_vitesse_min|format_decimal }};
+                const slider5Max = {{ configuration.quatrieme_vitesse_max|format_decimal }};
+                const slider5Value = {{reglage.quatrieme_vitesse|format_decimal }}
+                const vitesse4 ={{configuration.quatrieme_vitesse_max|format_decimal }};
+                if ( vitesse4 !== 9999 ){  
+                createSlider('slider5', slider5Value, slider5Min, slider5Max, 0.01);
+                afficheSlider(slider5, 'min-value-vitesse4', 'max-value-vitesse4', slider5Min, slider5Max);
+                }
+                const slider6Min = {{ configuration.cinquieme_vitesse_min|format_decimal }};
+                const slider6Max = {{ configuration.cinquieme_vitesse_max|format_decimal }};
+                const slider6Value = {{reglage.cinquieme_vitesse|format_decimal }}
+                const vitesse5 ={{configuration.cinquieme_vitesse_max|format_decimal }};
+                if ( vitesse5 !== 9999 ){  
+                createSlider('slider6', slider6Value, slider6Min, slider6Max, 0.01);
+                afficheSlider(slider6, 'min-value-vitesse5', 'max-value-vitesse5', slider6Min, slider6Max);
+                }
+                const slider7Min = {{ configuration.sixieme_vitesse_min|format_decimal }};
+                const slider7Max = {{ configuration.sixieme_vitesse_max|format_decimal }};
+                const slider7Value = {{reglage.sixieme_vitesse|format_decimal }}
+                const vitesse6 ={{configuration.sixieme_vitesse_max|format_decimal }};
+                if ( vitesse6 !== 9999 ){ 
+                createSlider('slider7', slider7Value, slider7Min, slider7Max, 0.01);
+                afficheSlider(slider7, 'min-value-vitesse6', 'max-value-vitesse6', slider7Min, slider7Max);
+                }
+                const slider8Min = {{ configuration.septieme_vitesse_min|format_decimal }};
+                const slider8Max = {{ configuration.septieme_vitesse_max|format_decimal }};
+                const slider8Value = {{reglage.septieme_vitesse|format_decimal }}
+                const vitesse7 ={{configuration.septieme_vitesse_max|format_decimal }};
+                if ( vitesse7 !== 9999 ){
+                  createSlider('slider8', slider8Value, slider8Min, slider8Max, 0.01);
+                  afficheSlider(slider8, 'min-value-vitesse7', 'max-value-vitesse7', slider8Min, slider8Max);
+                }  
+                const slider37Min = {{ configuration.huitieme_vitesse_min|format_decimal }};
+                const slider37Max = {{ configuration.huitieme_vitesse_max|format_decimal }};
+                const slider37Value = {{reglage.huitieme_vitesse|format_decimal }}
+                const vitesse8 ={{configuration.huitieme_vitesse_max|format_decimal }};
+                if ( vitesse8 !== 9999 ){
+                  createSlider('slider37', slider37Value, slider37Min,slider37Max, 0.01);
+                  afficheSlider(slider37, 'min-value-vitesse8', 'max-value-vitesse8', slider37Min, slider8Max);
+                }
+            
+                createSlider('slider9', 0, -1, 1,0.1);
+                afficheSlider(slider9, 'min-value-appui-aerodynamique-avant', 'max-value-appui-aerodynamique-avant', -1, 1);
+                    
+                createSlider('slider10', 0, -1, 1,0.1);
+                afficheSlider(slider10, 'min-value-appui-aerodynamique-arriere', 'max-value-appui-aerodynamique-arriere', -1, 1);
+                
+                const tailleSuspensionArriere = {{ configuration.taille_suspension_arriere_min|format_decimal }};
+                const slider11Min = {{ configuration.taille_suspension_arriere_min|format_decimal }};
+                const slider11Max = {{ configuration.taille_suspension_arriere_max|format_decimal }};
+                const slider11Value = {{reglage.taille_suspension_arriere|format_decimal }};
+                if (tailleSuspensionArriere !== 9999) {
+                    createSlider('slider11', slider11Value,slider11Min ,slider11Max );
+                    afficheSlider(slider11, 'min-value-taille-suspension-arriere', 'max-value-taille-suspension-arriere', slider11Min, slider11Max);
+                }
+            
+            
+            
+                const tailleSuspensionAvant = {{ configuration.taille_suspension_avant_min|format_decimal }};
+                const slider12Min = {{ configuration.taille_suspension_avant_min|format_decimal }};
+                const slider12Max = {{ configuration.taille_suspension_avant_max|format_decimal }};
+                const slider12Value = {{reglage.taille_suspension_avant|format_decimal }};
+                if (tailleSuspensionAvant !== 9999) {
+                    createSlider('slider12', slider12Value, slider12Min ,slider12Max );
+                    afficheSlider(slider12, 'min-value-taille-suspension-avant', 'max-value-taille-suspension-avant', slider12Min, slider12Max);
+                }
+            
+                
+                createSlider('slider13', 100, 80, 120, 0.1);
+                afficheSlider(slider13, 'min-value-durete-ressorts-arriere', 'max-value-durete-ressorts-arriere', 80, 120);
+                
+            
+                
+                createSlider('slider14', 100, 80, 120, 0.1);
+                afficheSlider(slider14, 'min-value-durete-ressorts-avant', 'max-value-durete-ressorts-avant', 80, 120);
+                
+            
+                
+                createSlider('slider15', 100, 80, 120, 0.1);
+                afficheSlider(slider15, 'min-value-compression-amortisseurs-avant', 'max-value-compression-amortisseurs-avant', 80, 120);
+                
+            
+                
+                createSlider('slider16', 100, 80, 120, 0.1);
+                afficheSlider(slider16, 'min-value-compression-amortisseurs-arriere', 'max-value-compression-amortisseurs-arriere', 80, 120);
+                
+            
+                
+                createSlider('slider17', 100, 80, 120, 0.1);
+                afficheSlider(slider17, 'min-value-decompression-amortisseurs-avant', 'max-value-decompression-amortisseurs-avant', 80, 120);
+                
+            
+                
+                createSlider('slider18', 100, 80, 120, 0.1);
+                afficheSlider(slider18, 'min-value-decompression-amortisseurs-arriere', 'max-value-decompression-amortisseurs-arriere', 80, 120);
+                
+                const slider19Min = {{ configuration.acceleration_avant_min|floatformat:0 }};
+                const slider19Max = {{ configuration.acceleration_avant_max|floatformat:0 }};
+                const slider19Value = {{reglage.acceleration_avant|format_decimal }};
+                const accav = {{ configuration.acceleration_avant_min|floatformat:0 }};
+                if (accav !== 9999) {
+                    createSlider('slider19',slider19Value , slider19Min,slider19Max, 0.1 );
+                    afficheSlider(slider19, 'min-value-acceleration-avant', 'max-value-acceleration-avant', slider19Min, slider19Max);
+                }
+            
+                const decav ={{configuration.deceleration_avant_min|floatformat:0 }};
+                const slider20Min = {{ configuration.deceleration_avant_min|floatformat:0 }};
+                const slider20Max = {{ configuration.deceleration_avant_max|floatformat:0 }};
+                const slider20Value = {{reglage.deceleration_avant|format_decimal }};
+                if ( decav!== 9999 ){
+                  createSlider('slider20', slider20Value, slider20Min, slider20Max, 0.1 );
+                  afficheSlider(slider20, 'min-value-deceleration-avant', 'max-value-deceleration-avant',slider20Min, slider20Max);
+                }
+                const freav ={{configuration.freinage_avant_min|floatformat:0  }};
+                const slider21Min = {{ configuration.freinage_avant_min|floatformat:0 }};
+                const slider21Max = {{ configuration.freinage_avant_max|floatformat:0 }};
+                const slider21Value = {{reglage.freinage_avant|format_decimal }};
+                if ( freav!== 9999 ){
+                  createSlider('slider21',slider21Value , slider21Min , slider21Max, 0.1);
+                  afficheSlider(slider21, 'min-value-freinage-avant', 'max-value-freinage-avant', slider21Min, slider21Max);
+                }
+                const dispui ={{configuration.distribution_puissance_avant_arriere_min|floatformat:0 }};
+                const slider22Min =  {{ configuration.distribution_puissance_avant_arriere_min|floatformat:0 }};
+                const slider22Max =  {{ configuration.distribution_puissance_avant_arriere_max|floatformat:0 }};
+                const slider22Value = {{reglage.distribution_puissance_avant_arriere|format_decimal }};
+                if ( dispui!== 9999 ){
+                  createSlider('slider22',slider22Value , slider22Min,slider22Max, 0.1);
+                  afficheSlider(slider22, 'min-value-distribution-avant-arriere', 'max-value-distribution-avant-arriere',  slider22Min, slider22Max);
+                }
+                const acav ={{configuration.acceleration_centrale_min|floatformat:0 }};
+                const slider23Min =  {{ configuration.acceleration_centrale_min|floatformat:0 }};
+                const slider23Max =  {{ configuration.acceleration_centrale_max|floatformat:0 }};
+                const slider23Value =  {{reglage.acceleration_centrale|format_decimal }};
+                if ( acav!== 9999 ){
+                  createSlider('slider23', slider23Value, slider23Min,  slider23Max, 0.1);
+                  afficheSlider(slider23, 'min-value-acceleration-centrale', 'max-value-acceleration-centrale', slider23Min ,  slider23Max);
+                }
+                const decce ={{configuration.deceleration_centrale_min|floatformat:0}};
+                const slider24Min =  {{ configuration.deceleration_centrale_min|floatformat:0 }};
+                const slider24Max =  {{ configuration.deceleration_centrale_max|floatformat:0 }};
+                const slider24Value = {{reglage.deceleration_centrale|format_decimal }};
+                if ( decce!== 9999 ){
+                  createSlider('slider24', slider24Value, slider24Min, slider24Max, 0.1 );
+                  afficheSlider(slider24, 'min-value-deceleration-centrale', 'max-value-deceleration-centrale', slider24Min ,  slider24Max);
+                }
+                const frece = {{ configuration.freinage_centrale_min|floatformat:0 }};
+                const slider25Min =  {{ configuration.freinage_centrale_min|floatformat:0 }};
+                const slider25Max =  {{ configuration.freinage_centrale_max|floatformat:0 }};
+                const slider25Value =  {{reglage.freinage_central|format_decimal }};
+                if ( frece!== 9999 ){
+                  createSlider('slider25', slider25Value, slider25Min, slider25Max, 0.1 );
+                  afficheSlider(slider25, 'min-value-freinage-centrale', 'max-value-freinage-centrale', slider25Min ,  slider25Max);
+                }
+                
+                createSlider('slider26', 50, 0,100, 0.1   );
+                afficheSlider(slider26, 'min-value-acceleration-arriere', 'max-value-acceleration-arriere', 0, 100);
+              
+                createSlider('slider27', 50,0,100, 0.1  );
+                afficheSlider(slider27, 'min-value-deceleration-arriere', 'max-value-deceleration-arriere',0,100  );
+                
+                createSlider('slider28', 50, 0,100, 0.1  );
+                afficheSlider(slider28, 'min-value-freinage-arriere', 'max-value-freinage-arriere', 0,100  );
+            
+                createSlider('slider29', 50, 0,100, 0.1  );
+                afficheSlider(slider29, 'min-value-durete-barre-antiroulis-avant', 'max-value-durete-barre-antiroulis-avant', 0,100  );
+            
+                createSlider('slider30', 50, 0,100, 0.1  );
+                afficheSlider(slider30, 'min-value-durete-barre-antiroulis-arriere', 'max-value-durete-barre-antiroulis-arriere', 0,100  );
+            
+                createSlider('slider31', 0, -6 , 3, 0.1  );
+                afficheSlider(slider31, 'min-value-angle-carrossage-arriere', 'max-value-angle-carrossage-arriere', -6 , 3  );
+            
+                createSlider('slider32', 0, -6 , 3, 0.1  );
+                afficheSlider(slider32, 'min-value-angle-carrossage-avant', 'max-value-angle-carrossage-avant', -6 , 3  );
+                const prear ={{configuration.pression_pneus_arriere_min|floatformat:0 }};
+                const slider33Min =  {{ configuration.pression_pneus_arriere_min|floatformat:0 }};
+                const slider33Max =  {{ configuration.pression_pneus_arriere_max|floatformat:0 }};
+                const slider33Value =  {{reglage.pression_pneus_arriere|format_decimal }};
+                if ( prear!== 9999 ){
+                  createSlider('slider33', slider33Value, slider33Min, slider33Max );
+                  afficheSlider(slider33, 'min-value-pression-pneus-arriere', 'max-value-pression-pneus-arriere', slider33Min, slider33Max );
+                }
+                const preav ={{configuration.pression_pneus_avant_min|floatformat:0 }};
+                const slider34Min =  {{ configuration.pression_pneus_avant_min|floatformat:0 }};
+                const slider34Max =  {{ configuration.pression_pneus_avant_max|floatformat:0 }};
+                const slider34Value = {{reglage.pression_pneus_avant|format_decimal }};
+                if ( preav!== 9999 ){
+                  createSlider('slider34',slider34Value, slider34Min, slider34Max );
+                  afficheSlider(slider34, 'min-value-pression-pneus-avant', 'max-value-pression-pneus-avant', slider34Min, slider34Max );
+                }
+                
+                createSlider('slider35', 50, 0 , 100, 0.1  );
+                afficheSlider(slider35, 'min-value-repartiteur-freinage-avant', 'max-value-repartiteur-freinage-avant', 0 , 100  );
+                
+                
+                createSlider('slider36', 0, -1000 , 1000, 0.1 );
+                afficheSlider(slider36, 'min-value-pression-freinage', 'max-value-pression-freinage', -1000 , 1000 );
+                
+                // Sélectionner le formulaire
+                const form = document.querySelector('form');
+            
+                // Dictionnaire associant l'ID du slider à son nom dans le formulaire
+                const sliderMap = {
+                  'slider1': 'rapport_final',
+                  'slider2': 'premiere_vitesse',
+                  'slider3': 'deuxieme_vitesse',
+                  'slider4': 'troisieme_vitesse',
+                  'slider5': 'quatrieme_vitesse',
+                  'slider6': 'cinquieme_vitesse',
+                  'slider7': 'sixieme_vitesse',
+                  'slider8': 'septieme_vitesse',
+                  'slider9': 'appui_aerodynamique_avant',
+                  'slider10': 'appui_aerodynamique_arriere',
+                  'slider11': 'taille_suspension_arriere',
+                  'slider12': 'taille_suspension_avant',
+                  'slider13': 'durete_ressorts_arriere',
+                  'slider14': 'durete_ressorts_avant',
+                  'slider15': 'compression_amortisseurs_avant',
+                  'slider16': 'compression_amortisseurs_arriere',
+                  'slider17': 'decompression_amortisseurs_avant',
+                  'slider18': 'decompression_amortisseurs_arriere',
+                  'slider19': 'acceleration_avant',
+                  'slider20': 'deceleration_avant',
+                  'slider21': 'freinage_avant',
+                  'slider22': 'distribution_puissance_avant_arriere',
+                  'slider23': 'acceleration_centrale',
+                  'slider24': 'deceleration_centrale',
+                  'slider25': 'freinage_central',
+                  'slider26': 'acceleration_arriere',
+                  'slider27': 'deceleration_arriere',
+                  'slider28': 'freinage_arriere',
+                  'slider29': 'durete_barre_antiroulis_avant',
+                  'slider30': 'durete_barre_antiroulis_arriere',
+                  'slider31': 'angle_carrossage_arriere',
+                  'slider32': 'angle_carrossage_avant',
+                  'slider33': 'pression_pneus_arriere',
+                  'slider34': 'pression_pneus_avant',
+                  'slider35': 'repartiteur_freinage_avant',
+                  'slider36': 'pression_freinage',
+                  'slider37': 'huitieme_vitesse',
+                  // ... et ainsi de suite pour tous les autres sliders
+                };
+            
+                form.addEventListener('submit', (event) => {
+                    event.preventDefault();
+            
+                    // Parcourir tous les sliders
+                    for (const sliderId in sliderMap) {
+                      if (sliderMap.hasOwnProperty(sliderId)) {
+                        const slider = document.getElementById(sliderId);
+                        let sliderValue = 9999;
+                    
+                        if (slider) {
+                          try {
+                            sliderValue = slider.noUiSlider.get();
+                          } catch (error) {
+                            console.error("Error retrieving value for slider:", sliderId, error);
+                          }
+                        }
+                    
+                        const fieldName = sliderMap[sliderId]; // 
+                            console.log('sliderId:', sliderId);
+                            console.log('fieldName:', fieldName);
+                            console.log('sliderValue:', sliderValue);
+                            // Créer un champ caché
+                            const hiddenInput = document.createElement('input');
+                            hiddenInput.type = 'hidden';
+                            hiddenInput.name = fieldName;
+                            hiddenInput.value = sliderValue;
+                            form.appendChild(hiddenInput);
+                        }
+                    }
+            
+                    form.submit();
+                });
+                });
+        </script>
 
-    const slider2Min = {{ reglage.premiere_vitesse_min|format_decimal }};
-    const slider2Max = {{ reglage.premiere_vitesse_max|format_decimal  }};
-    const slider2Value = (slider2Min + slider2Max) / 2
-    createSlider('slider2',slider2Value, slider2Min , slider2Max, 0.01 );
-    afficheSlider(document.getElementById('slider2'), 'min-value-vitesse', 'max-value-vitesse', slider2Min, slider2Max );
-
-    const slider3Min = {{ reglage.deuxieme_vitesse_min|format_decimal }};
-    const slider3Max = {{ reglage.deuxieme_vitesse_max|format_decimal  }};
-    const slider3Value = (slider3Min + slider3Max) / 2
-    createSlider('slider3', slider3Value, slider3Min, slider3Max, 0.01);
-    afficheSlider(slider3, 'min-value-vitesse2', 'max-value-vitesse2', slider3Min, slider3Max);
-  
-    const slider4Min = {{ reglage.troisieme_vitesse_min|format_decimal }};
-    const slider4Max = {{ reglage.troisieme_vitesse_max|format_decimal }};
-    const slider4Value = (slider4Min + slider4Max) / 2
-    const vitesse3 ={{reglage.troisieme_vitesse_max|format_decimal }};
-    if ( vitesse3 !== 9999 ){
-      createSlider('slider4', slider4Value, slider4Min, slider4Max, 0.01);
-      afficheSlider(slider4, 'min-value-vitesse3', 'max-value-vitesse3', slider4Min, slider4Max);
-    }
-
-    const slider5Min = {{ reglage.quatrieme_vitesse_min|format_decimal }};
-    const slider5Max = {{ reglage.quatrieme_vitesse_max|format_decimal }};
-    const slider5Value = (slider5Min + slider5Max) / 2
-    const vitesse4 ={{reglage.quatrieme_vitesse_max|format_decimal }};
-    if ( vitesse4 !== 9999 ){  
-    createSlider('slider5', slider5Value, slider5Min, slider5Max, 0.01);
-    afficheSlider(slider5, 'min-value-vitesse4', 'max-value-vitesse4', slider5Min, slider5Max);
-    }
-    const slider6Min = {{ reglage.cinquieme_vitesse_min|format_decimal }};
-    const slider6Max = {{ reglage.cinquieme_vitesse_max|format_decimal }};
-    const slider6Value = (slider6Min + slider6Max) / 2
-    const vitesse5 ={{reglage.cinquieme_vitesse_max|format_decimal }};
-    if ( vitesse5 !== 9999 ){  
-    createSlider('slider6', slider6Value, slider6Min, slider6Max, 0.01);
-    afficheSlider(slider6, 'min-value-vitesse5', 'max-value-vitesse5', slider6Min, slider6Max);
-    }
-    const slider7Min = {{ reglage.sixieme_vitesse_min|format_decimal }};
-    const slider7Max = {{ reglage.sixieme_vitesse_max|format_decimal }};
-    const slider7Value = (slider7Min + slider7Max) / 2
-    const vitesse6 ={{reglage.sixieme_vitesse_max|format_decimal }};
-    if ( vitesse6 !== 9999 ){ 
-    createSlider('slider7', slider7Value, slider7Min, slider7Max, 0.01);
-    afficheSlider(slider7, 'min-value-vitesse6', 'max-value-vitesse6', slider7Min, slider7Max);
-    }
-    const slider8Min = {{ reglage.septieme_vitesse_min|format_decimal }};
-    const slider8Max = {{ reglage.septieme_vitesse_max|format_decimal }};
-    const slider8Value = (slider8Min + slider8Max) / 2
-    const vitesse7 ={{reglage.septieme_vitesse_max|format_decimal }};
-    if ( vitesse7 !== 9999 ){
-      createSlider('slider8', slider8Value, slider8Min, slider8Max, 0.01);
-      afficheSlider(slider8, 'min-value-vitesse7', 'max-value-vitesse7', slider8Min, slider8Max);
-    }  
-    const slider37Min = {{ reglage.huitieme_vitesse_min|format_decimal }};
-    const slider37Max = {{ reglage.huitieme_vitesse_max|format_decimal }};
-    const slider37Value = (slider37Min + slider37Max) / 2
-    const vitesse8 ={{reglage.huitieme_vitesse_max|format_decimal }};
-    if ( vitesse8 !== 9999 ){
-      createSlider('slider37', slider37Value, slider37Min,slider37Max, 0.01);
-      afficheSlider(slider37, 'min-value-vitesse8', 'max-value-vitesse8', slider37Min, slider8Max);
-    }
-
-    createSlider('slider9', 0, -1, 1,0.1);
-    afficheSlider(slider9, 'min-value-appui-aerodynamique-avant', 'max-value-appui-aerodynamique-avant', -1, 1);
-        
-    createSlider('slider10', 0, -1, 1,.1);
-    afficheSlider(slider10, 'min-value-appui-aerodynamique-arriere', 'max-value-appui-aerodynamique-arriere', -1, 1);
-    
-    const tailleSuspensionArriere = {{ reglage.taille_suspension_arriere_min|format_decimal }};
-    const slider11Min = {{ reglage.taille_suspension_arriere_min|format_decimal }};
-    const slider11Max = {{ reglage.taille_suspension_arriere_max|format_decimal }};
-    const slider11Value = (slider11Min + slider11Max) / 2;
-    if (tailleSuspensionArriere !== 9999) {
-        createSlider('slider11', slider11Value,slider11Min ,slider11Max );
-        afficheSlider(slider11, 'min-value-taille-suspension-arriere', 'max-value-taille-suspension-arriere', slider11Min, slider11Max);
-    }
-
-
-
-    const tailleSuspensionAvant = {{ reglage.taille_suspension_avant_min|format_decimal }};
-    const slider12Min = {{ reglage.taille_suspension_avant_min|format_decimal }};
-    const slider12Max = {{ reglage.taille_suspension_avant_max|format_decimal }};
-    const slider12Value = (slider12Min + slider12Max) / 2;
-    if (tailleSuspensionAvant !== 9999) {
-        createSlider('slider12', slider12Value, slider12Min ,slider12Max );
-        afficheSlider(slider12, 'min-value-taille-suspension-avant', 'max-value-taille-suspension-avant', slider12Min, slider12Max);
-    }
-
-    
-    createSlider('slider13', 100, 80, 120, 0.1);
-    afficheSlider(slider13, 'min-value-durete-ressorts-arriere', 'max-value-durete-ressorts-arriere', 80, 120);
-    
-
-    
-    createSlider('slider14', 100, 80, 120, 0.1);
-    afficheSlider(slider14, 'min-value-durete-ressorts-avant', 'max-value-durete-ressorts-avant', 80, 120);
-    
-
-    
-    createSlider('slider15', 100, 80, 120, 0.1);
-    afficheSlider(slider15, 'min-value-compression-amortisseurs-avant', 'max-value-compression-amortisseurs-avant', 80, 120);
-    
-
-    
-    createSlider('slider16', 100, 80, 120, 0.1);
-    afficheSlider(slider16, 'min-value-compression-amortisseurs-arriere', 'max-value-compression-amortisseurs-arriere', 80, 120);
-    
-
-    
-    createSlider('slider17', 100, 80, 120, 0.1);
-    afficheSlider(slider17, 'min-value-decompression-amortisseurs-avant', 'max-value-decompression-amortisseurs-avant', 80, 120);
-    
-
-    
-    createSlider('slider18', 100, 80, 120, 0.1);
-    afficheSlider(slider18, 'min-value-decompression-amortisseurs-arriere', 'max-value-decompression-amortisseurs-arriere', 80, 120);
-    
-    const slider19Min = {{ reglage.acceleration_avant_min|floatformat:0 }};
-    const slider19Max = {{ reglage.acceleration_avant_max|floatformat:0 }};
-    const slider19Value = (slider19Min + slider19Max) / 2;
-    const accav = {{ reglage.acceleration_avant_min|floatformat:0 }};
-    if (accav !== 9999) {
-        createSlider('slider19',slider19Value , slider19Min,slider19Max, 0.1 );
-        afficheSlider(slider19, 'min-value-acceleration-avant', 'max-value-acceleration-avant', slider19Min, slider19Max);
-    }
-
-    const decav ={{reglage.deceleration_avant_min|floatformat:0 }};
-    const slider20Min = {{ reglage.deceleration_avant_min|floatformat:0 }};
-    const slider20Max = {{ reglage.deceleration_avant_max|floatformat:0 }};
-    const slider20Value = (slider20Min + slider20Max) / 2;
-    if ( decav!== 9999 ){
-      createSlider('slider20', slider20Value, slider20Min, slider20Max, 0.1 );
-      afficheSlider(slider20, 'min-value-deceleration-avant', 'max-value-deceleration-avant',slider20Min, slider20Max);
-    }
-    const freav ={{reglage.freinage_avant_min|floatformat:0  }};
-    const slider21Min = {{ reglage.freinage_avant_min|floatformat:0 }};
-    const slider21Max = {{ reglage.freinage_avant_max|floatformat:0 }};
-    const slider21Value = (slider21Min + slider21Max) / 2;
-    if ( freav!== 9999 ){
-      createSlider('slider21',slider21Value , slider21Min , slider21Max, 0.1);
-      afficheSlider(slider21, 'min-value-freinage-avant', 'max-value-freinage-avant', slider21Min, slider21Max);
-    }
-    const dispui ={{reglage.distribution_puissance_avant_arriere_min|floatformat:0 }};
-    const slider22Min =  {{ reglage.distribution_puissance_avant_arriere_min|floatformat:0 }};
-    const slider22Max =  {{ reglage.distribution_puissance_avant_arriere_max|floatformat:0 }};
-    const slider22Value = (slider22Min + slider22Max) / 2;
-    if ( dispui!== 9999 ){
-      createSlider('slider22',slider22Value , slider22Min,slider22Max, 0.1);
-      afficheSlider(slider22, 'min-value-distribution-avant-arriere', 'max-value-distribution-avant-arriere',  slider22Min, slider22Max);
-    }
-    const acav ={{reglage.acceleration_centrale_min|floatformat:0 }};
-    const slider23Min =  {{ reglage.acceleration_centrale_min|floatformat:0 }};
-    const slider23Max =  {{ reglage.acceleration_centrale_max|floatformat:0 }};
-    const slider23Value = (slider23Min + slider23Max) / 2;
-    if ( acav!== 9999 ){
-      createSlider('slider23', slider23Value, slider23Min,  slider23Max, 0.1);
-      afficheSlider(slider23, 'min-value-acceleration-centrale', 'max-value-acceleration-centrale', slider23Min ,  slider23Max);
-    }
-    const decce ={{reglage.deceleration_centrale_min|floatformat:0}};
-    const slider24Min =  {{ reglage.deceleration_centrale_min|floatformat:0 }};
-    const slider24Max =  {{ reglage.deceleration_centrale_max|floatformat:0 }};
-    const slider24Value = (slider24Min + slider24Max) / 2;
-    if ( decce!== 9999 ){
-      createSlider('slider24', slider24Value, slider24Min, slider24Max, 0.1 );
-      afficheSlider(slider24, 'min-value-deceleration-centrale', 'max-value-deceleration-centrale', slider24Min ,  slider24Max);
-    }
-    const frece = {{ reglage.freinage_centrale_min|floatformat:0 }};
-    const slider25Min =  {{ reglage.freinage_centrale_min|floatformat:0 }};
-    const slider25Max =  {{ reglage.freinage_centrale_max|floatformat:0 }};
-    const slider25Value = (slider25Min + slider25Max) / 2;
-    if ( frece!== 9999 ){
-      createSlider('slider25', slider25Value, slider25Min, slider25Max, 0.1 );
-      afficheSlider(slider25, 'min-value-freinage-centrale', 'max-value-freinage-centrale', slider25Min ,  slider25Max);
-    }
-    
-    createSlider('slider26', 50, 0,100, 0.1  );
-    afficheSlider(slider26, 'min-value-acceleration-arriere', 'max-value-acceleration-arriere', 0, 100);
-  
-    createSlider('slider27', 50,0,100, 0.1  );
-    afficheSlider(slider27, 'min-value-deceleration-arriere', 'max-value-deceleration-arriere',0,100  );
-    
-    createSlider('slider28', 50, 0,100, 0.1  );
-    afficheSlider(slider28, 'min-value-freinage-arriere', 'max-value-freinage-arriere', 0,100  );
-
-    createSlider('slider29', 50, 0,100, 0.1  );
-    afficheSlider(slider29, 'min-value-durete-barre-antiroulis-avant', 'max-value-durete-barre-antiroulis-avant', 0,100  );
-
-    createSlider('slider30', 50, 0,100, 0.1  );
-    afficheSlider(slider30, 'min-value-durete-barre-antiroulis-arriere', 'max-value-durete-barre-antiroulis-arriere', 0,100  );
-
-    createSlider('slider31', 0, -6 , 3, 0.1  );
-    afficheSlider(slider31, 'min-value-angle-carrossage-arriere', 'max-value-angle-carrossage-arriere', -6 , 3  );
-
-    createSlider('slider32', 0, -6 , 3, 0.1  );
-    afficheSlider(slider32, 'min-value-angle-carrossage-avant', 'max-value-angle-carrossage-avant', -6 , 3  );
-    const prear ={{reglage.pression_pneus_arriere_min|floatformat:0 }};
-    const slider33Min =  {{ reglage.pression_pneus_arriere_min|floatformat:0 }};
-    const slider33Max =  {{ reglage.pression_pneus_arriere_max|floatformat:0 }};
-    const slider33Value = (slider33Min + slider33Max) / 2;
-    if ( prear!== 9999 ){
-      createSlider('slider33', slider33Value, slider33Min, slider33Max );
-      afficheSlider(slider33, 'min-value-pression-pneus-arriere', 'max-value-pression-pneus-arriere', slider33Min, slider33Max );
-    }
-    const preav ={{reglage.pression_pneus_avant_min|floatformat:0 }};
-    const slider34Min =  {{ reglage.pression_pneus_avant_min|floatformat:0 }};
-    const slider34Max =  {{ reglage.pression_pneus_avant_max|floatformat:0 }};
-    const slider34Value = (slider34Min + slider34Max) / 2;
-    if ( preav!== 9999 ){
-      createSlider('slider34',slider34Value, slider34Min, slider34Max );
-      afficheSlider(slider34, 'min-value-pression-pneus-avant', 'max-value-pression-pneus-avant', slider34Min, slider34Max );
-    }
-    
-    createSlider('slider35', 50, 0 , 100, 0.1  );
-    afficheSlider(slider35, 'min-value-repartiteur-freinage-avant', 'max-value-repartiteur-freinage-avant', 0 , 100  );
-    
-    
-    createSlider('slider36', 0, -1000 , 1000, 0.1 );
-    afficheSlider(slider36, 'min-value-pression-freinage', 'max-value-pression-freinage', -1000 , 1000 );
-    
-    // Sélectionner le formulaire
-    const form = document.querySelector('form');
-
-    // Dictionnaire associant l'ID du slider à son nom dans le formulaire
-    const sliderMap = {
-      'slider1': 'rapport_final',
-      'slider2': 'premiere_vitesse',
-      'slider3': 'deuxieme_vitesse',
-      'slider4': 'troisieme_vitesse',
-      'slider5': 'quatrieme_vitesse',
-      'slider6': 'cinquieme_vitesse',
-      'slider7': 'sixieme_vitesse',
-      'slider8': 'septieme_vitesse',
-      'slider9': 'appui_aerodynamique_avant',
-      'slider10': 'appui_aerodynamique_arriere',
-      'slider11': 'taille_suspension_arriere',
-      'slider12': 'taille_suspension_avant',
-      'slider13': 'durete_ressorts_arriere',
-      'slider14': 'durete_ressorts_avant',
-      'slider15': 'compression_amortisseurs_avant',
-      'slider16': 'compression_amortisseurs_arriere',
-      'slider17': 'decompression_amortisseurs_avant',
-      'slider18': 'decompression_amortisseurs_arriere',
-      'slider19': 'acceleration_avant',
-      'slider20': 'deceleration_avant',
-      'slider21': 'freinage_avant',
-      'slider22': 'distribution_puissance_avant_arriere',
-      'slider23': 'acceleration_centrale',
-      'slider24': 'deceleration_centrale',
-      'slider25': 'freinage_central',
-      'slider26': 'acceleration_arriere',
-      'slider27': 'deceleration_arriere',
-      'slider28': 'freinage_arriere',
-      'slider29': 'durete_barre_antiroulis_avant',
-      'slider30': 'durete_barre_antiroulis_arriere',
-      'slider31': 'angle_carrossage_arriere',
-      'slider32': 'angle_carrossage_avant',
-      'slider33': 'pression_pneus_arriere',
-      'slider34': 'pression_pneus_avant',
-      'slider35': 'repartiteur_freinage_avant',
-      'slider36': 'pression_freinage',
-      'slider37': 'huitieme_vitesse',
-      // ... et ainsi de suite pour tous les autres sliders
-    };
-
-    form.addEventListener('submit', (event) => {
-        event.preventDefault();
-
-        // Parcourir tous les sliders
-        for (const sliderId in sliderMap) {
-          if (sliderMap.hasOwnProperty(sliderId)) {
-            const slider = document.getElementById(sliderId);
-            let sliderValue = 9999;
-        
-            if (slider) {
-              try {
-                sliderValue = slider.noUiSlider.get();
-              } catch (error) {
-                console.error("Error retrieving value for slider:", sliderId, error);
-              }
-            }
-        
-            const fieldName = sliderMap[sliderId]; // 
-                console.log('sliderId:', sliderId);
-                console.log('fieldName:', fieldName);
-                console.log('sliderValue:', sliderValue);
-                // Créer un champ caché
-                const hiddenInput = document.createElement('input');
-                hiddenInput.type = 'hidden';
-                hiddenInput.name = fieldName;
-                hiddenInput.value = sliderValue;
-                form.appendChild(hiddenInput);
-            }
-        }
-
-        form.submit();
-    });
-    });
-      
-  </script>
-  
-  {% endblock %}
+        {% endblock %}

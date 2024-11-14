@@ -334,13 +334,14 @@
         <script>
             window.addEventListener("load", function() {
                 // Fonction réutilisable pour créer un slider
-                function createSlider(sliderId, value, minValue, maxValue) {
+                function createSlider(sliderId, value, minValue, maxValue, step) {
                   const slider = document.getElementById(sliderId);
               
                   noUiSlider.create(slider, {
                     // ... configuration du slider ...
                     start: [value],
                     connect: 'lower',
+                    step: step,
                     range: {
                       'min': [minValue],
                       'max': [maxValue]
