@@ -1,7 +1,7 @@
 from pyexpat.errors import messages
 from django.forms import ValidationError
-from django.shortcuts import render, redirect
-from .models import Favorite, Car, Reglage, ConfigurationReglage, Like
+from django.shortcuts import get_object_or_404, render, redirect
+from .models import Favorite, Car, Reglage, ConfigurationReglage, Like, Trajet
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
@@ -11,6 +11,9 @@ from .models import CustomUser
 from tduscmap.form import ConfigurationReglageUserForm, ReglageForm, ChoixModeleForm
 from django.db.models import Count, Q, Prefetch
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from rest_framework import serializers
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 
 def home(request):
@@ -60,7 +63,6 @@ def afficher_favoris(request):
 @login_required
 def mymaps(request):
     return render(request, "tduscmap/mymaps.html")
-
 
 @login_required
 def get_favorites(request):
@@ -444,3 +446,139 @@ def supprimer_reglage(request, id):
     reglage.delete()
     return redirect('liste_reglages')
 
+
+@csrf_exempt
+def save_trajet(request):
+    if request.method == "POST":
+        print("Requête POST reçue")
+        data = json.loads(request.body)
+        user = request.user  # Utilisateur connecté
+
+        # Vérifier si toutes les données sont présentes
+        try:
+            data = json.loads(request.body)
+            nom = data["nom"]
+            depart = data["depart"]
+            etapes = data["etapes"]
+            arrivee = data["arrivee"]
+            depart_lat = float(depart["lat"])
+            depart_lng = float(depart["lng"])
+            arrivee_lat = float(arrivee["lat"])
+            arrivee_lng = float(arrivee["lng"])
+            # Sauvegarder dans la base de données
+            trajet = Trajet.objects.create(
+                user=request.user,
+                nom=nom,
+                depart_lat=depart_lat,
+                depart_lng=depart_lng,
+                etapes=json.dumps(etapes),  # Convertir les étapes en JSON
+                arrivee_lat=arrivee_lat,
+                arrivee_lng=arrivee_lng
+            )
+            print("Trajet sauvegardé :", trajet) 
+            return JsonResponse({"success": True, "message": "Trajet sauvegardé avec succès.", "trajet_id": trajet.id})
+        except KeyError:
+            print("Erreur dans les données :", e)
+            return JsonResponse({"success": False, "message": "Données manquantes."}, status=400)
+    return JsonResponse({"success": False, "message": "Méthode non autorisée."}, status=405)
+
+
+def liste_trajets(request):
+    trajets = Trajet.objects.filter(user=request.user)
+    serializer = TrajetSerializer(trajets, many=True)  # many=True for multiple trajets
+    return JsonResponse(serializer.data, safe=False)
+
+@login_required
+def myiti(request):
+    trajets = Trajet.objects.filter(user=request.user)
+    selected_trajet = None
+    
+    if request.method == 'GET' and 'trajet' in request.GET:
+        trajet_id = request.GET['trajet']
+        if trajet_id:
+            selected_trajet = get_object_or_404(Trajet, id=trajet_id, user=request.user)
+    print(f"Trajets trouvés : {trajets}")  # Ajoute cette ligne pour vérifier
+    return render(request, 'tduscmap/mes_iti.html', {
+        'trajets': trajets,
+        'selected_trajet': selected_trajet
+    })
+
+@login_required
+def afficher_trajet(request, trajet_id):
+    trajet = get_object_or_404(Trajet, id=trajet_id, user=request.user)
+    serializer = TrajetSerializer(trajet)  # many=False par défaut pour un seul trajet
+    return JsonResponse(serializer.data)
+
+@login_required
+def get_friend_trajets(request, friend_id):
+    try:
+        friend = CustomUser.objects.get(id=friend_id)
+        trajets = Trajet.objects.filter(user=friend).values('id', 'nom')
+        return JsonResponse({'success': True, 'trajets': list(trajets)}, status=200)
+    except CustomUser.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Utilisateur introuvable.'}, status=404)
+
+def get_friend_trajet_details(request, trajet_id):
+    try:
+        # Récupérer l'ami en fonction de l'ID
+        friend_id = request.GET.get('friend_id')
+        friend = CustomUser.objects.get(id=friend_id)
+
+        # Récupérer les trajets associés à l'ami
+        trajets_ami = Trajet.objects.filter(user=friend)
+
+        trajet = trajets_ami.get(id=trajet_id)  # Trouver le trajet spécifique
+
+        # Convertir les étapes en une liste de coordonnées
+        etapes = trajet.etapes  # Si c'est un JSONField, il sera déjà sous forme de liste
+
+        return JsonResponse({
+            "success": True,
+            "trajet": {
+                "id": trajet.id,
+                "nom": trajet.nom,
+                "depart_lat": trajet.depart_lat,
+                "depart_lng": trajet.depart_lng,
+                "etapes": etapes,
+                "arrivee_lat": trajet.arrivee_lat,
+                "arrivee_lng": trajet.arrivee_lng,
+            },
+        })
+    except CustomUser.DoesNotExist:
+        return JsonResponse({"success": False, "error": "Ami non trouvé."})
+    except Trajet.DoesNotExist:
+        return JsonResponse({"success": False, "error": "Trajet non trouvé pour cet ami."})
+    except Exception as e:
+        return JsonResponse({"success": False, "error": str(e)})
+
+
+@csrf_exempt  # Permet de traiter les requêtes POST sans jeton CSRF (utile pour AJAX)
+def supprimer_trajet(request, trajet_id):
+    if request.method == 'POST':
+        trajet = get_object_or_404(Trajet, id=trajet_id)
+
+        # Vérifier si l'utilisateur est propriétaire du trajet
+        if trajet.user == request.user:
+            trajet.delete()
+            return JsonResponse({"success": True, "message": "Trajet supprimé avec succès."})
+        else:
+            return JsonResponse({"success": False, "message": "Vous n'êtes pas autorisé à supprimer ce trajet."})
+    return JsonResponse({"success": False, "message": "Requête invalide."})
+
+
+class TrajetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Trajet
+        fields = '__all__'  # Ou spécifiez les champs à inclure
+    def get_etapes(self, obj):
+        try:
+            return json.loads(obj.etapes)  # Convertir en tableau Python
+        except (TypeError, json.JSONDecodeError):
+            return []
+
+# class TrajetDetailView(APIView):
+#     def get(self, request, pk):
+#         trajet = get_object_or_404(Trajet, pk=pk)
+#         serializer = TrajetSerializer(trajet)
+#         return Response(serializer.data)
+    

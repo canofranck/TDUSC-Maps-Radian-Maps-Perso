@@ -7,13 +7,13 @@
 
 <body>
     <form method="post" action="{% url 'car_select' %}">
-        <select name="car_id">
+        <select name="car_id" class="my-select" >
           {% for car in cars %}
             <option value="{{ car.id }}">{{ car }}</option>
           {% endfor %}
         </select>
         {% csrf_token %}
-        <button type="submit">Voir l'historique des prix</button>
+        <button type="submit" >Voir l'historique des prix</button>
       </form>
       {% if car_selected %}
       <h1>Historique des Prix de {{ car_selected }}</h1>

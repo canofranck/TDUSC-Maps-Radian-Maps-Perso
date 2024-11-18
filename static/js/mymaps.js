@@ -26,7 +26,7 @@ var friendIcon = L.icon({
 });
 
 // Ajouter l'image de la carte en superposition
-var imageUrl = '/static/images/Sans titre.png';
+var imageUrl = '/static/images/test2.png';
 L.imageOverlay(imageUrl, imageBounds).addTo(map);
 
 // Ajuster la vue de la carte pour qu'elle s'adapte à l'image
@@ -41,7 +41,7 @@ function loadMarkers(district = "all") {
     .then(response => response.json())
     .then(data => {
         data.forEach(favorite => {
-            console.log(`Favorite at: ${favorite.lat}, ${favorite.lng}`);
+            
             var marker = L.marker([favorite.lat, favorite.lng], { icon: favoriteIcon }).addTo(map)
                 .bindPopup(favorite.description);
             marker.on('contextmenu', function () {

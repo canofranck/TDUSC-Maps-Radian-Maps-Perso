@@ -11,7 +11,7 @@ var map = L.map('map', {
 });
 
 // Ajouter l'image de la carte en superposition
-var imageUrl = '/static/images/Sans titre.png';
+var imageUrl = '/static/images/test2.png';
 L.imageOverlay(imageUrl, imageBounds).addTo(map);
 
 // Ajuster la vue de la carte pour qu'elle s'adapte à l'image
@@ -175,10 +175,7 @@ document.getElementById('toggle-tutoepaves').onclick = function() {
     
 };
 
-document.getElementById('toggle-ibiza').onclick = function() {
-    window.location.href= "ibiza_eivissa.html";
-    
-};
+
 
 
 document.getElementById('districtvideo-select').addEventListener('change', function() {

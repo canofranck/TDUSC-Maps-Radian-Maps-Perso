@@ -73,7 +73,7 @@ img {
 
 /* Style pour la carte */
 #map {
-    flex-grow: 1; /* La carte prend le reste de l'espace disponible */
+     /* La carte prend le reste de l'espace disponible */
     /*cursor: crosshair;/* Changer le curseur en croix */
     background-color: #05121A;
     width: 100%; /* ou une largeur fixe comme 1000px si tu préfères */

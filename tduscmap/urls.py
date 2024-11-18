@@ -49,6 +49,8 @@ urlpatterns = [
     path("signup/", authentication.views.signup_page, name="signup"),
     path("", tduscmap.views.home, name="home"),
     path("mymaps/", tduscmap.views.mymaps, name="mymaps"),
+    
+
     path("get_friends/", tduscmap.views.get_friends, name="get_friends"),
     path(
         "friends/<int:friend_id>/favorites/",
@@ -86,6 +88,13 @@ urlpatterns = [
     path('modifier_reglages/<int:id>/', tduscmap.views.modifier_reglages, name='modifier_reglages'),
     path('mes_reglages/', tduscmap.views.mes_reglages, name='mes_reglages'),
     path('supprimer_reglage/<int:id>/', tduscmap.views.supprimer_reglage, name='supprimer_reglage'),
+    path("save_trajet/", tduscmap.views.save_trajet, name="save_trajet"),
+    path('myiti/', tduscmap.views.myiti, name='myiti'),
+    path('list_trajets/', tduscmap.views.liste_trajets, name='list_trajets'),
+    path('afficher_trajets/<int:trajet_id>/', tduscmap.views.afficher_trajet, name='afficher_trajet'),
+    path('get-friend-trajets/<int:friend_id>/', tduscmap.views.get_friend_trajets, name='get_friend_trajets'),
+    path('get-friend-trajet-details/<int:trajet_id>/', tduscmap.views.get_friend_trajet_details, name='get_friend_trajet_details'),
+    path('delete-trajet/<int:trajet_id>/', tduscmap.views.supprimer_trajet, name='delete_trajet'),
 ]  
 if settings.DEBUG:
     urlpatterns += static(

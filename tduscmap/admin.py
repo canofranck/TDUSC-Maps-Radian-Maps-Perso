@@ -1,7 +1,9 @@
 from django.contrib import admin
-from .models import Car, CarPrice, Reglage, Like, ConfigurationReglage
+from .models import Car, CarPrice, Reglage, Like, ConfigurationReglage, CustomUser
 from django.core.exceptions import ValidationError
 from django.forms import ModelForm
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.utils.translation import gettext_lazy  as _
 
 
 @admin.register(Car)
@@ -162,3 +164,15 @@ class ConfigurationReglageAdmin(admin.ModelAdmin):
     )  # Champs à afficher dans la liste
     search_fields = ["car"]  # Champs pour la recherche
 
+
+class UserAdmin(admin.ModelAdmin):
+    list_display = (
+        "username",
+        "email",
+        "last_login",
+        "is_superuser",
+        "is_staff",
+            )
+
+
+admin.site.register(CustomUser, UserAdmin)

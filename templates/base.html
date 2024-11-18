@@ -15,8 +15,13 @@
       <nav class="navbar navbar-expand-lg navbar-dark custom-navbar" role="navigation" aria-label="Navigation principale">
         <div class="container-fluid">
             <a class="navbar-brand" role="navigation" aria-label="Retour page d accueil" href="{% url 'home' %}">TDUSC MAPS</a>
-            <a> Bienvenu   :  </a>{{ request.user }}
+            <a> Bienvenu     </a>{{ request.user }}
             <a class="justify-content-center collapse navbar-collapse" role="navigation" aria-label="Retour page d'accueil"></a>
+          
+          
+            <img id="banner" src="{% static 'images/logo.png' %}" alt="Bannière Solar Hotel" width="50" height="50">
+              
+       
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
@@ -38,16 +43,19 @@
                         <a class="nav-link" href="{% url 'logout' %}">Se déconnecter</a>
                     </li>
                 </ul>
+                
             </div>
+            
         </div>
+        
     </nav>
     
     </div>
    
-    <div class="container-fluid border border-2 border-dark rounded-4 ml-3 p-0">
+ 
       {% block content %}
 
       {% endblock %}
-    </div>
+  
   </body>
 </html>

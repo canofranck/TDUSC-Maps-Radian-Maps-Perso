@@ -412,3 +412,16 @@ class Like(models.Model):
             "reglage",
             "user",
         )  # Ensure a user can only like a réglage once
+
+class Trajet(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="trajets")
+    nom = models.CharField(max_length=100, help_text="Nom ou description du trajet")
+    depart_lat = models.FloatField(help_text="Coordonnée Y en pixels du point de départ")
+    depart_lng = models.FloatField(help_text="Coordonnée X en pixels du point de départ")
+    etapes = models.JSONField(help_text="Liste des points intermédiaires sous forme de coordonnées pixels")
+    arrivee_lat = models.FloatField(help_text="Coordonnée Y en pixels du point d'arrivée")
+    arrivee_lng = models.FloatField(help_text="Coordonnée X en pixels du point d'arrivée")
+    date_creation = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.nom} - {self.user.username}"
