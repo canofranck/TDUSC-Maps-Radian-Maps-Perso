@@ -330,6 +330,7 @@ def choix_modele(request):
         form = ChoixModeleForm()
         # Récupérer tous les modèles de voitures distincts
         modeles = Car.objects.values_list("modele", flat=True).distinct()
+        
         return render(
             request,
             "tduscmap/template_principal.html",
@@ -504,11 +505,13 @@ def myiti(request):
         'selected_trajet': selected_trajet
     })
 
+
 @login_required
 def afficher_trajet(request, trajet_id):
     trajet = get_object_or_404(Trajet, id=trajet_id, user=request.user)
     serializer = TrajetSerializer(trajet)  # many=False par défaut pour un seul trajet
     return JsonResponse(serializer.data)
+
 
 @login_required
 def get_friend_trajets(request, friend_id):
@@ -518,6 +521,7 @@ def get_friend_trajets(request, friend_id):
         return JsonResponse({'success': True, 'trajets': list(trajets)}, status=200)
     except CustomUser.DoesNotExist:
         return JsonResponse({'success': False, 'error': 'Utilisateur introuvable.'}, status=404)
+
 
 def get_friend_trajet_details(request, trajet_id):
     try:
@@ -580,6 +584,13 @@ def telecharger(request):
     if os.path.exists(chemin_fichier):
         return FileResponse(open(chemin_fichier, 'rb'), as_attachment=True, filename='db.sqlite3')
     return HttpResponse("Fichier non trouvé", status=404)
+
+def credits(request):
+    return render(
+        request,
+        "tduscmap/credits.html",
+    )
+
 
 class TrajetSerializer(serializers.ModelSerializer):
     class Meta:

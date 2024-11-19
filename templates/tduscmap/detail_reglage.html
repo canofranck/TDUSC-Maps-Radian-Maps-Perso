@@ -47,13 +47,13 @@
     <div class="mon-div-noir">
         <h5>Détails du réglage</h5>
         <p>Voiture :</strong> {{ reglage.car }}</p>
-        <p>Proposé par :</strong> {{ reglage.user }}</p>
+        <p>Proposé par :</strong> {{ reglage.user }}</p><p>Date : {{reglage.created_at}}</p>
         <p>Description :</strong> {{ reglage.description }}</p>
         <form method="POST">
             {% csrf_token %}
             <div class="like-container2">
                 <button class="col-1 btn btn-secondary ms-1" type="submit">J'aime </button>
-                <img src="{% static 'images/like.png' %}" alt="icône de like">
+                <img src="{% static 'images/likes.png' %}" alt="icône de like">
                 <p>{{ nombre_likes }} personnes aiment ce réglage.</p>
             </div>
         </form>

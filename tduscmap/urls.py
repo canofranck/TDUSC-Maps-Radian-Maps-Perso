@@ -96,6 +96,7 @@ urlpatterns = [
     path('get-friend-trajet-details/<int:trajet_id>/', tduscmap.views.get_friend_trajet_details, name='get_friend_trajet_details'),
     path('delete-trajet/<int:trajet_id>/', tduscmap.views.supprimer_trajet, name='delete_trajet'),
     path('telecharger/', tduscmap.views.telecharger, name='telecharger'),
+    path('credits/', tduscmap.views.credits, name='credits'),
 ]  
 if settings.DEBUG:
     urlpatterns += static(

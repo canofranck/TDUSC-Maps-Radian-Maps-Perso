@@ -58,7 +58,8 @@
 
     {% for reglage in reglages %}
     <div class="reglage">
-        <p class="titre-reglage">Réglage pour {{ reglage.car }}  Posté par : <span style="color: red;">{{ reglage.user }}</span></p>
+        <p class="titre-reglage">Réglage pour {{ reglage.car }}</p>
+        <p class="titre-reglage"> Posté par : <span style="color: red;">{{ reglage.user }}</span> Date : {{reglage.created_at}}</p>
         
         
         <p class="titre-reglage">Description : {{ reglage.description }}</p>

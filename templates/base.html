@@ -36,6 +36,7 @@
                     
                     <li class="nav-item"><a class="nav-link" href="">Map Ibiza</a></li>
                     <li class="nav-item"><a class="nav-link" href="">Clan</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'credits' %}">Credits</a></li>
                     {% if user.is_authenticated %}
                     <li class="nav-item">
                       <a class="nav-link" href="{% url 'logout' %}">Se déconnecter</a>

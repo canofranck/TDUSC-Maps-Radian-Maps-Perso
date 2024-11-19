@@ -2,7 +2,7 @@
 var map = L.map('map', {
     crs: L.CRS.Simple,
     minZoom: -1,
-    maxZoom: 4,
+    maxZoom: 2,
     attributionControl: false
 });
 
@@ -241,7 +241,7 @@ document.getElementById("saveRoute").addEventListener("click", () => {
         etapes: routePoints.etapes,
         arrivee: routePoints.arrivee
     };
-    console.log("Données envoyées :", data); // Vérifier les données avant l'envoi
+    // console.log("Données envoyées :", data); // Vérifier les données avant l'envoi
     fetch('/save_trajet/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCsrfToken() },
@@ -249,7 +249,7 @@ document.getElementById("saveRoute").addEventListener("click", () => {
     })
         .then(response => response.json())
         .then(result => {
-            console.log("Résultat de la requête :", result);
+            // console.log("Résultat de la requête :", result);
             if (result.success) {
                 alert("Trajet sauvegardé avec succès !");
                 location.reload();

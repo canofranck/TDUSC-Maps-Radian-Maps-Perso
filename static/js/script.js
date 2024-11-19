@@ -6,7 +6,7 @@ var imageBounds = [[0, 0], [1571, 2069]];
 var map = L.map('map', {
     crs: L.CRS.Simple,
     minZoom: -1,
-    maxZoom: 4,
+    maxZoom: 2,
     attributionControl: false
 });
 
@@ -266,14 +266,14 @@ document.getElementById('toggle-all').onclick = function() {
 map.on('click', function(e) {
     var lat = e.latlng.lat;
     var lng = e.latlng.lng;
-    //console.log(`Coordonnées cliquées : (${lat}, ${lng})`);
+    // console.log(`Coordonnées cliquées : (${lat}, ${lng})`);
     
 });
 
 // Fonction pour mettre à jour la taille des icônes en fonction du zoom
 function updateIconSize() {
     const currentZoom = map.getZoom(); // Obtenir le niveau de zoom actuel
-    //console.log("Niveau de zoom actuel :", currentZoom);
+    // console.log("Niveau de zoom actuel :", currentZoom);
     let newSize;
 
 // Définir la taille des icônes en fonction du zoom
