@@ -37,12 +37,13 @@
                     <li class="nav-item"><a class="nav-link" href="">Map Ibiza</a></li>
                     <li class="nav-item"><a class="nav-link" href="">Clan</a></li>
                     {% if user.is_authenticated %}
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'logout' %}">Se déconnecter</a>
+                  </li>
                     {% else %}
                     <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Se connecter</a></li>
                     {% endif %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">Se déconnecter</a>
-                    </li>
+                    
                 </ul>
                 
             </div>

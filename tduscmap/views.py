@@ -1,8 +1,10 @@
-from pyexpat.errors import messages
-from django.forms import ValidationError
+import os
+from pathlib import Path
+
+from django.conf import settings
 from django.shortcuts import get_object_or_404, render, redirect
 from .models import Favorite, Car, Reglage, ConfigurationReglage, Like, Trajet
-from django.http import JsonResponse
+from django.http import FileResponse, HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 from django.contrib.auth.decorators import login_required
@@ -12,9 +14,8 @@ from tduscmap.form import ConfigurationReglageUserForm, ReglageForm, ChoixModele
 from django.db.models import Count, Q, Prefetch
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from rest_framework import serializers
-from rest_framework.views import APIView
-from rest_framework.response import Response
 
+from django.contrib.admin.views.decorators import staff_member_required 
 
 def home(request):
     return render(
@@ -565,6 +566,20 @@ def supprimer_trajet(request, trajet_id):
             return JsonResponse({"success": False, "message": "Vous n'êtes pas autorisé à supprimer ce trajet."})
     return JsonResponse({"success": False, "message": "Requête invalide."})
 
+
+@staff_member_required
+def telecharger(request):
+    """
+    Vue permettant de télécharger le fichier 'test.rar'.
+    Accessible uniquement par les administrateurs.
+    """
+    print("je suis dans tele")
+    PROJECT_ROOT = Path(__file__).resolve().parent.parent 
+    chemin_fichier = os.path.join(PROJECT_ROOT, 'db.sqlite3')  
+    print(f"Chemin du fichier : {chemin_fichier}")  # Vérifiez dans la console
+    if os.path.exists(chemin_fichier):
+        return FileResponse(open(chemin_fichier, 'rb'), as_attachment=True, filename='db.sqlite3')
+    return HttpResponse("Fichier non trouvé", status=404)
 
 class TrajetSerializer(serializers.ModelSerializer):
     class Meta:
