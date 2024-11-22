@@ -78,7 +78,7 @@ img {
     background-color: #05121A;
     width: 100%; /* ou une largeur fixe comme 1000px si tu préfères */
     height: auto; /* La hauteur va s'adapter à la largeur */
-    aspect-ratio: 1571 / 2069; /* Ratio basé sur les dimensions de l'image */
+    aspect-ratio:3840 / 2160; /* Ratio basé sur les dimensions de l'image */
     border: 1px solid #ccc; 
 }
 

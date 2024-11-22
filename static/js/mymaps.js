@@ -1,5 +1,5 @@
 // Définir les dimensions de l'image (en coordonnées simples)
-var imageBounds = [[0, 0], [1571, 2069]];
+var imageBounds = [[0, 0], [2160,3840]];
 var showFavorites = true; // État pour savoir si les favoris sont affichés
 var friends = []; // Stocker les amis
 // Initialiser la carte Leaflet
