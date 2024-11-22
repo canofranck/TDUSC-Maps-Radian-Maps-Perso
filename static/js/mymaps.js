@@ -26,7 +26,7 @@ var friendIcon = L.icon({
 });
 
 // Ajouter l'image de la carte en superposition
-var imageUrl = '/static/images/test2.png';
+var imageUrl = '/static/images/CARTE_COMPLETE.png';
 L.imageOverlay(imageUrl, imageBounds).addTo(map);
 
 // Ajuster la vue de la carte pour qu'elle s'adapte à l'image
