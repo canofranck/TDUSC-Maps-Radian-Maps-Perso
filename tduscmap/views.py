@@ -65,6 +65,7 @@ def afficher_favoris(request):
 def mymaps(request):
     return render(request, "tduscmap/mymaps.html")
 
+
 @login_required
 def get_favorites(request):
     """Récupérer les favoris de l'utilisateur connecté."""
