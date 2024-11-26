@@ -1,0 +1,45 @@
+{
+    "districts": {
+        "1":[
+    
+    {"type": "sharp", "lat":1921.72, "lng":925.25},
+    {"type": "street", "lat": 1527.88, "lng": 3048.37},
+    {"type": "german2", "lat": 1569.07, "lng": 3068.51},
+    {"type": "american", "lat": 1980.44, "lng":2383.78},
+    {"type": "atelier", "lat": 1473.43, "lng":2927.8},
+    {"type": "atelier", "lat": 751.06, "lng":3119.57},
+    {"type": "atelier", "lat": 921.14, "lng":2175.54},
+    {"type": "atelier", "lat":1497.89, "lng":1985.8},
+    {"type": "atelier", "lat":1782.7, "lng":1302.53},
+    {"type": "atelier", "lat":1605.06, "lng":767.22},
+    {"type": "solar", "lat":1827.71, "lng":2020.35},
+    {"type": "rassemblement", "lat":1057.93, "lng":1400.43},
+    {"type": "rassemblement", "lat":1312.70, "lng":1531.43},
+    {"type": "rassemblement", "lat":1580.53, "lng":1503.93},
+    {"type": "rassemblement", "lat":1957.77, "lng":983.38},
+    {"type": "rassemblement", "lat":1788.12, "lng":1962.42},
+    {"type": "rassemblement", "lat":2046.83, "lng":2181.91},
+    {"type": "rassemblement", "lat":1828.91, "lng":2630.65},
+    {"type": "rassemblement", "lat":981.47, "lng":2593.35},
+    {"type": "rassemblement", "lat":773.45, "lng":3169.41},
+    {"type": "rassemblement", "lat":558.025, "lng":2399.89},
+    {"type": "station", "lat":1936.75, "lng":2037.18},
+    {"type": "station", "lat":2051.58, "lng":2300.17},
+    {"type": "station", "lat":1972.55, "lng":2397.93},
+    {"type": "station", "lat":1548.35, "lng":2986.33},
+    {"type": "station", "lat":530.42, "lng":2459.18},
+    {"type": "station", "lat":1612.07, "lng":2039.43},
+    {"type": "station", "lat":1347.83, "lng":2066.42},
+    {"type": "station", "lat":1242.21, "lng":1804.36},
+    {"type": "station", "lat":1150.84, "lng":1486.43},
+    {"type": "station", "lat":1432.15, "lng":941.88},
+    {"type": "station", "lat":1975.26, "lng":1043.19},
+    {"type": "station", "lat":1745.80, "lng":1641.93},
+    {"type": "station", "lat":1814.58, "lng":1808.36},
+    {"type": "station", "lat": 1840, "lng": 917}
+    
+    
+    ]
+
+}
+}

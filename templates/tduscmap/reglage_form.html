@@ -65,53 +65,76 @@
                     <div id="slider2" class="slider"></div>
                     <span class="slider-value" id="max-value-vitesse"></span>
                 </div>
+                {% if car.nb_vitesse >= 2 %}
                 <div class="slider-container">
                     <span class="slider-label">2ème vitesse :</span>
                     <span class="slider-value" id="min-value-vitesse2"></span>
                     <div id="slider3" class="slider"></div>
                     <span class="slider-value" id="max-value-vitesse2"></span>
                 </div>
-                {% if reglage.troisieme_vitesse_max != 9999 %}
+                {%endif%}
+                {% if car.nb_vitesse >= 3 %}
                 <div class="slider-container">
                     <span class="slider-label">3ème vitesse :</span>
                     <span class="slider-value" id="min-value-vitesse3"></span>
                     <div id="slider4" class="slider"></div>
                     <span class="slider-value" id="max-value-vitesse3"></span>
                 </div>
-                {%endif%} {% if reglage.quatrieme_vitesse_max != 9999 %}
+                {%endif%}
+                {% if car.nb_vitesse >= 4 %}
                 <div class="slider-container">
                     <span class="slider-label">4ème vitesse :</span>
                     <span class="slider-value" id="min-value-vitesse4"></span>
                     <div id="slider5" class="slider"></div>
                     <span class="slider-value" id="max-value-vitesse4"></span>
                 </div>
-                {%endif%} {% if reglage.cinquieme_vitesse_max != 9999 %}
+                {%endif%}
+                {% if car.nb_vitesse >= 5 %}
                 <div class="slider-container">
                     <span class="slider-label">5ème vitesse :</span>
                     <span class="slider-value" id="min-value-vitesse5"></span>
                     <div id="slider6" class="slider"></div>
                     <span class="slider-value" id="max-value-vitesse5"></span>
                 </div>
-                {%endif%} {% if reglage.sixieme_vitesse_max != 9999 %}
+                {%endif%}
+                {% if car.nb_vitesse >= 6 %}
                 <div class="slider-container">
                     <span class="slider-label">6ème vitesse :</span>
                     <span class="slider-value" id="min-value-vitesse6"></span>
                     <div id="slider7" class="slider"></div>
                     <span class="slider-value" id="max-value-vitesse6"></span>
                 </div>
-                {%endif%} {% if reglage.septieme_vitesse_max != 9999 %}
+                {%endif%} 
+                {% if car.nb_vitesse >= 7 %}
                 <div class="slider-container">
                     <span class="slider-label">7ème vitesse :</span>
                     <span class="slider-value" id="min-value-vitesse7"></span>
                     <div id="slider8" class="slider"></div>
                     <span class="slider-value" id="max-value-vitesse7"></span>
                 </div>
-                {%endif%} {% if reglage.huitieme_vitesse_max != 9999 %}
+                {%endif%} 
+                {% if car.nb_vitesse >= 8 %}
                 <div class="slider-container">
                     <span class="slider-label">8ème vitesse :</span>
                     <span class="slider-value" id="min-value-vitesse8"></span>
                     <div id="slider37" class="slider"></div>
                     <span class="slider-value" id="max-value-vitesse8"></span>
+                </div>
+                {%endif%}
+                {% if car.nb_vitesse >= 9 %}
+                <div class="slider-container">
+                    <span class="slider-label">9ème vitesse :</span>
+                    <span class="slider-value" id="min-value-vitesse9"></span>
+                    <div id="slider38" class="slider"></div>
+                    <span class="slider-value" id="max-value-vitesse9"></span>
+                </div>
+                {%endif%}
+                {% if car.nb_vitesse >= 10 %}
+                <div class="slider-container">
+                    <span class="slider-label">10ème vitesse :</span>
+                    <span class="slider-value" id="min-value-vitesse10"></span>
+                    <div id="slider39" class="slider"></div>
+                    <span class="slider-value" id="max-value-vitesse10"></span>
                 </div>
                 {%endif%}
                 <span>aérodynamisme</span>
@@ -185,30 +208,33 @@
                 </div>
             </div>
             <div class="reglage">
-                <span>Tenue de route</span> {% if reglage.acceleration_avant_min != 9999 %}
-                <br>
-                <span>Differentiel avant</span>
-                <div class="slider-container">
-                    <span class="slider-label">Acceleration avant :</span>
-                    <span class="slider-value" id="min-value-acceleration-avant"></span>
-                    <div id="slider19" class="slider"></div>
-                    <span class="slider-value" id="max-value-acceleration-avant"></span>
-                </div>
-                {%endif%} {% if reglage.deceleration_avant_min != 9999 %}
+                <span>Tenue de route</span>
+               <p> transimission {{ car.transmission}}</p>
+                {% if car.transmission == "4WD" or car.transmission == "FWD" %}
+                    <br>
+                    <span>Differentiel avant</span>
+                    <div class="slider-container">
+                        <span class="slider-label">Acceleration avant :</span>
+                        <span class="slider-value" id="min-value-acceleration-avant"></span>
+                        <div id="slider19" class="slider"></div>
+                        <span class="slider-value" id="max-value-acceleration-avant"></span>
+                    </div>
+                {%endif%}
+                {% if car.transmission == "4WD" or car.transmission == "FWD" %}
                 <div class="slider-container">
                     <span class="slider-label">Déceleration avant :</span>
                     <span class="slider-value" id="min-value-deceleration-avant"></span>
                     <div id="slider20" class="slider"></div>
                     <span class="slider-value" id="max-value-deceleration-avant"></span>
                 </div>
-                {%endif%} {% if reglage.freinage_avant_min != 9999 %}
+                {%endif%}  {% if car.transmission == "4WD" or car.transmission == "FWD" %}
                 <div class="slider-container">
                     <span class="slider-label">Freinage avant :</span>
                     <span class="slider-value" id="min-value-freinage-avant"></span>
                     <div id="slider21" class="slider"></div>
                     <span class="slider-value" id="max-value-freinage-avant"></span>
                 </div>
-                {%endif%} {% if reglage.distribution_puissance_avant_arriere_min != 9999 %}
+                {%endif%} {% if car.transmission == "4WD" %}
                 <span>Differentiel central</span>
 
                 <div class="slider-container">
@@ -217,28 +243,28 @@
                     <div id="slider22" class="slider"></div>
                     <span class="slider-value" id="max-value-distribution-avant-arriere"></span>
                 </div>
-                {%endif%} {% if reglage.acceleration_centrale_min != 9999 %}
+                {%endif%} {% if car.transmission == "4WD" %}
                 <div class="slider-container">
                     <span class="slider-label">Acceleration centrale :</span>
                     <span class="slider-value" id="min-value-acceleration-centrale"></span>
                     <div id="slider23" class="slider"></div>
                     <span class="slider-value" id="max-value-acceleration-centrale"></span>
                 </div>
-                {%endif%} {% if reglage.deceleration_centrale_min != 9999 %}
+                {%endif%} {% if car.transmission == "4WD" %}
                 <div class="slider-container">
                     <span class="slider-label">Déceleration centrale :</span>
                     <span class="slider-value" id="min-value-deceleration-centrale"></span>
                     <div id="slider24" class="slider"></div>
                     <span class="slider-value" id="max-value-deceleration-centrale"></span>
                 </div>
-                {%endif%} {% if reglage.freinage_centrale_min != 9999 %}
+                {%endif%} {% if car.transmission == "4WD" %}
                 <div class="slider-container">
                     <span class="slider-label">Freinage central :</span>
                     <span class="slider-value" id="min-value-freinage-centrale"></span>
                     <div id="slider25" class="slider"></div>
                     <span class="slider-value" id="max-value-freinage-centrale"></span>
                 </div>
-                {%endif%} {% if reglage.differentiel_arriere != 9999 %}
+                {%endif%} {% if car.transmission == "4WD" or car.transmission == "RWD" %}
                 <span>Differentiel arriere</span>
 
                 <div class="slider-container">
@@ -247,14 +273,14 @@
                     <div id="slider26" class="slider"></div>
                     <span class="slider-value" id="max-value-acceleration-arriere"></span>
                 </div>
-                {%endif%} {% if reglage.decceleration_arriere != 9999 %}
+                {%endif%} {% if car.transmission == "4WD" or car.transmission == "RWD" %}
                 <div class="slider-container">
                     <span class="slider-label">deceleration arriere :</span>
                     <span class="slider-value" id="min-value-deceleration-arriere"></span>
                     <div id="slider27" class="slider"></div>
                     <span class="slider-value" id="max-value-deceleration-arriere"></span>
                 </div>
-                {%endif%} {% if reglage.freinage_arriere != 9999 %}
+                {%endif%} {% if car.transmission == "4WD" or car.transmission == "RWD" %}
                 <div class="slider-container">
                     <span class="slider-label">Freinage arriere :</span>
                     <span class="slider-value" id="min-value-freinage-arriere"></span>
@@ -290,7 +316,7 @@
                     <div id="slider32" class="slider"></div>
                     <span class="slider-value" id="max-value-angle-carrossage-avant"></span>
                 </div>
-                {% if reglage.pression_pneus_arriere_min != 9999 %}
+                {% if car.transmission == "FWD" or car.transmission == "RWD" %}
                 <span>Pression des pneus</span>
 
                 <div class="slider-container">
@@ -299,7 +325,7 @@
                     <div id="slider33" class="slider"></div>
                     <span class="slider-value" id="max-value-pression-pneus-arriere"></span>
                 </div>
-                {%endif%} {% if reglage.pression_pneus_avant_min != 9999 %}
+                {%endif%} {% if car.transmission == "FWD" or car.transmission == "RWD" %}
                 <div class="slider-container">
                     <span class="slider-label">Pression pneus avant :</span>
                     <span class="slider-value" id="min-value-pression-pneus-avant"></span>
@@ -384,100 +410,116 @@
               
                 
                 // Appels aux fonctions
-                const slider1Min = {{ reglage.rapport_final_min|format_decimal }};
-                const slider1Max = {{ reglage.rapport_final_max|format_decimal }};
-                const slider1Value = (slider1Max + slider1Min) / 2
+                const slider1Min = 0;
+                const slider1Max = 15;
+                const slider1Value = 5
                 createSlider('slider1', slider1Value, slider1Min, slider1Max, 0.01);
                 afficheSlider(document.getElementById('slider1'), 'min-value-rapport', 'max-value-rapport', 
                 slider1Min,slider1Max);
             
-                const slider2Min = {{ reglage.premiere_vitesse_min|format_decimal }};
-                const slider2Max = {{ reglage.premiere_vitesse_max|format_decimal  }};
-                const slider2Value = (slider2Max + slider2Min) / 2
+                const slider2Min = 0;
+                const slider2Max = 15;
+                const slider2Value = 5;
                 createSlider('slider2',slider2Value, slider2Min , slider2Max, 0.01 );
                 afficheSlider(document.getElementById('slider2'), 'min-value-vitesse', 'max-value-vitesse', slider2Min, slider2Max );
             
-                const slider3Min = {{ reglage.deuxieme_vitesse_min|format_decimal }};
-                const slider3Max = {{ reglage.deuxieme_vitesse_max|format_decimal  }};
-                const slider3Value = (slider3Max + slider3Min) / 2
+                const slider3Min = 0;
+                const slider3Max = 15;
+                const slider3Value = 5;
+                const vitesse2 ={{car.nb_vitesse  }};
+                if ( vitesse2 >=2 ){
                 createSlider('slider3', slider3Value, slider3Min, slider3Max, 0.01);
                 afficheSlider(slider3, 'min-value-vitesse2', 'max-value-vitesse2', slider3Min, slider3Max);
-              
-                const slider4Min = {{ reglage.troisieme_vitesse_min|format_decimal }};
-                const slider4Max = {{ reglage.troisieme_vitesse_max|format_decimal }};
-                const slider4Value = (slider4Max + slider4Min) / 2
-                const vitesse3 ={{reglage.troisieme_vitesse_max|format_decimal }};
-                if ( vitesse3 !== 9999 ){
+                }
+                const slider4Min = 0;
+                const slider4Max = 15;
+                const slider4Value = 5;
+                const vitesse3 ={{car.nb_vitesse  }};
+                if ( vitesse3 >=3 ){
                   createSlider('slider4', slider4Value, slider4Min, slider4Max, 0.01);
                   afficheSlider(slider4, 'min-value-vitesse3', 'max-value-vitesse3', slider4Min, slider4Max);
                 }
             
-                const slider5Min = {{ reglage.quatrieme_vitesse_min|format_decimal }};
-                const slider5Max = {{ reglage.quatrieme_vitesse_max|format_decimal }};
-                const slider5Value = (slider5Max + slider5Min) / 2
-                const vitesse4 ={{reglage.quatrieme_vitesse_max|format_decimal }};
-                if ( vitesse4 !== 9999 ){  
+                const slider5Min = 0;
+                const slider5Max = 15;
+                const slider5Value = 5;
+                const vitesse4 ={{car.nb_vitesse }};
+                if ( vitesse4 >= 4 ){  
                 createSlider('slider5', slider5Value, slider5Min, slider5Max, 0.01);
                 afficheSlider(slider5, 'min-value-vitesse4', 'max-value-vitesse4', slider5Min, slider5Max);
                 }
-                const slider6Min = {{ reglage.cinquieme_vitesse_min|format_decimal }};
-                const slider6Max = {{ reglage.cinquieme_vitesse_max|format_decimal }};
-                const slider6Value = (slider6Max + slider6Min) / 2
-                const vitesse5 ={{reglage.cinquieme_vitesse_max|format_decimal }};
-                if ( vitesse5 !== 9999 ){  
+                const slider6Min = 0;
+                const slider6Max = 15;
+                const slider6Value = 5;
+                const vitesse5 ={{car.nb_vitesse }};
+                if ( vitesse5 >=5 ){  
                 createSlider('slider6', slider6Value, slider6Min, slider6Max, 0.01);
                 afficheSlider(slider6, 'min-value-vitesse5', 'max-value-vitesse5', slider6Min, slider6Max);
                 }
-                const slider7Min = {{ reglage.sixieme_vitesse_min|format_decimal }};
-                const slider7Max = {{ reglage.sixieme_vitesse_max|format_decimal }};
-                const slider7Value = (slider7Max + slider7Min) / 2
-                const vitesse6 ={{reglage.sixieme_vitesse_max|format_decimal }};
-                if ( vitesse6 !== 9999 ){ 
+                const slider7Min = 0;
+                const slider7Max = 15;
+                const slider7Value = 5;
+                const vitesse6 ={{car.nb_vitesse }};
+                if ( vitesse6 >=6 ){ 
                 createSlider('slider7', slider7Value, slider7Min, slider7Max, 0.01);
                 afficheSlider(slider7, 'min-value-vitesse6', 'max-value-vitesse6', slider7Min, slider7Max);
                 }
-                const slider8Min = {{ reglage.septieme_vitesse_min|format_decimal }};
-                const slider8Max = {{ reglage.septieme_vitesse_max|format_decimal }};
-                const slider8Value = (slider8Max + slider8Min) / 2
-                const vitesse7 ={{reglage.septieme_vitesse_max|format_decimal }};
-                if ( vitesse7 !== 9999 ){
+                const slider8Min = 0;
+                const slider8Max = 15;
+                const slider8Value = 5;
+                const vitesse7 ={{car.nb_vitesse }};
+                if ( vitesse7 >=7 ){ 
                   createSlider('slider8', slider8Value, slider8Min, slider8Max, 0.01);
                   afficheSlider(slider8, 'min-value-vitesse7', 'max-value-vitesse7', slider8Min, slider8Max);
                 }  
-                const slider37Min = {{ reglage.huitieme_vitesse_min|format_decimal }};
-                const slider37Max = {{ reglage.huitieme_vitesse_max|format_decimal }};
-                const slider37Value = (slider37Max + slider37Min) / 2
-                const vitesse8 ={{reglage.huitieme_vitesse_max|format_decimal }};
-                if ( vitesse8 !== 9999 ){
+                const slider37Min = 0;
+                const slider37Max = 15;
+                const slider37Value = 5;
+                const vitesse8 ={{car.nb_vitesse }};
+                if ( vitesse8 >=8 ){ 
                   createSlider('slider37', slider37Value, slider37Min,slider37Max, 0.01);
-                  afficheSlider(slider37, 'min-value-vitesse8', 'max-value-vitesse8', slider37Min, slider8Max);
+                  afficheSlider(slider37, 'min-value-vitesse8', 'max-value-vitesse8', slider37Min, slider37Max);
                 }
             
+                const slider38Min = 0;
+                const slider38Max = 15;
+                const slider38Value = 5;
+                const vitesse9 ={{car.nb_vitesse }};
+                if ( vitesse9 >=9 ){ 
+                  createSlider('slider38', slider38Value, slider38Min,slider38Max, 0.01);
+                  afficheSlider(slider38, 'min-value-vitesse9', 'max-value-vitesse9', slider38Min, slider38Max);
+                }
+
+                const slider39Min = 0  ;
+                const slider39Max = 15;
+                const slider39Value = 5;
+                const vitesse10 ={{car.nb_vitesse }};
+                if ( vitesse10 >=10 ){ 
+                  createSlider('slider39', slider39Value, slider39Min,slider39Max, 0.01);
+                  afficheSlider(slider39, 'min-value-vitesse10', 'max-value-vitesse10', slider39Min, slider39Max);
+                }
                 createSlider('slider9', 0, -1, 1,0.1);
                 afficheSlider(slider9, 'min-value-appui-aerodynamique-avant', 'max-value-appui-aerodynamique-avant', -1, 1);
                     
                 createSlider('slider10', 0, -1, 1,0.1);
                 afficheSlider(slider10, 'min-value-appui-aerodynamique-arriere', 'max-value-appui-aerodynamique-arriere', -1, 1);
                 
-                const tailleSuspensionArriere = {{ reglage.taille_suspension_arriere_min|format_decimal }};
-                const slider11Min = {{ reglage.taille_suspension_arriere_min|format_decimal }};
-                const slider11Max = {{ reglage.taille_suspension_arriere_max|format_decimal }};
-                const slider11Value = (slider11Max + slider11Min) / 2
-                if (tailleSuspensionArriere !== 9999) {
-                    createSlider('slider11', slider11Value,slider11Min ,slider11Max );
-                    afficheSlider(slider11, 'min-value-taille-suspension-arriere', 'max-value-taille-suspension-arriere', slider11Min, slider11Max);
-                }
-            
-            
-            
-                const tailleSuspensionAvant = {{ reglage.taille_suspension_avant_min|format_decimal }};
-                const slider12Min = {{ reglage.taille_suspension_avant_min|format_decimal }};
-                const slider12Max = {{ reglage.taille_suspension_avant_max|format_decimal }};
-                const slider12Value = (slider12Max + slider12Min) / 2
-                if (tailleSuspensionAvant !== 9999) {
-                    createSlider('slider12', slider12Value, slider12Min ,slider12Max );
-                    afficheSlider(slider12, 'min-value-taille-suspension-avant', 'max-value-taille-suspension-avant', slider12Min, slider12Max);
-                }
+               
+                const slider11Min = 0;
+                const slider11Max = 0.5;
+                const slider11Value = 0.2
+               
+                createSlider('slider11', slider11Value,slider11Min ,slider11Max );
+                afficheSlider(slider11, 'min-value-taille-suspension-arriere', 'max-value-taille-suspension-arriere', slider11Min, slider11Max);
+                
+                           
+                const slider12Min = 0;
+                const slider12Max = 0.5;
+                const slider12Value = 0.2;
+                
+                createSlider('slider12', slider12Value, slider12Min ,slider12Max );
+                afficheSlider(slider12, 'min-value-taille-suspension-avant', 'max-value-taille-suspension-avant', slider12Min, slider12Max);
+                
             
                 
                 createSlider('slider13', 100, 80, 120, 0.1);
@@ -508,73 +550,77 @@
                 createSlider('slider18', 100, 80, 120, 0.1);
                 afficheSlider(slider18, 'min-value-decompression-amortisseurs-arriere', 'max-value-decompression-amortisseurs-arriere', 80, 120);
                 
-                const slider19Min = {{ reglage.acceleration_avant_min|floatformat:0 }};
-                const slider19Max = {{ reglage.acceleration_avant_max|floatformat:0 }};
-                const slider19Value = (slider19Max + slider19Min) / 2
-                const accav = {{ reglage.acceleration_avant_min|floatformat:0 }};
-                if (accav !== 9999) {
+                const slider19Min = 0;
+                const slider19Max = 100;
+                const slider19Value = 50;
+                const accelav ="{{car.transmission }}";
+                
+                if (accelav === "4WD" || accelav === "FWD") {
                     createSlider('slider19',slider19Value , slider19Min,slider19Max, 0.1 );
                     afficheSlider(slider19, 'min-value-acceleration-avant', 'max-value-acceleration-avant', slider19Min, slider19Max);
                 }
             
-                const decav ={{reglage.deceleration_avant_min|floatformat:0 }};
-                const slider20Min = {{ reglage.deceleration_avant_min|floatformat:0 }};
-                const slider20Max = {{ reglage.deceleration_avant_max|floatformat:0 }};
-                const slider20Value =(slider20Max + slider20Min) / 2
-                if ( decav!== 9999 ){
+               
+                const slider20Min = 0;
+                const slider20Max = 100;
+                const slider20Value = 50;
+                const deccav ="{{car.transmission }}";
+                if (deccav === "4WD" || deccav === "FWD") {
                   createSlider('slider20', slider20Value, slider20Min, slider20Max, 0.1 );
                   afficheSlider(slider20, 'min-value-deceleration-avant', 'max-value-deceleration-avant',slider20Min, slider20Max);
                 }
-                const freav ={{reglage.freinage_avant_min|floatformat:0  }};
-                const slider21Min = {{ reglage.freinage_avant_min|floatformat:0 }};
-                const slider21Max = {{ reglage.freinage_avant_max|floatformat:0 }};
-                const slider21Value = (slider21Max + slider21Min) / 2
-                if ( freav!== 9999 ){
+                
+                const slider21Min = 0;
+                const slider21Max = 100;
+                const slider21Value = 50;
+                if (deccav === "4WD" || deccav === "FWD") {
                   createSlider('slider21',slider21Value , slider21Min , slider21Max, 0.1);
                   afficheSlider(slider21, 'min-value-freinage-avant', 'max-value-freinage-avant', slider21Min, slider21Max);
                 }
-                const dispui ={{reglage.distribution_puissance_avant_arriere_min|floatformat:0 }};
-                const slider22Min =  {{ reglage.distribution_puissance_avant_arriere_min|floatformat:0 }};
-                const slider22Max =  {{ reglage.distribution_puissance_avant_arriere_max|floatformat:0 }};
-                const slider22Value = (slider22Max + slider22Min) / 2
-                if ( dispui!== 9999 ){
+                
+                const slider22Min =  0;
+                const slider22Max =  100;
+                const slider22Value = 50;
+                if (deccav === "4WD" ) {
                   createSlider('slider22',slider22Value , slider22Min,slider22Max, 0.1);
                   afficheSlider(slider22, 'min-value-distribution-avant-arriere', 'max-value-distribution-avant-arriere',  slider22Min, slider22Max);
                 }
-                const acav ={{reglage.acceleration_centrale_min|floatformat:0 }};
-                const slider23Min =  {{ reglage.acceleration_centrale_min|floatformat:0 }};
-                const slider23Max =  {{ reglage.acceleration_centrale_max|floatformat:0 }};
-                const slider23Value =  (slider23Max + slider23Min) / 2
-                if ( acav!== 9999 ){
+                
+                const slider23Min =  0;
+                const slider23Max =  100;
+                const slider23Value =  50;
+                if (deccav === "4WD" ) {
                   createSlider('slider23', slider23Value, slider23Min,  slider23Max, 0.1);
                   afficheSlider(slider23, 'min-value-acceleration-centrale', 'max-value-acceleration-centrale', slider23Min ,  slider23Max);
                 }
-                const decce ={{reglage.deceleration_centrale_min|floatformat:0}};
-                const slider24Min =  {{ reglage.deceleration_centrale_min|floatformat:0 }};
-                const slider24Max =  {{ reglage.deceleration_centrale_max|floatformat:0 }};
-                const slider24Value = (slider24Max + slider24Min) / 2;
-                if ( decce!== 9999 ){
+                
+                const slider24Min =  0;
+                const slider24Max =  100;
+                const slider24Value = 50;
+                if (deccav === "4WD" ) {
                   createSlider('slider24', slider24Value, slider24Min, slider24Max, 0.1 );
                   afficheSlider(slider24, 'min-value-deceleration-centrale', 'max-value-deceleration-centrale', slider24Min ,  slider24Max);
                 }
-                const frece = {{ reglage.freinage_centrale_min|floatformat:0 }};
-                const slider25Min =  {{ reglage.freinage_centrale_min|floatformat:0 }};
-                const slider25Max =  {{ reglage.freinage_centrale_max|floatformat:0 }};
-                const slider25Value =  (slider25Max + slider25Min) / 2;
-                if ( frece!== 9999 ){
+                
+                const slider25Min =  0;
+                const slider25Max =  100;
+                const slider25Value =  50;
+                if (deccav === "4WD" ) {
                   createSlider('slider25', slider25Value, slider25Min, slider25Max, 0.1 );
                   afficheSlider(slider25, 'min-value-freinage-centrale', 'max-value-freinage-centrale', slider25Min ,  slider25Max);
                 }
-                
+                if (deccav !== "FWD" ) {
                 createSlider('slider26', 50, 0,100, 0.1   );
                 afficheSlider(slider26, 'min-value-acceleration-arriere', 'max-value-acceleration-arriere', 0, 100);
-              
+                }
+                if (deccav !== "FWD" ) {
                 createSlider('slider27', 50,0,100, 0.1  );
                 afficheSlider(slider27, 'min-value-deceleration-arriere', 'max-value-deceleration-arriere',0,100  );
-                
+                }
+                if (deccav !== "FWD" ) {
                 createSlider('slider28', 50, 0,100, 0.1  );
                 afficheSlider(slider28, 'min-value-freinage-arriere', 'max-value-freinage-arriere', 0,100  );
-            
+                }
                 createSlider('slider29', 50, 0,100, 0.1  );
                 afficheSlider(slider29, 'min-value-durete-barre-antiroulis-avant', 'max-value-durete-barre-antiroulis-avant', 0,100  );
             
@@ -586,19 +632,19 @@
             
                 createSlider('slider32', 0, -6 , 3, 0.1  );
                 afficheSlider(slider32, 'min-value-angle-carrossage-avant', 'max-value-angle-carrossage-avant', -6 , 3  );
-                const prear ={{reglage.pression_pneus_arriere_min|floatformat:0 }};
-                const slider33Min =  {{ reglage.pression_pneus_arriere_min|floatformat:0 }};
-                const slider33Max =  {{ reglage.pression_pneus_arriere_max|floatformat:0 }};
-                const slider33Value =  (slider33Max + slider33Min) / 2;
-                if ( prear!== 9999 ){
+                
+                const slider33Min =  2;
+                const slider33Max =  6;
+                const slider33Value =  4;
+                if (deccav !== "4WD" ) {
                   createSlider('slider33', slider33Value, slider33Min, slider33Max );
                   afficheSlider(slider33, 'min-value-pression-pneus-arriere', 'max-value-pression-pneus-arriere', slider33Min, slider33Max );
                 }
-                const preav ={{reglage.pression_pneus_avant_min|floatformat:0 }};
-                const slider34Min =  {{ reglage.pression_pneus_avant_min|floatformat:0 }};
-                const slider34Max =  {{ reglage.pression_pneus_avant_max|floatformat:0 }};
-                const slider34Value = (slider34Max + slider34Min) / 2;
-                if ( preav!== 9999 ){
+                
+                const slider34Min =  2;
+                const slider34Max =  6;
+                const slider34Value = 4;
+                if (deccav !== "4WD" ) {
                   createSlider('slider34',slider34Value, slider34Min, slider34Max );
                   afficheSlider(slider34, 'min-value-pression-pneus-avant', 'max-value-pression-pneus-avant', slider34Min, slider34Max );
                 }
@@ -652,6 +698,8 @@
                   'slider35': 'repartiteur_freinage_avant',
                   'slider36': 'pression_freinage',
                   'slider37': 'huitieme_vitesse',
+                  'slider38': 'neuvieme_vitesse',
+                  'slider39': 'dixieme_vitesse',
                   // ... et ainsi de suite pour tous les autres sliders
                 };
             

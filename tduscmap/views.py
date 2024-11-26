@@ -283,7 +283,7 @@ def liste_reglages(request):
 @login_required
 def detail_reglage(request, pk):
     reglage = Reglage.objects.get(pk=pk)
-    print("image",reglage.configurationreglage.background)
+    
     nombre_likes = reglage.likes.count()
     if request.method == "POST":
         # Vérifier si l'utilisateur est authentifié
@@ -339,17 +339,15 @@ def choix_modele(request):
 
 
 def saisie_reglage(request, car_id):
-    try:
-        car = Car.objects.get(id=car_id)
-        configuration = ConfigurationReglage.objects.get(car=car)
-        reglage = ConfigurationReglage.objects.get(car_id=car_id)
-        initial_data = {
+    
+    car = Car.objects.get(id=car_id)
+    
+    initial_data = {
             "car": car,
             "user": request.user,
-            "configurationreglage": configuration,
+            
         }
-    except (Car.DoesNotExist, ConfigurationReglage.DoesNotExist):
-        return redirect("user_configurationreglage", car_id)
+   
     if request.method == "POST":
         form = ReglageForm(request.POST)
         print(request.POST)
@@ -359,7 +357,7 @@ def saisie_reglage(request, car_id):
             reglage = form.save(commit=False)
             reglage.car = car
             reglage.user = request.user
-            reglage.configurationreglage = configuration
+           
             reglage.save()
             return redirect("liste_reglages")
     else:
@@ -368,7 +366,7 @@ def saisie_reglage(request, car_id):
     return render(
         request,
         "tduscmap/reglage_form.html",
-        {"form": form, "car": car, "reglage": reglage},
+        {"form": form, "car": car},
     )
 
 

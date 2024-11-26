@@ -1,13 +1,13 @@
 // Initialisation de la carte Leaflet
 var map = L.map('map', {
     crs: L.CRS.Simple,
-    minZoom: -1,
-    maxZoom: 2,
+    minZoom: -2,
+    maxZoom: 1,
     attributionControl: false
 });
 
-var imageBounds = [[0, 0], [1571, 2069]];
-L.imageOverlay('/static/images/test2.png', imageBounds).addTo(map);
+var imageBounds = [[0, 0], [2160,3840]];
+L.imageOverlay('/static/images/CARTE_COMPLETE2.png', imageBounds).addTo(map);
 map.fitBounds(imageBounds);
 
 let isPlanningRoute = false;

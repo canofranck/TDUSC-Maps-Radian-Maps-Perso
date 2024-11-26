@@ -94,6 +94,8 @@ class Car(models.Model):
     )
     prix_initial = models.PositiveIntegerField(null=True)
 
+    nb_vitesse = models.IntegerField(default=6, validators=[MinValueValidator(1), MaxValueValidator(10)])
+
     def __str__(self):
         return f"{self.marque} {self.modele} ({self.annee})"
 
@@ -271,6 +273,12 @@ class Reglage(models.Model):
     huitieme_vitesse = models.DecimalField(
         max_digits=6, decimal_places=2, null=True, blank=True
     )
+    neuvieme_vitesse = models.DecimalField(
+        max_digits=6, decimal_places=2, null=True, blank=True
+    )
+    dixieme_vitesse = models.DecimalField(
+        max_digits=6, decimal_places=2, null=True, blank=True
+    )
 
     # Aérodynamisme
     appui_aerodynamique_avant = models.DecimalField(
@@ -425,3 +433,26 @@ class Trajet(models.Model):
 
     def __str__(self):
         return f"{self.nom} - {self.user.username}"
+
+
+# class MapElement(models.Model):
+#     CATEGORY_CHOICES = [
+#         ('solarCoins', 'Solar Coins'),
+#         ('clan', 'Clan'),
+#         ('reputation', 'Réputation'),
+#         ('epave', 'Épave'),
+#         ('epave2', 'Épave 2'),
+#         ('concessionaire', 'Concessionnaire'),
+#         ('station', 'Station'),
+#         ('atelier', 'Atelier'),
+#         ('rassemblement', 'Rassemblement'),
+#     ]
+
+#     district = models.IntegerField()  # Numéro de district (1 à 14)
+#     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)  # Catégorie principale
+#     sub_category = models.CharField(max_length=50, blank=True, null=True)  # Sous-catégorie pour les concessionnaires
+#     latitude = models.FloatField()  # Coordonnée latitude
+#     longitude = models.FloatField()  # Coordonnée longitude
+
+#     def __str__(self):
+#         return f"{self.nom or 'Élément'} - {self.category} ({self.latitude}, {self.longitude})"

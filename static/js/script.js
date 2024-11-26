@@ -5,8 +5,8 @@ var imageBounds = [[0, 0], [1571, 2069]];
 // Initialiser la carte Leaflet
 var map = L.map('map', {
     crs: L.CRS.Simple,
-    minZoom: -1,
-    maxZoom: 2,
+    minZoom: -2,
+    maxZoom: 1,
     attributionControl: false
 });
 

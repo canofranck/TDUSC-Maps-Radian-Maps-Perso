@@ -5,12 +5,12 @@ var friends = []; // Stocker les amis
 // Initialiser la carte Leaflet
 var map = L.map('map', {
     crs: L.CRS.Simple,
-    minZoom: -1,
-    maxZoom: 2,
+    minZoom: -2,
+    maxZoom: 1,
     attributionControl: false
 });
 
-var currentIconSize = [20, 20]; // Taille initiale de l'icône
+var currentIconSize = [100, 100]; // Taille initiale de l'icône
 
 var favoriteIcon = L.icon({
     iconUrl: '/static/images/favori.png',  // Remplace par le chemin de ton icône
@@ -24,9 +24,25 @@ var friendIcon = L.icon({
     iconAnchor: [currentIconSize[0] / 2, currentIconSize[1]],          // Point d'ancrage, ici au centre-bas de l'icône
     popupAnchor: [0, -currentIconSize[1]]          // Position du popup par rapport à l'icône
 });
-
+var rassemblement = L.layerGroup();
+var atelier = L.layerGroup();
+var station = L.layerGroup();
+var sharp = L.layerGroup();
+var solar = L.layerGroup();
+var sharp = L.layerGroup();
+var classic = L.layerGroup();
+var classic2 = L.layerGroup();
+var german = L.layerGroup();
+var german2 = L.layerGroup();
+var italian = L.layerGroup();
+var lamborghini = L.layerGroup();
+var luxury = L.layerGroup();
+var offroad = L.layerGroup();
+var street = L.layerGroup();
+var american = L.layerGroup();
+var american2 = L.layerGroup();
 // Ajouter l'image de la carte en superposition
-var imageUrl = '/static/images/CARTE_COMPLETE.png';
+var imageUrl = '/static/images/CARTE_COMPLETE3.png';
 L.imageOverlay(imageUrl, imageBounds).addTo(map);
 
 // Ajuster la vue de la carte pour qu'elle s'adapte à l'image
@@ -290,20 +306,20 @@ function addFavorite(lat, lng, description) {
 // Fonction pour mettre à jour la taille des icônes en fonction du zoom
 function updateIconSize() {
     const currentZoom = map.getZoom(); // Obtenir le niveau de zoom actuel
-    // console.log("Niveau de zoom actuel :", currentZoom);
+    console.log("Niveau de zoom actuel :", currentZoom);
     let newSize;
 
     // Définir la taille des icônes en fonction du zoom
     if (currentZoom >= 3) {
-        newSize = [60, 60];
+        newSize = [20, 20];
     } else if (currentZoom >= 2) {
         newSize = [40, 40];
     } else if (currentZoom >= 1) {
-        newSize = [24, 24];
+        newSize = [60, 60];
     } else if (currentZoom >= 0) {
-        newSize = [18, 18];
+        newSize = [100, 100];
     } else {
-        newSize = [10, 10];
+        newSize = [100, 100];
     }
 
     // Si la taille a changé, mettre à jour l'icône
@@ -340,4 +356,145 @@ function updateIconSize() {
       .catch(error => {
           console.error("Erreur lors de l'ajout de l'ami :", error);
       });
-  }
+}
+  
+
+function loadMarkers(district = "all") {
+    // Vider les groupes de couches avant de recharger les marqueurs
+    // rassemblement.clearLayers();
+    // atelier.clearLayers();
+    // station.clearLayers();
+    
+    // Objet pour stocker les comptes des collectibles par district
+    let collectiblesCount = {};
+    fetch('/static/mymap.json')
+        .then(response => response.json())
+        .then(data => {
+            let districtsData = district === "all" ? data.districts : { [district]: data.districts[district] };
+            
+            // Parcourir les objets dans chaque district
+            Object.keys(districtsData).forEach(districtKey => {
+                 // Initialiser les compteurs pour ce district
+                 collectiblesCount[districtKey] = {
+                    solarCoins: 0,
+                   
+                };
+                    districtsData[districtKey].forEach(function(item) {
+                    var lat = parseFloat(item.lat);
+                    var lng = parseFloat(item.lng);
+
+                    // Définir les icônes avec une taille réduite
+                    var icon = L.icon({
+                        iconUrl: getIconUrl(item.type),
+                        iconSize: [18, 18], // Taille de l'icône réduite
+                    });
+
+                    // Créer les marqueurs et les ajouter aux groupes correspondants
+                    var marker = L.marker([lat, lng], {icon: icon}).bindPopup(`District: ${district}`);
+
+                    switch(item.type) {
+                        case 'rassemblement':
+                            rassemblement.addLayer(marker);
+                            break;
+                        case 'atelier':
+                            atelier.addLayer(marker);
+                            break;
+                        case 'station':
+                            station.addLayer(marker);
+                            break;
+                        case 'solar':
+                            solar.addLayer(marker);
+                            break;
+                        case 'sharp':
+                            sharp.addLayer(marker);
+                            break;
+                        case 'classic':
+                            classic.addLayer(marker);
+                            break;
+                        case 'classic2':
+                            classic2.addLayer(marker);
+                            break;
+                        case 'german':
+                            german.addLayer(marker);
+                            break;
+                        case 'german2':
+                            german2.addLayer(marker);
+                            break;
+                        case 'italian':
+                            italian.addLayer(marker);
+                            break;
+                        case 'lamborghini':
+                            lamborghini.addLayer(marker);
+                            break;
+                        case 'luxury':
+                            luxury.addLayer(marker);
+                            break;
+                        case 'offroad':
+                            offroad.addLayer(marker);
+                            break;
+                        case 'street':
+                            street.addLayer(marker);
+                            break;
+                        case 'american':
+                            american.addLayer(marker);
+                            break;
+                    }
+                });
+            });
+
+            // Ajouter les couches à la carte
+            map.addLayer(rassemblement);
+            map.addLayer(station);
+            map.addLayer(atelier);
+            map.addLayer(solar);
+            map.addLayer(sharp);
+            map.addLayer(classic);
+            map.addLayer(classic2);
+            map.addLayer(german);
+            map.addLayer(german2);
+            map.addLayer(italian);
+            map.addLayer(lamborghini);
+            map.addLayer(luxury);
+            map.addLayer(offroad);
+            map.addLayer(street);
+            map.addLayer(american);
+            map.addLayer(american2);
+             // Afficher le compte des collectibles par district dans la console
+            //console.log("Comptage des collectibles par district :", collectiblesCount);
+             // Appeler la fonction pour ajuster les icônes après le chargement des marqueurs
+             updateIconSize();
+        })
+        
+        .catch(error => {
+            console.error("Erreur lors du chargement du fichier JSON :", error);
+        });
+}
+
+function getIconUrl(type) {
+    switch(type) {
+        case 'rassemblement': return '/static/images/rassemblement.png';
+        case 'atelier': return '/static/images/atelier.png';
+        case 'station': return '/static/images/station.png';
+        case 'solar': return '/static/images/solar.png';
+        case 'sharp': return '/static/images/sharp.png';
+        case 'classic': return '/static/images/classic.png';
+        case 'classic2': return '/static/images/classic2.png';
+        case 'german': return '/static/images/german.png';
+        case 'german2': return '/static/images/german2.png';
+        case 'italian': return '/static/images/italian.png';
+        case 'lamborghini': return '/static/images/lamborghini.png';
+        case 'luxury': return '/static/images/luxury.png';
+        case 'offroad': return '/static/images/offroad.png';
+        case 'street': return '/static/images/street.png';
+        case 'american': return '/static/images/american.png';
+        case 'american2': return '/static/images/american2.png';
+        default: return '/static/images/default.png';
+    }
+}
+// Fonction pour obtenir les coordonnées au clic
+map.on('click', function(e) {
+    var lat = e.latlng.lat;
+    var lng = e.latlng.lng;
+    console.log(`Coordonnées cliquées : (${lat}, ${lng})`);
+    
+});
