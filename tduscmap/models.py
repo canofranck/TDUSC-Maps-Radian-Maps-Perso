@@ -114,142 +114,149 @@ class CarPrice(models.Model):
         )
 
 
-class ConfigurationReglage(models.Model):
+# class ConfigurationReglage(models.Model):
 
-    car = models.ForeignKey(Car, on_delete=models.CASCADE)
-    # Champs spécifiques pour la configuration
-    rapport_final_min = models.DecimalField(
-        max_digits=5, decimal_places=2, null=True, blank=True
-    )
-    rapport_final_max = models.DecimalField(
-        max_digits=5, decimal_places=2, null=True, blank=True
-    )
-    premiere_vitesse_min = models.DecimalField(
-        max_digits=4, decimal_places=2, null=True, blank=True
-    )
-    premiere_vitesse_max = models.DecimalField(
-        max_digits=4, decimal_places=2, null=True, blank=True
-    )
-    deuxieme_vitesse_min = models.DecimalField(
-        max_digits=4, decimal_places=2, null=True, blank=True
-    )
-    deuxieme_vitesse_max = models.DecimalField(
-        max_digits=4, decimal_places=2, null=True, blank=True
-    )
-    troisieme_vitesse_min = models.DecimalField(
-        max_digits=6, decimal_places=2, null=True, blank=True
-    )
-    troisieme_vitesse_max = models.DecimalField(
-        max_digits=6, decimal_places=2, null=True, blank=True
-    )
-    quatrieme_vitesse_min = models.DecimalField(
-        max_digits=6, decimal_places=2, null=True, blank=True
-    )
-    quatrieme_vitesse_max = models.DecimalField(
-        max_digits=6, decimal_places=2, null=True, blank=True
-    )
-    cinquieme_vitesse_min = models.DecimalField(
-        max_digits=6, decimal_places=2, null=True, blank=True
-    )
-    cinquieme_vitesse_max = models.DecimalField(
-        max_digits=6, decimal_places=2, null=True, blank=True
-    )
-    sixieme_vitesse_min = models.DecimalField(
-        max_digits=6, decimal_places=2, null=True, blank=True
-    )
-    sixieme_vitesse_max = models.DecimalField(
-        max_digits=6, decimal_places=2, null=True, blank=True
-    )
-    septieme_vitesse_min = models.DecimalField(
-        max_digits=6, decimal_places=2, null=True, blank=True
-    )
-    septieme_vitesse_max = models.DecimalField(
-        max_digits=6, decimal_places=2, null=True, blank=True
-    )
-    huitieme_vitesse_min = models.DecimalField(
-        max_digits=6, decimal_places=2, null=True, blank=True
-    )
-    huitieme_vitesse_max = models.DecimalField(
-        max_digits=6, decimal_places=2, null=True, blank=True
-    )
-    taille_suspension_arriere_min = models.DecimalField(
-        max_digits=6, decimal_places=2, null=True, blank=True
-    )
-    taille_suspension_arriere_max = models.DecimalField(
-        max_digits=6, decimal_places=2, null=True, blank=True
-    )
-    taille_suspension_avant_min = models.DecimalField(
-        max_digits=6, decimal_places=2, null=True, blank=True
-    )
-    taille_suspension_avant_max = models.DecimalField(
-        max_digits=6, decimal_places=2, null=True, blank=True
-    )
-    acceleration_avant_min = models.DecimalField(
-        max_digits=6, decimal_places=2, null=True, blank=True
-    )
-    acceleration_avant_max = models.DecimalField(
-        max_digits=6, decimal_places=2, null=True, blank=True
-    )
-    deceleration_avant_min = models.DecimalField(
-        max_digits=6, decimal_places=2, null=True, blank=True
-    )
-    deceleration_avant_max = models.DecimalField(
-        max_digits=6, decimal_places=2, null=True, blank=True
-    )
-    freinage_avant_min = models.DecimalField(
-        max_digits=6, decimal_places=2, null=True, blank=True
-    )
-    freinage_avant_max = models.DecimalField(
-        max_digits=6, decimal_places=2, null=True, blank=True
-    )
-    distribution_puissance_avant_arriere_min = models.DecimalField(
-        max_digits=6, decimal_places=2, null=True, blank=True
-    )
-    distribution_puissance_avant_arriere_max = models.DecimalField(
-        max_digits=6, decimal_places=2, null=True, blank=True
-    )
-    acceleration_centrale_min = models.DecimalField(
-        max_digits=6, decimal_places=2, null=True, blank=True
-    )
-    acceleration_centrale_max = models.DecimalField(
-        max_digits=6, decimal_places=2, null=True, blank=True
-    )
-    deceleration_centrale_min = models.DecimalField(
-        max_digits=6, decimal_places=2, null=True, blank=True
-    )
-    deceleration_centrale_max = models.DecimalField(
-        max_digits=6, decimal_places=2, null=True, blank=True
-    )
-    freinage_centrale_min = models.DecimalField(
-        max_digits=6, decimal_places=2, null=True, blank=True
-    )
-    freinage_centrale_max = models.DecimalField(
-        max_digits=6, decimal_places=2, null=True, blank=True
-    )
-    pression_pneus_arriere_min = models.DecimalField(
-        max_digits=6, decimal_places=2, null=True, blank=True
-    )
-    pression_pneus_arriere_max = models.DecimalField(
-        max_digits=6, decimal_places=2, null=True, blank=True
-    )
-    pression_pneus_avant_min = models.DecimalField(
-        max_digits=6, decimal_places=2, null=True, blank=True
-    )
-    pression_pneus_avant_max = models.DecimalField(
-        max_digits=6, decimal_places=2, null=True, blank=True
-    )
-    background = models.CharField(max_length=50, default='default_background')
+#     car = models.ForeignKey(Car, on_delete=models.CASCADE)
+#     # Champs spécifiques pour la configuration
+#     rapport_final_min = models.DecimalField(
+#         max_digits=5, decimal_places=2, null=True, blank=True
+#     )
+#     rapport_final_max = models.DecimalField(
+#         max_digits=5, decimal_places=2, null=True, blank=True
+#     )
+#     premiere_vitesse_min = models.DecimalField(
+#         max_digits=4, decimal_places=2, null=True, blank=True
+#     )
+#     premiere_vitesse_max = models.DecimalField(
+#         max_digits=4, decimal_places=2, null=True, blank=True
+#     )
+#     deuxieme_vitesse_min = models.DecimalField(
+#         max_digits=4, decimal_places=2, null=True, blank=True
+#     )
+#     deuxieme_vitesse_max = models.DecimalField(
+#         max_digits=4, decimal_places=2, null=True, blank=True
+#     )
+#     troisieme_vitesse_min = models.DecimalField(
+#         max_digits=6, decimal_places=2, null=True, blank=True
+#     )
+#     troisieme_vitesse_max = models.DecimalField(
+#         max_digits=6, decimal_places=2, null=True, blank=True
+#     )
+#     quatrieme_vitesse_min = models.DecimalField(
+#         max_digits=6, decimal_places=2, null=True, blank=True
+#     )
+#     quatrieme_vitesse_max = models.DecimalField(
+#         max_digits=6, decimal_places=2, null=True, blank=True
+#     )
+#     cinquieme_vitesse_min = models.DecimalField(
+#         max_digits=6, decimal_places=2, null=True, blank=True
+#     )
+#     cinquieme_vitesse_max = models.DecimalField(
+#         max_digits=6, decimal_places=2, null=True, blank=True
+#     )
+#     sixieme_vitesse_min = models.DecimalField(
+#         max_digits=6, decimal_places=2, null=True, blank=True
+#     )
+#     sixieme_vitesse_max = models.DecimalField(
+#         max_digits=6, decimal_places=2, null=True, blank=True
+#     )
+#     septieme_vitesse_min = models.DecimalField(
+#         max_digits=6, decimal_places=2, null=True, blank=True
+#     )
+#     septieme_vitesse_max = models.DecimalField(
+#         max_digits=6, decimal_places=2, null=True, blank=True
+#     )
+#     huitieme_vitesse_min = models.DecimalField(
+#         max_digits=6, decimal_places=2, null=True, blank=True
+#     )
+#     huitieme_vitesse_max = models.DecimalField(
+#         max_digits=6, decimal_places=2, null=True, blank=True
+#     )
+#     taille_suspension_arriere_min = models.DecimalField(
+#         max_digits=6, decimal_places=2, null=True, blank=True
+#     )
+#     taille_suspension_arriere_max = models.DecimalField(
+#         max_digits=6, decimal_places=2, null=True, blank=True
+#     )
+#     taille_suspension_avant_min = models.DecimalField(
+#         max_digits=6, decimal_places=2, null=True, blank=True
+#     )
+#     taille_suspension_avant_max = models.DecimalField(
+#         max_digits=6, decimal_places=2, null=True, blank=True
+#     )
+#     acceleration_avant_min = models.DecimalField(
+#         max_digits=6, decimal_places=2, null=True, blank=True
+#     )
+#     acceleration_avant_max = models.DecimalField(
+#         max_digits=6, decimal_places=2, null=True, blank=True
+#     )
+#     deceleration_avant_min = models.DecimalField(
+#         max_digits=6, decimal_places=2, null=True, blank=True
+#     )
+#     deceleration_avant_max = models.DecimalField(
+#         max_digits=6, decimal_places=2, null=True, blank=True
+#     )
+#     freinage_avant_min = models.DecimalField(
+#         max_digits=6, decimal_places=2, null=True, blank=True
+#     )
+#     freinage_avant_max = models.DecimalField(
+#         max_digits=6, decimal_places=2, null=True, blank=True
+#     )
+#     distribution_puissance_avant_arriere_min = models.DecimalField(
+#         max_digits=6, decimal_places=2, null=True, blank=True
+#     )
+#     distribution_puissance_avant_arriere_max = models.DecimalField(
+#         max_digits=6, decimal_places=2, null=True, blank=True
+#     )
+#     acceleration_centrale_min = models.DecimalField(
+#         max_digits=6, decimal_places=2, null=True, blank=True
+#     )
+#     acceleration_centrale_max = models.DecimalField(
+#         max_digits=6, decimal_places=2, null=True, blank=True
+#     )
+#     deceleration_centrale_min = models.DecimalField(
+#         max_digits=6, decimal_places=2, null=True, blank=True
+#     )
+#     deceleration_centrale_max = models.DecimalField(
+#         max_digits=6, decimal_places=2, null=True, blank=True
+#     )
+#     freinage_centrale_min = models.DecimalField(
+#         max_digits=6, decimal_places=2, null=True, blank=True
+#     )
+#     freinage_centrale_max = models.DecimalField(
+#         max_digits=6, decimal_places=2, null=True, blank=True
+#     )
+#     pression_pneus_arriere_min = models.DecimalField(
+#         max_digits=6, decimal_places=2, null=True, blank=True
+#     )
+#     pression_pneus_arriere_max = models.DecimalField(
+#         max_digits=6, decimal_places=2, null=True, blank=True
+#     )
+#     pression_pneus_avant_min = models.DecimalField(
+#         max_digits=6, decimal_places=2, null=True, blank=True
+#     )
+#     pression_pneus_avant_max = models.DecimalField(
+#         max_digits=6, decimal_places=2, null=True, blank=True
+#     )
+#     background = models.CharField(max_length=50, default='default_background')
 
 
 class Reglage(models.Model):
     """Modèle pour stocker les réglages d'une voiture"""
-
+    pieces = [
+        ("Serie", "Serie"),
+        ("Performance", "Perfomance"),
+        ("Sport", "Sport"),
+        ("Super Sport", "Super Sport"),
+        ("Course", "Course"),
+         ]
     car = models.ForeignKey(Car, on_delete=models.CASCADE)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    description = models.TextField(blank=True)
-    configurationreglage = models.ForeignKey(
-        ConfigurationReglage, on_delete=models.CASCADE
-    )
+    description = models.TextField(default="exemple : pour circuit court avec de nombreux virage", blank=True)
+    pieces = models.CharField(max_length=15, choices=pieces)
+    # configurationreglage = models.ForeignKey(
+    #     ConfigurationReglage, on_delete=models.CASCADE
+    # )
     # vitesse
     # Boîte de vitesse
     rapport_final = models.DecimalField(max_digits=5, decimal_places=2)
@@ -356,14 +363,14 @@ class Reglage(models.Model):
         max_digits=6, decimal_places=2, null=True, blank=True
     )
     # differentiel_arriere
-    acceleration_arriere = models.IntegerField(
-        validators=[MinValueValidator(0), MaxValueValidator(100)]
+    acceleration_arriere =models.DecimalField(
+        max_digits=6, decimal_places=2, null=True, blank=True
     )
-    deceleration_arriere = models.IntegerField(
-        validators=[MinValueValidator(0), MaxValueValidator(100)]
+    deceleration_arriere = models.DecimalField(
+        max_digits=6, decimal_places=2, null=True, blank=True
     )
-    freinage_arriere = models.IntegerField(
-        validators=[MinValueValidator(0), MaxValueValidator(100)]
+    freinage_arriere = models.DecimalField(
+        max_digits=6, decimal_places=2, null=True, blank=True
     )
     # barre anti roulis
     durete_barre_antiroulis_avant = models.IntegerField(
@@ -399,12 +406,10 @@ class Reglage(models.Model):
         validators=[MinValueValidator(-1000), MaxValueValidator(1000)]
     )
     created_at = models.DateTimeField(auto_now_add=True)
+    background = models.CharField(max_length=50, default='default_background')
 
     def __str__(self):
         return f"Réglage de {self.user} pour {self.car}"
-
-    def get_configuration(self):
-        return ConfigurationReglage.objects.get(car=self.car)
 
 
 class Like(models.Model):
@@ -420,6 +425,7 @@ class Like(models.Model):
             "reglage",
             "user",
         )  # Ensure a user can only like a réglage once
+
 
 class Trajet(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="trajets")

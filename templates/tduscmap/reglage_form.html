@@ -47,8 +47,17 @@
     <form method="POST">
         {% csrf_token %}
         <p>Descritiption {{ form.description }}</p>
-    
+        <p>Pieces sur la voiture {{form.pieces}}</p>
         <body>
+            {% comment %} {% for field in form %}
+    <div>
+        {{ field.label }}: {{ field.errors }}
+        {{ field }}
+        {% if field.help_text %}
+            <small>{{ field.help_text }}</small>
+        {% endif %}
+    </div>
+{% endfor %} {% endcomment %}
             <div class="reglage">
                 <span>Vitesse</span>
                 <br>
@@ -209,7 +218,7 @@
             </div>
             <div class="reglage">
                 <span>Tenue de route</span>
-               <p> transimission {{ car.transmission}}</p>
+               <P>TRANSMISSION / {{car.transmission}}
                 {% if car.transmission == "4WD" or car.transmission == "FWD" %}
                     <br>
                     <span>Differentiel avant</span>
@@ -509,7 +518,7 @@
                 const slider11Max = 0.5;
                 const slider11Value = 0.2
                
-                createSlider('slider11', slider11Value,slider11Min ,slider11Max );
+                createSlider('slider11', slider11Value,slider11Min ,slider11Max , 0.01);
                 afficheSlider(slider11, 'min-value-taille-suspension-arriere', 'max-value-taille-suspension-arriere', slider11Min, slider11Max);
                 
                            
@@ -517,7 +526,7 @@
                 const slider12Max = 0.5;
                 const slider12Value = 0.2;
                 
-                createSlider('slider12', slider12Value, slider12Min ,slider12Max );
+                createSlider('slider12', slider12Value, slider12Min ,slider12Max , 0.01);
                 afficheSlider(slider12, 'min-value-taille-suspension-avant', 'max-value-taille-suspension-avant', slider12Min, slider12Max);
                 
             
@@ -609,17 +618,17 @@
                   createSlider('slider25', slider25Value, slider25Min, slider25Max, 0.1 );
                   afficheSlider(slider25, 'min-value-freinage-centrale', 'max-value-freinage-centrale', slider25Min ,  slider25Max);
                 }
-                if (deccav !== "FWD" ) {
-                createSlider('slider26', 50, 0,100, 0.1   );
-                afficheSlider(slider26, 'min-value-acceleration-arriere', 'max-value-acceleration-arriere', 0, 100);
+                if (deccav === "4WD" || deccav === "RWD" ) {
+                    createSlider('slider26', 50, 0,100, 0.1   );
+                    afficheSlider(slider26, 'min-value-acceleration-arriere', 'max-value-acceleration-arriere', 0, 100);
                 }
-                if (deccav !== "FWD" ) {
-                createSlider('slider27', 50,0,100, 0.1  );
-                afficheSlider(slider27, 'min-value-deceleration-arriere', 'max-value-deceleration-arriere',0,100  );
+                if (deccav === "4WD" || deccav === "RWD" ) {
+                    createSlider('slider27', 50,0,100, 0.1  );
+                    afficheSlider(slider27, 'min-value-deceleration-arriere', 'max-value-deceleration-arriere',0,100  );
                 }
-                if (deccav !== "FWD" ) {
-                createSlider('slider28', 50, 0,100, 0.1  );
-                afficheSlider(slider28, 'min-value-freinage-arriere', 'max-value-freinage-arriere', 0,100  );
+                if (deccav === "4WD" || deccav === "RWD" ) {
+                    createSlider('slider28', 50, 0,100, 0.1  );
+                    afficheSlider(slider28, 'min-value-freinage-arriere', 'max-value-freinage-arriere', 0,100  );
                 }
                 createSlider('slider29', 50, 0,100, 0.1  );
                 afficheSlider(slider29, 'min-value-durete-barre-antiroulis-avant', 'max-value-durete-barre-antiroulis-avant', 0,100  );

@@ -1,6 +1,6 @@
 // Définir les dimensions de l'image (en coordonnées simples)
 var imageBounds = [[0, 0], [2160,3840]];
-var showFavorites = true; // État pour savoir si les favoris sont affichés
+let showFavorites = true; // État pour savoir si les favoris sont affichés
 var friends = []; // Stocker les amis
 // Initialiser la carte Leaflet
 var map = L.map('map', {
@@ -10,7 +10,7 @@ var map = L.map('map', {
     attributionControl: false
 });
 
-var currentIconSize = [40, 40]; // Taille initiale de l'icône
+var currentIconSize = [25, 25]; // Taille initiale de l'icône
 
 var favoriteIcon = L.icon({
     iconUrl: '/static/images/favori.png',  // Remplace par le chemin de ton icône
@@ -24,6 +24,7 @@ var friendIcon = L.icon({
     iconAnchor: [currentIconSize[0] / 2, currentIconSize[1]],          // Point d'ancrage, ici au centre-bas de l'icône
     popupAnchor: [0, -currentIconSize[1]]          // Position du popup par rapport à l'icône
 });
+
 var rassemblement = L.layerGroup();
 var atelier = L.layerGroup();
 var station = L.layerGroup();
@@ -124,17 +125,8 @@ document.addEventListener('DOMContentLoaded', loadFriends);
 
    
 
-    // Écouter le clic sur le bouton pour afficher/cacher les favoris
-    document.getElementById('toggleMarkers').addEventListener('click', function() {
-        showFavorites = !showFavorites; // Alterner l'état
-        favoris.eachLayer(layer => {
-            if (showFavorites) {
-                layer.addTo(map); // Ajouter les favoris à la carte
-            } else {
-                map.removeLayer(layer); // Retirer les favoris de la carte
-            }
-        });
-    });
+
+
 
     
 // Écouter le changement du sélecteur d'amis
@@ -655,3 +647,144 @@ function getIconUrl(type) {
 //     console.log(`Coordonnées cliquées : (${lat}, ${lng})`);
     
 // });
+
+// Bouton pour tout afficher ou tout cacher
+document.getElementById('toggle-all').onclick = function() {
+    if (map.hasLayer(rassemblement) || map.hasLayer(station) || map.hasLayer(atelier) || map.hasLayer(solar) || map.hasLayer(sharp)|| map.hasLayer(classic)) {
+        map.removeLayer(rassemblement);
+        map.removeLayer(station);
+        map.removeLayer(atelier);
+        map.removeLayer(solar);
+        map.removeLayer(sharp);
+        map.removeLayer(classic);
+        map.removeLayer(classic2);
+        map.removeLayer(german);
+        map.removeLayer(german2);
+        map.removeLayer(italian);
+        map.removeLayer(lamborghini);
+        map.removeLayer(luxury);
+        map.removeLayer(offroad);
+        map.removeLayer(street);
+        map.removeLayer(american);
+        map.removeLayer(american2);
+        map.removeLayer(asian);
+       
+        map.removeLayer(british);
+        map.removeLayer(british2);
+        map.removeLayer(ferrari);
+        } else {
+        map.addLayer(rassemblement);
+        map.addLayer(station);
+        map.addLayer(atelier);
+        map.addLayer(solar);
+        map.addLayer(sharp);
+        map.addLayer(classic);
+        map.addLayer(classic2);
+        map.addLayer(german);
+        map.addLayer(german2);
+        map.addLayer(italian);
+        map.addLayer(lamborghini);
+        map.addLayer(luxury);
+        map.addLayer(offroad);
+        map.addLayer(street);
+        map.addLayer(american);
+        map.addLayer(american2);
+        map.addLayer(asian);
+       
+        map.addLayer(british);
+        map.addLayer(british2);
+        map.addLayer(ferrari);
+           }
+};
+document.getElementById('togglerassemblement').onclick = function () {
+    if (map.hasLayer(rassemblement)) {
+        map.removeLayer(rassemblement);
+    } else {
+        map.addLayer(rassemblement);
+    }
+};
+document.getElementById('togglestation').onclick = function () {
+    if (map.hasLayer(station)) {
+        map.removeLayer(station);
+    } else {
+        map.addLayer(station);
+    }
+};
+document.getElementById('togglesatelier').onclick = function () {
+    if (map.hasLayer(atelier)) {
+        map.removeLayer(atelier);
+    } else {
+        map.addLayer(atelier);
+    }
+};
+document.getElementById('togglesconcession').onclick = function () {
+    if (map.hasLayer(classic) || map.hasLayer(classic2) ||  map.hasLayer(german)  || map.hasLayer(italian) || map.hasLayer(lamborghini) ) {
+        map.removeLayer(classic);
+        map.removeLayer(classic2);
+        map.removeLayer(german);
+        map.removeLayer(german2);
+        map.removeLayer(italian);
+        map.removeLayer(lamborghini);
+        map.removeLayer(luxury);
+        map.removeLayer(offroad);
+        map.removeLayer(street);
+        map.removeLayer(american);
+        map.removeLayer(american2);
+        map.removeLayer(asian);
+        map.removeLayer(british);
+        map.removeLayer(british2);
+        map.removeLayer(ferrari);
+        map.removeLayer(sharp);
+                
+    } else {
+        map.addLayer(classic);
+        map.addLayer(classic2);
+        map.addLayer(german);
+        map.addLayer(german2);
+        map.addLayer(italian);
+        map.addLayer(lamborghini);
+        map.addLayer(luxury);
+        map.addLayer(offroad);
+        map.addLayer(street);
+        map.addLayer(american);
+        map.addLayer(american2);
+        map.addLayer(asian);
+        map.addLayer(british);
+        map.addLayer(british2);
+        map.addLayer(ferrari);
+        map.addLayer(sharp);
+             
+    }
+};
+document.getElementById('togglesclan').onclick = function () {
+    if (map.hasLayer(sharp)|| map.hasLayer(street)) {
+        map.removeLayer(sharp);
+        map.removeLayer(street);
+    } else {
+        map.addLayer(street);
+        map.addLayer(sharp);
+    }
+};
+document.getElementById('togglessolar').onclick = function () {
+    if (map.hasLayer(solar)) {
+        map.removeLayer(solar);
+    } else {
+        map.addLayer(solar);
+    }
+};
+document.getElementById('toggleMarkers').onclick = function () {
+    
+    showFavorites = !showFavorites; // Inverse la valeur de showFavorites
+  
+    if (showFavorites) {
+      // Charger les marqueurs des favoris
+      loadMarkers2();
+    } else {
+      // Retirer les marqueurs des favoris de la carte
+      map.eachLayer(layer => {
+        if (layer instanceof L.Marker && layer.options.icon === favoriteIcon) {
+          map.removeLayer(layer);
+        }
+      });
+    }
+  };

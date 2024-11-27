@@ -265,36 +265,40 @@
                 <div id="slider24" class="slider"></div>
                 <span class="slider-value" id="max-value-deceleration-centrale"></span>
             </div>
-            {%endif%} {% if reglage.freinage_central != 9999 %}
-            <div class="slider-container">
-                <span class="slider-label">Freinage central :</span>
-                <span class="slider-value" id="min-value-freinage-centrale"></span>
-                <div id="slider25" class="slider"></div>
-                <span class="slider-value" id="max-value-freinage-centrale"></span>
-            </div>
-            {%endif%} {% if reglage.differentiel_arriere != 9999 %}
-            <span>Differentiel arriere</span>
+            {%endif%} 
+            {% if reglage.freinage_central != 9999 %}
+              <div class="slider-container">
+                  <span class="slider-label">Freinage central :</span>
+                  <span class="slider-value" id="min-value-freinage-centrale"></span>
+                  <div id="slider25" class="slider"></div>
+                  <span class="slider-value" id="max-value-freinage-centrale"></span>
+              </div>
+            {%endif%}
+            {% if reglage.acceleration_arriere != 9999 %}
+              <span>Differentiel arriere</span>
 
-            <div class="slider-container">
+              <div class="slider-container">
                 <span class="slider-label">Acceleration arriere :</span>
                 <span class="slider-value" id="min-value-acceleration-arriere"></span>
                 <div id="slider26" class="slider"></div>
                 <span class="slider-value" id="max-value-acceleration-arriere"></span>
-            </div>
-            {%endif%} {% if reglage.decceleration_arriere != 9999 %}
-            <div class="slider-container">
-                <span class="slider-label">deceleration arriere :</span>
-                <span class="slider-value" id="min-value-deceleration-arriere"></span>
-                <div id="slider27" class="slider"></div>
-                <span class="slider-value" id="max-value-deceleration-arriere"></span>
-            </div>
-            {%endif%} {% if reglage.freinage_arriere != 9999 %}
-            <div class="slider-container">
-                <span class="slider-label">Freinage arriere :</span>
-                <span class="slider-value" id="min-value-freinage-arriere"></span>
-                <div id="slider28" class="slider"></div>
-                <span class="slider-value" id="max-value-freinage-arriere"></span>
-            </div>
+              </div>
+            {%endif%}
+            {% if reglage.deceleration_arriere != 9999 %}
+              <div class="slider-container">
+                  <span class="slider-label">deceleration arriere :</span>
+                  <span class="slider-value" id="min-value-deceleration-arriere"></span>
+                  <div id="slider27" class="slider"></div>
+                  <span class="slider-value" id="max-value-deceleration-arriere"></span>
+              </div>
+            {%endif%} 
+            {% if reglage.freinage_arriere != 9999 %}
+              <div class="slider-container">
+                  <span class="slider-label">Freinage arriere :</span>
+                  <span class="slider-value" id="min-value-freinage-arriere"></span>
+                  <div id="slider28" class="slider"></div>
+                  <span class="slider-value" id="max-value-freinage-arriere"></span>
+              </div>
             {%endif%}
             <span>Barre anti roulis</span>
 

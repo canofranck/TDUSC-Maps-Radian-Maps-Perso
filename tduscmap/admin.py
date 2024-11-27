@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Car, CarPrice, Reglage, Like, ConfigurationReglage, CustomUser
+from .models import Car, CarPrice, Reglage, Like,  CustomUser
 from django.core.exceptions import ValidationError
 from django.forms import ModelForm
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
@@ -44,13 +44,13 @@ class ReglageAdminForm(ModelForm):
     def save(self, commit=True):
         instance = super().save(commit=False)
 
-        if instance.car:
-            configuration, created = (
-                ConfigurationReglage.objects.get_or_create(car=instance.car)
-            )
-            instance.configurationreglage = configuration
-        else:
-            raise ValidationError("La voiture doit être sélectionnée.")
+        # if instance.car:
+        #     configuration, created = (
+        #         ConfigurationReglage.objects.get_or_create(car=instance.car)
+        #     )
+        #     instance.configurationreglage = configuration
+        # else:
+        #     raise ValidationError("La voiture doit être sélectionnée.")
 
         if commit:
             instance.save()
@@ -146,7 +146,7 @@ class ReglageAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
-        return queryset.select_related("car", "configurationreglage")
+        return queryset.select_related("car")
 
 
 @admin.register(Like)
@@ -154,15 +154,15 @@ class LikeAdmin(admin.ModelAdmin):
     list_display = ("reglage", "user", "created_at")
 
 
-@admin.register(ConfigurationReglage)
-class ConfigurationReglageAdmin(admin.ModelAdmin):
-    list_display = (
-        "car",
-        "rapport_final_min",
-        "rapport_final_max",
-        "background",
-    )  # Champs à afficher dans la liste
-    search_fields = ["car"]  # Champs pour la recherche
+# @admin.register(ConfigurationReglage)
+# class ConfigurationReglageAdmin(admin.ModelAdmin):
+#     list_display = (
+#         "car",
+#         "rapport_final_min",
+#         "rapport_final_max",
+#         "background",
+#     )  # Champs à afficher dans la liste
+#     search_fields = ["car"]  # Champs pour la recherche
 
 
 class UserAdmin(admin.ModelAdmin):
