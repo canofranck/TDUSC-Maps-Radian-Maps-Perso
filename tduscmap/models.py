@@ -252,16 +252,16 @@ class Reglage(models.Model):
          ]
     car = models.ForeignKey(Car, on_delete=models.CASCADE)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    description = models.TextField(default="exemple : pour circuit court avec de nombreux virage", blank=True)
+    description = models.TextField(blank=True, null=True)
     pieces = models.CharField(max_length=15, choices=pieces)
     # configurationreglage = models.ForeignKey(
     #     ConfigurationReglage, on_delete=models.CASCADE
     # )
     # vitesse
     # Boîte de vitesse
-    rapport_final = models.DecimalField(max_digits=5, decimal_places=2)
-    premiere_vitesse = models.DecimalField(max_digits=4, decimal_places=2)
-    deuxieme_vitesse = models.DecimalField(max_digits=4, decimal_places=2)
+    rapport_final = models.DecimalField(max_digits=6, decimal_places=2)
+    premiere_vitesse = models.DecimalField(max_digits=6, decimal_places=2)
+    deuxieme_vitesse = models.DecimalField(max_digits=6, decimal_places=2)
     troisieme_vitesse = models.DecimalField(
         max_digits=6, decimal_places=2, null=True, blank=True
     )
@@ -363,7 +363,7 @@ class Reglage(models.Model):
         max_digits=6, decimal_places=2, null=True, blank=True
     )
     # differentiel_arriere
-    acceleration_arriere =models.DecimalField(
+    acceleration_arriere = models.DecimalField(
         max_digits=6, decimal_places=2, null=True, blank=True
     )
     deceleration_arriere = models.DecimalField(

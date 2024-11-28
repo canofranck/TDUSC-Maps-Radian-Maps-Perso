@@ -362,8 +362,9 @@ def saisie_reglage(request, car_id):
    
     if request.method == "POST":
         form = ReglageForm(request.POST)
-        print(request.POST)
+        # (request.POST)
         if form.is_valid():
+            # print(request.POST)
             # Comme les champs exclus ne sont pas dans le formulaire,
             # on les ajoute manuellement à l'instance avant de l'enregistrer
             reglage = form.save(commit=False)
@@ -372,9 +373,11 @@ def saisie_reglage(request, car_id):
             reglage.background = 'default_background'
             reglage.save()
             return redirect("liste_reglages")
+        else:
+            print(form.errors)  # For debugging purposes
     else:
         form = ReglageForm(initial=initial_data)
-        print(form.errors)
+        # print(form.errors)
     return render(
         request,
         "tduscmap/reglage_form.html",
@@ -462,7 +465,7 @@ def supprimer_reglage(request, id):
 @csrf_exempt
 def save_trajet(request):
     if request.method == "POST":
-        print("Requête POST reçue")
+        # print("Requête POST reçue")
         data = json.loads(request.body)
         user = request.user  # Utilisateur connecté
 
@@ -487,10 +490,10 @@ def save_trajet(request):
                 arrivee_lat=arrivee_lat,
                 arrivee_lng=arrivee_lng
             )
-            print("Trajet sauvegardé :", trajet) 
+            # print("Trajet sauvegardé :", trajet) 
             return JsonResponse({"success": True, "message": "Trajet sauvegardé avec succès.", "trajet_id": trajet.id})
         except KeyError:
-            print("Erreur dans les données :", e)
+            # print("Erreur dans les données :", e)
             return JsonResponse({"success": False, "message": "Données manquantes."}, status=400)
     return JsonResponse({"success": False, "message": "Méthode non autorisée."}, status=405)
 
@@ -509,7 +512,7 @@ def myiti(request):
         trajet_id = request.GET['trajet']
         if trajet_id:
             selected_trajet = get_object_or_404(Trajet, id=trajet_id, user=request.user)
-    print(f"Trajets trouvés : {trajets}")  # Ajoute cette ligne pour vérifier
+    # print(f"Trajets trouvés : {trajets}")  # Ajoute cette ligne pour vérifier
     return render(request, 'tduscmap/mes_iti.html', {
         'trajets': trajets,
         'selected_trajet': selected_trajet
@@ -587,10 +590,10 @@ def telecharger(request):
     Vue permettant de télécharger le fichier 'test.rar'.
     Accessible uniquement par les administrateurs.
     """
-    print("je suis dans tele")
+    # print("je suis dans tele")
     PROJECT_ROOT = Path(__file__).resolve().parent.parent 
     chemin_fichier = os.path.join(PROJECT_ROOT, 'db.sqlite3')  
-    print(f"Chemin du fichier : {chemin_fichier}")  # Vérifiez dans la console
+    # print(f"Chemin du fichier : {chemin_fichier}")  # Vérifiez dans la console
     if os.path.exists(chemin_fichier):
         return FileResponse(open(chemin_fichier, 'rb'), as_attachment=True, filename='db.sqlite3')
     return HttpResponse("Fichier non trouvé", status=404)
