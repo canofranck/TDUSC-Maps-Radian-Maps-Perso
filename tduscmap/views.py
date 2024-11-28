@@ -225,61 +225,72 @@ def car_prices_view(request):
 
 @login_required
 def liste_reglages(request):
-    reglages = (
-        Reglage.objects.all()
-        .annotate(like_count=Count("likes"))
-        .prefetch_related(Prefetch("car"))
-    )
-
-    # Construire la requête en fonction des critères de recherche
-    query = Q()
+    
+    # Récupérer les filtres de la requête
+    piece = request.GET.get("piece")
     marque = request.GET.get("marque")
     modele = request.GET.get("modele")
+    order_by = request.GET.get("order_by", "-created_at")
+    pieces = Reglage.objects.values_list('pieces', flat=True).distinct()
+    # Construire la requête initiale
+    reglages = Reglage.objects.all().annotate(like_count=Count("likes")).prefetch_related(Prefetch("car"))
+
+    # Appliquer les filtres
+    if piece:
+        reglages = reglages.filter(pieces=piece)
     if marque:
-        query &= Q(car__marque__icontains=marque)
+        reglages = reglages.filter(car__marque=marque)
     if modele:
-        query &= Q(car__modele__icontains=modele)
-    reglages = reglages.filter(query)
+        reglages = reglages.filter(car__modele=modele)
+    # Vérifier si le tri se fait sur le nombre de likes
+    if order_by.startswith('like_count'):
+        # Si le tri se fait sur les likes, on vérifie si c'est croissant ou décroissant
+        if order_by.startswith('-'):
+            reglages = reglages.order_by('-like_count')
+        else:
+            reglages = reglages.order_by('like_count')
+    else:
+        reglages = reglages.order_by(order_by)
 
-    # Trier les résultats
-    order_by = request.GET.get(
-        "order_by", "-like_count"
-    )  # Permet de trier par d'autres champs
-    reglages = reglages.order_by(order_by)
-
-    # Récupérer les marques et modèles distincts à partir du prefetch
+    # Récupérer les marques et modèles distincts
     marques = Car.objects.values_list("marque", flat=True).distinct()
     modeles = Car.objects.values_list("modele", flat=True).distinct()
+    # Filtrer par marque
+    marque = request.GET.get("marque")
+    if marque:
+        reglages = reglages.filter(car__marque=marque)
 
+    # Filtrer par modèle (if marque is already filtered, filter within those marques)
+    modele = request.GET.get("modele")
+    if modele:
+        if marque:
+            reglages = reglages.filter(car__modele=modele)
+        else:
+            reglages = reglages.filter(car__modele=modele)
     # Pagination
-    limit = int(request.GET.get("limit", 5))  # Valeur par défaut 10
-    paginator = Paginator(reglages, limit)  # 25 résultats par page
+    limit = int(request.GET.get("limit", 10))
+    paginator = Paginator(reglages, limit)
     page = request.GET.get("page")
     try:
         reglages = paginator.page(page)
     except PageNotAnInteger:
-        # Si la page n'est pas un entier, renvoyer la première page
         reglages = paginator.page(1)
     except EmptyPage:
-        # Si la page est hors limites (trop élevée), renvoyer la dernière page
         reglages = paginator.page(paginator.num_pages)
 
-    page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page_number)
-
-    return render(
-        request,
-        "tduscmap/liste_reglages.html",
-        {
-            "reglages": page_obj,
-            "marques": marques,
-            "modeles": modeles,
-            "paginator": paginator,
-            "page": page_number,
-            "limit": limit,
-        },
-    )
-
+    return render(request, "tduscmap/liste_reglages.html", {
+        "reglages": reglages,
+        "marques": marques,
+        "modeles": modeles,
+        "paginator": paginator,
+        "page": page,
+        "limit": limit,
+        "pieces": pieces,
+        "piece": piece,  # Passer les filtres à la template pour les afficher dans les formulaires
+        "marque": marque,
+        "modele": modele,
+        "order_by": order_by,
+    })
 
 @login_required
 def detail_reglage(request, pk):
@@ -330,7 +341,7 @@ def choix_modele(request):
     else:
         form = ChoixModeleForm()
         # Récupérer tous les modèles de voitures distincts
-        modeles = Car.objects.values_list("modele", flat=True).distinct()
+        modeles = Car.objects.values_list('marque', 'modele')
         
         return render(
             request,
@@ -601,9 +612,9 @@ class TrajetSerializer(serializers.ModelSerializer):
         except (TypeError, json.JSONDecodeError):
             return []
 
-# class TrajetDetailView(APIView):
-#     def get(self, request, pk):
-#         trajet = get_object_or_404(Trajet, pk=pk)
-#         serializer = TrajetSerializer(trajet)
-#         return Response(serializer.data)
-    
+def ibiza(request):
+    return render(
+        request,
+        "tduscmap/ibiza_eivissa.html",
+    )
+ 

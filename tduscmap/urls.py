@@ -97,6 +97,7 @@ urlpatterns = [
     path('delete-trajet/<int:trajet_id>/', tduscmap.views.supprimer_trajet, name='delete_trajet'),
     path('telecharger/', tduscmap.views.telecharger, name='telecharger'),
     path('credits/', tduscmap.views.credits, name='credits'),
+    path('ibiza/', tduscmap.views.ibiza, name='ibiza'),
 ]  
 if settings.DEBUG:
     urlpatterns += static(

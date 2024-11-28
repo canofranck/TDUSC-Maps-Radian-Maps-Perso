@@ -8,8 +8,8 @@
     <form method="post">
         {% csrf_token %}
         <select class="my-select" name="modele">
-            {% for modele in modeles %}
-                <option value="{{ modele }}">{{ modele }}</option>
+            {% for marque, modele in modeles %}
+                <option value="{{ modele }}">{{ marque }} - {{ modele }}</option>
             {% endfor %}
         </select>
         <button class="col-1 btn btn-secondary ms-1"type="submit">Valider</button>

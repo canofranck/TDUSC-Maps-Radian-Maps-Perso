@@ -22,7 +22,7 @@
 
 <h6>Liste de tout les réglages , ou faites un tri par :</h6>
 
-<form method="get" data-url="{% url 'liste_reglages' %}" id="reglages-form">
+<form method="get" data-url="{% url 'liste_reglages' %}" id="reglages-form"action="{% url 'liste_reglages' %}">
     <label for="marque">Marque:</label>
     <select  class="my-select" name="marque" id="marque">
         <option value="">Toutes les marques</option>
@@ -42,13 +42,28 @@
     <form method="get">
         <label for="limit">Éléments par page:</label>
         <select class="my-select" name="limit" id="limit">
-            <option value="5">5</option>
             <option value="10">10</option>
             <option value="15">15</option>
+            <option value="20">20</option>
             <option value="25">25</option>
             <option value="30">30</option>
         </select>
+        <label for="piece">Type de Pièces:</label>
+        <select class="my-select" name="piece" id="piece">
+            <option value="">Toutes les pièces</option>
+            {% for piece in pieces %}
+            <option value="{{ piece }}">{{ piece }}</option>
+            {% endfor %}
+        </select>
         <button class="col-1 btn btn-secondary ms-1" type="submit">Appliquer</button>
+        <div class="button-container">
+        <button class="custom-button" type="submit" name="order_by" value="-created_at">Trier par date +</button>
+        <button class="custom-button" type="submit" name="order_by" value="created_at">Trier par date -</button>
+        <button class="custom-button" type="submit" name="order_by" value="-like_count">Trier par likes +</button>
+        <button class="custom-button" type="submit" name="order_by" value="like_count">Trier par likes -</button>
+        </div>
+    
+
     </form>
 
 <h6>Liste des réglages</h6>

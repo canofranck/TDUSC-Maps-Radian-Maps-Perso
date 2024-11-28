@@ -1,30 +1,11 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Season 2, a partir du 24 décembre 2024</title>
-    <meta name="description" content="Maps interactive Test Drive Unlimited Solar Crown">
-    <meta name="keywords" content="tdusc, maps tdusc, tdusc maps, interactive maps tdusc, maps interactive tdusc, solarscoins tdusc, reputation tudsc, tresor tdusc, epaves tdusc, clan tdsusc, coins de réputation, coins de clan, guide, soluce">
-    <link rel="stylesheet" href="styles.css" type="text/css">
-    <!-- Inclure le CSS de Leaflet -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <link rel="icon" type="image/png" href="favicon.png">
-</head>
+{% extends 'base.html' %}
+{% block content %}
 
-
-<body>
-<h1 id="footer">Bienvenue a Ibiza, eivissa </h1>
-
-<p>Rappel l'ile d'Ibiza dans TDU 2</p>
-
-<img id="banner" src="ibiza.png" alt="Maps Ibiza" />
-
-<p>Eivissa sur Ibiza disponnible a partir du 24 décembre 2024</p>
-
-<img id="banner" src="eivissa.png" alt="Maps Ibiza" />
-
-<h3>Maps interactive pour Eivissa sur Ibiza tres prochainement</h3>
+{% load static %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
+<link rel="stylesheet" href="{% static 'stylesmymaps.css' %}" type="text/css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <style>
     .video-container {
         display: flex;
@@ -38,7 +19,39 @@
         height: 315px; /* Hauteur de la vidéo */
     }
 </style>
-<p>Plus d'info sur Ibiza et le contenu a venir </p>
+
+<h1 id="footer">Bienvenue a Ibiza, eivissa </h1>
+
+<p>Rappel l'ile d'Ibiza dans TDU 2</p>
+
+<img id="test" src="{% static 'images/mapibizatdu.jpg' %}" alt="Maps Ibiza" width="1400">
+
+
+
+<h3>Maps interactive pour Eivissa sur Ibiza tres prochainement</h3>
+<!-- Div où la carte va être affichée -->
+<div id="container">
+    <div id="menu">
+        <button id="toggle-all" class="menu-btn" data-fr="Afficher/Cacher tout" data-en="Show/Hide All">Afficher/Cacher tout</button>
+        <button id="toggleMarkers" class="menu-btn" data-fr="Afficher/Cacher Favoris" data-en="Show/Hide All">Afficher/CacherFavoris</button>
+        <button id="togglerassemblement" class="menu-btn" data-fr="Afficher/Cacher rassemblement" data-en="Show/Hide All">Afficher/Cacher Rassemblement</button>
+        <button id="togglestation" class="menu-btn" data-fr="Afficher/Cacher station" data-en="Show/Hide All">Afficher/Cacher Station</button>
+        <button id="togglesatelier" class="menu-btn" data-fr="Afficher/Cacher atelier" data-en="Show/Hide All">Afficher/Cacher Atelier</button>
+        <button id="togglesconcession" class="menu-btn" data-fr="Afficher/Cacher concession" data-en="Show/Hide All">Afficher/Cacher Concession</button>
+        <button id="togglesclan" class="menu-btn" data-fr="Afficher/Cacher clan" data-en="Show/Hide All">Afficher/Cacher Clan</button>
+        <button id="togglessolar" class="menu-btn" data-fr="Afficher/Cacher solar" data-en="Show/Hide All">Afficher/Cacher Solar hotel</button>
+        <select id="friendSelect" class="menu-btn">
+            <option value="">Choisir un ami</option>
+            <!-- Options pour les amis seront ajoutées ici dynamiquement -->
+        </select>
+     
+    </div>
+    <div id="map"></div>
+    
+</div>
+
+<p>Video pour rappel ou decouvrir Ibiza</p>
+
 <div class="video-container">
     <iframe width="560" height="315" 
         src="https://www.youtube.com/embed/yQtXg3o5QFE?start=9" 
@@ -48,4 +61,7 @@
         allowfullscreen>
     </iframe>
 </div>
-</body>
+<script src="{% static 'js/map.js' %}"></script>
+<script src="{% static 'js/mapibiza.js' %}"></script>
+
+{% endblock content %}
