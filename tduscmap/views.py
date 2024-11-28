@@ -611,7 +611,7 @@ class TrajetSerializer(serializers.ModelSerializer):
             return json.loads(obj.etapes)  # Convertir en tableau Python
         except (TypeError, json.JSONDecodeError):
             return []
-
+@login_required
 def ibiza(request):
     return render(
         request,
