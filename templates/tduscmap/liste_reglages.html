@@ -23,7 +23,7 @@
 
 
 <h6>Liste de tous les réglages ou appliquez un tri :</h6>
-<form method="get" action="{% url 'liste_reglages' %}">
+<form method="get" action="{% url 'liste_reglages' %}" class="form-container">
     <label for="marque">Marque:</label>
     <select class="my-select" name="marque" id="marque">
         <option value="">Toutes les marques</option>
@@ -63,13 +63,13 @@
     </select>
 
     <button class="col-1 btn btn-secondary ms-1" type="submit">Appliquer</button>
-
+</form>
 <input  type="hidden" name="marque" value="{{ request.GET.marque }}">
         <input  type="hidden" name="modele" value="{{ request.GET.modele }}">
         <input  type="hidden" name="piece" value="{{ request.GET.piece }}">
         <input  type="hidden" name="limit" value="{{ request.GET.limit }}">
 <!-- Boutons de tri -->
-
+<form method="get" action="{% url 'liste_reglages' %}" class="form-container">
 <div class="button-container">
     
     <button class="custom-button" type="submit" name="order_by" value="-created_at">Trier par date +</button>
