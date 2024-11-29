@@ -20,14 +20,17 @@
         </div>
     </div>
 
-<h6>Liste de tout les réglages , ou faites un tri par :</h6>
 
-<form method="get" data-url="{% url 'liste_reglages' %}" id="reglages-form"action="{% url 'liste_reglages' %}">
+
+<h6>Liste de tous les réglages ou appliquez un tri :</h6>
+<form method="get" action="{% url 'liste_reglages' %}">
     <label for="marque">Marque:</label>
-    <select  class="my-select" name="marque" id="marque">
+    <select class="my-select" name="marque" id="marque">
         <option value="">Toutes les marques</option>
         {% for marque in marques %}
-            <option value="{{ marque }}">{{ marque }}</option>
+            <option value="{{ marque }}" {% if marque == request.GET.marque %}selected{% endif %}>
+                {{ marque }}
+            </option>
         {% endfor %}
     </select>
 
@@ -35,36 +38,48 @@
     <select class="my-select" name="modele" id="modele">
         <option value="">Tous les modèles</option>
         {% for modele in modeles %}
-            <option value="{{ modele }}">{{ modele }}</option>
+            <option value="{{ modele }}" {% if modele == request.GET.modele %}selected{% endif %}>
+                {{ modele }}
+            </option>
         {% endfor %}
     </select>
 
-    <form method="get">
-        <label for="limit">Éléments par page:</label>
-        <select class="my-select" name="limit" id="limit">
-            <option value="10">10</option>
-            <option value="15">15</option>
-            <option value="20">20</option>
-            <option value="25">25</option>
-            <option value="30">30</option>
-        </select>
-        <label for="piece">Type de Pièces:</label>
-        <select class="my-select" name="piece" id="piece">
-            <option value="">Toutes les pièces</option>
-            {% for piece in pieces %}
-            <option value="{{ piece }}">{{ piece }}</option>
-            {% endfor %}
-        </select>
-        <button class="col-1 btn btn-secondary ms-1" type="submit">Appliquer</button>
-        <div class="button-container">
-        <button class="custom-button" type="submit" name="order_by" value="-created_at">Trier par date +</button>
+    <label for="piece">Type de Pièces:</label>
+    <select class="my-select" name="piece" id="piece">
+        <option value="">Toutes les pièces</option>
+        {% for p in pieces %}
+            <option value="{{ p }}" {% if p == request.GET.piece %}selected{% endif %}>
+                {{ p }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <label for="limit">Éléments par page:</label>
+    <select class="my-select" name="limit" id="limit">
+        <option value="10" {% if request.GET.limit == "10" %}selected{% endif %}>10</option>
+        <option value="15" {% if request.GET.limit == "15" %}selected{% endif %}>15</option>
+        <option value="20" {% if request.GET.limit == "20" %}selected{% endif %}>20</option>
+        <option value="25" {% if request.GET.limit == "25" %}selected{% endif %}>25</option>
+    </select>
+
+    <button class="col-1 btn btn-secondary ms-1" type="submit">Appliquer</button>
+
+<input  type="hidden" name="marque" value="{{ request.GET.marque }}">
+        <input  type="hidden" name="modele" value="{{ request.GET.modele }}">
+        <input  type="hidden" name="piece" value="{{ request.GET.piece }}">
+        <input  type="hidden" name="limit" value="{{ request.GET.limit }}">
+<!-- Boutons de tri -->
+
+<div class="button-container">
+    
+    <button class="custom-button" type="submit" name="order_by" value="-created_at">Trier par date +</button>
         <button class="custom-button" type="submit" name="order_by" value="created_at">Trier par date -</button>
         <button class="custom-button" type="submit" name="order_by" value="-like_count">Trier par likes +</button>
         <button class="custom-button" type="submit" name="order_by" value="like_count">Trier par likes -</button>
-        </div>
     
+</div>
+</form>
 
-    </form>
 
 <h6>Liste des réglages</h6>
 

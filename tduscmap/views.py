@@ -223,54 +223,47 @@ def car_prices_view(request):
     return render(request, "tduscmap/car_prices.html", context)
 
 
+from django.db.models import Count, Prefetch
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+
 @login_required
 def liste_reglages(request):
-    
     # Récupérer les filtres de la requête
-    piece = request.GET.get("piece")
-    marque = request.GET.get("marque")
-    modele = request.GET.get("modele")
+    piece = request.GET.get("piece", "").strip()  # Supprimer les espaces inutiles
+    marque = request.GET.get("marque", "").strip()
+    modele = request.GET.get("modele", "").strip()
     order_by = request.GET.get("order_by", "-created_at")
+    limit = request.GET.get("limit", "10").strip()
+
+    # Validation de la limite pour éviter les erreurs
+    try:
+        limit = int(limit) if limit.isdigit() else 10
+    except ValueError:
+        limit = 10
+
+    # Obtenir la liste des pièces
     pieces = Reglage.objects.values_list('pieces', flat=True).distinct()
+
     # Construire la requête initiale
     reglages = Reglage.objects.all().annotate(like_count=Count("likes")).prefetch_related(Prefetch("car"))
 
-    # Appliquer les filtres
+    # Appliquer les filtres (seulement si des valeurs sont données)
     if piece:
         reglages = reglages.filter(pieces=piece)
     if marque:
         reglages = reglages.filter(car__marque=marque)
     if modele:
         reglages = reglages.filter(car__modele=modele)
-    # Vérifier si le tri se fait sur le nombre de likes
-    if order_by.startswith('like_count'):
-        # Si le tri se fait sur les likes, on vérifie si c'est croissant ou décroissant
-        if order_by.startswith('-'):
-            reglages = reglages.order_by('-like_count')
-        else:
-            reglages = reglages.order_by('like_count')
+
+    # Appliquer le tri
+    if order_by.startswith("like_count"):
+        reglages = reglages.order_by(order_by)
     else:
         reglages = reglages.order_by(order_by)
 
-    # Récupérer les marques et modèles distincts
-    marques = Car.objects.values_list("marque", flat=True).distinct()
-    modeles = Car.objects.values_list("modele", flat=True).distinct()
-    # Filtrer par marque
-    marque = request.GET.get("marque")
-    if marque:
-        reglages = reglages.filter(car__marque=marque)
-
-    # Filtrer par modèle (if marque is already filtered, filter within those marques)
-    modele = request.GET.get("modele")
-    if modele:
-        if marque:
-            reglages = reglages.filter(car__modele=modele)
-        else:
-            reglages = reglages.filter(car__modele=modele)
     # Pagination
-    limit = int(request.GET.get("limit", 10))
     paginator = Paginator(reglages, limit)
-    page = request.GET.get("page")
+    page = request.GET.get("page", 1)
     try:
         reglages = paginator.page(page)
     except PageNotAnInteger:
@@ -278,6 +271,11 @@ def liste_reglages(request):
     except EmptyPage:
         reglages = paginator.page(paginator.num_pages)
 
+    # Obtenir les marques et modèles distincts
+    marques = Car.objects.values_list("marque", flat=True).distinct()
+    modeles = Car.objects.values_list("modele", flat=True).distinct()
+
+    # Rendu du template avec les données
     return render(request, "tduscmap/liste_reglages.html", {
         "reglages": reglages,
         "marques": marques,
@@ -286,11 +284,13 @@ def liste_reglages(request):
         "page": page,
         "limit": limit,
         "pieces": pieces,
-        "piece": piece,  # Passer les filtres à la template pour les afficher dans les formulaires
+        "piece": piece,
         "marque": marque,
         "modele": modele,
         "order_by": order_by,
     })
+
+
 
 @login_required
 def detail_reglage(request, pk):
