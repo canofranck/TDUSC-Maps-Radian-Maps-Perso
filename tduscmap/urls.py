@@ -98,6 +98,7 @@ urlpatterns = [
     path('telecharger/', tduscmap.views.telecharger, name='telecharger'),
     path('credits/', tduscmap.views.credits, name='credits'),
     path('ibiza/', tduscmap.views.ibiza, name='ibiza'),
+    path('changer-langue/', tduscmap.views.changer_langue, name='changer_langue'),
 ]  
 if settings.DEBUG:
     urlpatterns += static(

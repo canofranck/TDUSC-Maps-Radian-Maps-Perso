@@ -223,9 +223,6 @@ def car_prices_view(request):
     return render(request, "tduscmap/car_prices.html", context)
 
 
-from django.db.models import Count, Prefetch
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-
 @login_required
 def liste_reglages(request):
     # Récupérer les filtres de la requête
@@ -422,6 +419,7 @@ def modifier_reglages(request, id):
         {"form": form,  "reglage": reglage}
     )
 
+
 def mes_reglages(request):
     # Récupérer les réglages de l'utilisateur connecté
     reglages = Reglage.objects.filter(user=request.user)
@@ -502,6 +500,7 @@ def liste_trajets(request):
     trajets = Trajet.objects.filter(user=request.user)
     serializer = TrajetSerializer(trajets, many=True)  # many=True for multiple trajets
     return JsonResponse(serializer.data, safe=False)
+
 
 @login_required
 def myiti(request):
@@ -598,6 +597,7 @@ def telecharger(request):
         return FileResponse(open(chemin_fichier, 'rb'), as_attachment=True, filename='db.sqlite3')
     return HttpResponse("Fichier non trouvé", status=404)
 
+
 def credits(request):
     return render(
         request,
@@ -609,15 +609,25 @@ class TrajetSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trajet
         fields = '__all__'  # Ou spécifiez les champs à inclure
+
     def get_etapes(self, obj):
         try:
             return json.loads(obj.etapes)  # Convertir en tableau Python
         except (TypeError, json.JSONDecodeError):
             return []
+
+
 @login_required
 def ibiza(request):
     return render(
         request,
         "tduscmap/ibiza_eivissa.html",
     )
- 
+
+
+def changer_langue(request):
+    nouvelle_langue = request.GET.get('langue')  # 'fr' ou 'en'
+    if nouvelle_langue in ['fr', 'en']:
+        request.session['langue'] = nouvelle_langue
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+

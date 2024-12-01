@@ -17,10 +17,19 @@
     <!-- Sélecteur de langue -->
     <div id="menu">
        
-                    
-        <button id="toggle-all" class="menu-btn" data-fr="Afficher/Cacher tout" data-en="Show/Hide All">Afficher/Cacher tout</button>
-            <select id="district-select" class="menu-btn"style="appearance: auto;">
+        {% if request.session.langue == 'fr' %}            
+            <button id="toggle-all" class="menu-btn" data-fr="Afficher/Cacher tout" data-en="Show/Hide All">Afficher/Cacher tout</button>
+        {% else %}
+            <button id="toggle-all" class="menu-btn" data-fr="Afficher/Cacher tout" data-en="Show/Hide All">Show/Hide all</button>
+        {% endif %} 
+           
+        <select id="district-select" class="menu-btn"style="appearance: auto;">
+         
+        {% if request.session.langue == 'fr' %}     
             <option value="all">Sélection du district:</option>
+        {% else %} 
+            <option value="all">District selection:</option>  
+        {% endif %}     
             <option value="1">District 1</option>
             <option value="2">District 2</option>
             <option value="3">District 3</option>
@@ -45,22 +54,53 @@
         <button id="toggle-clan" class="menu-btn">
             <img src="{% static 'images/clan.png' %}" alt="Clan"> Clan
         </button>
+        {% if request.session.langue == 'fr' %}   
+            <button id="toggle-tresor" class="menu-btn">
+                <img src="{% static 'images/tresor.png' %}" alt="Trésor"> Trésor
+            </button>
+        {% else %} 
         <button id="toggle-tresor" class="menu-btn">
-            <img src="{% static 'images/tresor.png' %}" alt="Trésor"> Trésor
-        </button>
-        <button id="toggle-epaves" class="menu-btn">
-            <img src="{% static 'images/epaves.png' %}" alt="Épaves"> Épaves Beetle Buggy
-        </button>
-        <button id="toggle-epaves2" class="menu-btn">
-            <img src="{% static 'images/epaves2.png' %}" alt="Épaves"> Épaves Mercedes 300SL
-        </button>
-        
-        <p>Liens</p>
-        <button id="toggle-tutoepaves" class="menu-btn">
-            <img src="{% static 'images/epaves.png' %}" alt="Tuto Épaves"> Tuto vidéo des épaves
-        </button>
+            <img src="{% static 'images/tresor.png' %}" alt="Trésor"> treasure
+        </button> 
+        {% endif %}  
+        {% if request.session.langue == 'fr' %}      
+            <button id="toggle-epaves" class="menu-btn">
+                <img src="{% static 'images/epaves.png' %}" alt="Épaves"> Épaves Beetle Buggy
+            </button>
+        {% else %} 
+            <button id="toggle-epaves" class="menu-btn">
+                <img src="{% static 'images/epaves.png' %}" alt="Épaves"> Beetle Buggy wrecks
+            </button>
+        {% endif %} 
+        {% if request.session.langue == 'fr' %}  
+            <button id="toggle-epaves2" class="menu-btn">
+                <img src="{% static 'images/epaves2.png' %}" alt="Épaves"> Épaves Mercedes 300SL
+            </button>
+        {% else %}
+            <button id="toggle-epaves2" class="menu-btn">
+                <img src="{% static 'images/epaves2.png' %}" alt="Épaves"> Mercedes 300SL Wrecks
+            </button>
+        {% endif %} 
+        {% if request.session.langue == 'fr' %}  
+            <p>Liens</p>
+        {% else %}
+            <p>Links</p>
+        {% endif %} 
+        {% if request.session.langue == 'fr' %} 
+            <button id="toggle-tutoepaves" class="menu-btn">
+                <img src="{% static 'images/epaves.png' %}" alt="Tuto Épaves"> Tuto vidéo des épaves
+            </button>
+        {% else %}
+            <button id="toggle-tutoepaves" class="menu-btn">
+                <img src="{% static 'images/epaves.png' %}" alt="Tuto Épaves"> Video tutorial on wrecks
+            </button>
+        {% endif %} 
         <select id="districtvideo-select" class="menu-btn">
-            <option value="">Sélectionner le tuto vidéo</option>
+            {% if request.session.langue == 'fr' %} 
+                <option value="">Sélectionner le tuto vidéo</option>
+            {% else %}
+                <option value="">Select the video tutorial</option>
+            {% endif %} 
             <option value="district1">District 1</option>
             <option value="district2">District 2</option>
             <option value="district3">District 3</option>

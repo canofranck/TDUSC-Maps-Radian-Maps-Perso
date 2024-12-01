@@ -15,7 +15,11 @@
       <nav class="navbar navbar-expand-lg navbar-dark custom-navbar" role="navigation" aria-label="Navigation principale">
         <div class="container-fluid">
             <a class="navbar-brand" role="navigation" aria-label="Retour page d accueil" href="{% url 'home' %}">TDUSC MAPS</a>
+            {% if request.session.langue == 'fr' %}
             <a> Bienvenue &nbsp;   </a>{{ request.user }}
+            {% else %}
+            <a> Welcome &nbsp;   </a>{{ request.user }}
+            {% endif %}
             <a class="justify-content-center collapse navbar-collapse" role="navigation" aria-label="Retour page d'accueil"></a>
           
           
@@ -25,26 +29,47 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
+                      {% if request.session.langue == 'fr' %}
                         <a class="nav-link" href="{% url 'home' %}">Accueil</a>
-                        
+                        {% else %}
+                        <a class="nav-link" href="{% url 'home' %}">Home</a>
+                        {% endif %}
                     </li>
+                    {% if request.session.langue == 'fr' %}
                     <li class="nav-item"><a class="nav-link" href="{% url 'mymaps' %}">Ma carte</a></li>
+                    {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'mymaps' %}">My Maps</a></li>
+                    {% endif %}
+                    {% if request.session.langue == 'fr' %}
                     <li class="nav-item"><a class="nav-link" href="{% url 'liste_reglages' %}">Reglages</a></li>
+                    {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'liste_reglages' %}">Settings</a></li>
+                    {% endif %}
+                    {% if request.session.langue == 'fr' %}
                     <li class="nav-item"><a class="nav-link" href="{% url 'car_select' %}">Historique prix Cars</a></li>
-                    
-                    
-                    
+                    {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'car_select' %}">Cars price history</a></li>
+                    {% endif %}
                     <li class="nav-item"><a class="nav-link" href="{% url 'ibiza' %}">Map Ibiza</a></li>
                     <li class="nav-item"><a class="nav-link" href="">Clan</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'credits' %}">Credits</a></li>
                     {% if user.is_authenticated %}
-                    <li class="nav-item">
-                      <a class="nav-link" href="{% url 'logout' %}">Se déconnecter</a>
-                  </li>
+                      <li class="nav-item">
+                        {% if request.session.langue == 'fr' %}
+                        <a class="nav-link" href="{% url 'logout' %}">Se déconnecter</a>
+                        {% else %}
+                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                        {% endif %}
+                     </li>
                     {% else %}
-                    <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Se connecter</a></li>
+                      {% if request.session.langue == 'fr' %}
+                      <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Se connecter/s'enregistrer</a></li>
+                      {% else %}
+                      <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login/Register</a></li>
+                      {% endif %}
                     {% endif %}
-                    
+                    <a class="nav-link" href="{% url 'changer_langue' %}?langue=fr">Fr</a> _
+                    <a class="nav-link" href="{% url 'changer_langue' %}?langue=en">E</a>  
                 </ul>
                 
             </div>
