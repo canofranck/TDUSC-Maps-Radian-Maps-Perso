@@ -1,41 +1,78 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+
 {% block content %}
   <div class="white-background">
     <div class="px-5 py-2 container border border-2 border-dark rounded-4">
 
       <div class="row justify-content-center">
         <div class="row py-4 text-center px-5">
-          <h1>Bienvenue dans la Communauté TDUSC</h1>
+          {% if request.session.langue == 'fr' %}
+            <h1>Bienvenue dans la Communauté TDUSC</h1>
+          {% else %}  
+            <h1>Welcome to the TDUSC Community</h1>
+          {% endif %}
         </div>
-        <h6> Pourquoi une inscription ???</h6>
-        <h6> Cela permets en plus de la carte interactive :</h6>
-        <h6> - Une carte ou vous pouvez placer autant de points Favoris avec une descrpition</h6>
-        <h6>   Ajouter des amis et voir leurs points favoris</h6>
-        <h6> - Une carte pour creer des Trajets avec autant d'étapes que voulu</h6>
-        <h6>   Voir les trajets de vos amis</h6>
-        <h6> - Créer et voir des reglages de voitures des autres utilisateurs , par marque et/ou modeles</h6>
-        <h6> - Un historique des prix depuis le debut du jeux par modèle</h6>
-        <h6> Bref c est Gratuit et sans avoir à entrer d info perso( le mail doit juste respecter le format sinon vous pouvez mettre une adresse bidon)</h6>
-        <a>Si le site vous plait et que vous souhaitez contribué à l achat d un nom de domaine + serveur , c est par ici </a>
+        {% if request.session.langue == 'fr' %}
+          <h6> Pourquoi une inscription ???</h6>
+          <h6> Cela permets en plus de la carte interactive :</h6>
+          <h6> - Une carte ou vous pouvez placer autant de points Favoris avec une descrpition</h6>
+          <h6>   Ajouter des amis et voir leurs points favoris</h6>
+          <h6> - Une carte pour creer des Trajets avec autant d'étapes que voulu</h6>
+          <h6>   Voir les trajets de vos amis</h6>
+          <h6> - Créer et voir des reglages de voitures des autres utilisateurs , par marque et/ou modeles</h6>
+          <h6> - Un historique des prix depuis le debut du jeux par modèle</h6>
+          <h6> Bref c est Gratuit et sans avoir à entrer d info perso( le mail doit juste respecter le format sinon vous pouvez mettre une adresse bidon)</h6>
+          <a>Si le site vous plait et que vous souhaitez contribué à l achat d un nom de domaine + serveur , c est par ici </a>
+        {% else %}
+        
+          <h6>Why register?</h6>
+          <h6>In addition to the interactive map:</h6>
+          <h6>- A map where you can place as many Favourite points with a descrpition</h6>
+          <h6>Add friends and see their favourite points</h6>
+          <h6>- A map where you can create routes with as many stages as you like</h6>
+          <h6>View your friends' journeys</h6>
+          <h6>- Create and view other users' car settings, by make and/or model</h6>
+          <h6>- A history of prices since the start of the game by model</h6>
+          <h6>In short, it's free and you don't have to enter any personal information (the email just has to respect the format, otherwise you can use a bogus address).</h6>
+          <h6>If you like the site and would like to contribute to the purchase of a domain name + server, it's this way </h6>
+        {% endif %}
         <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support me on Ko-fi', '#72a4f2', 'W7W316BLDV');kofiwidget2.draw();</script> 
         <div class="col-md-6">
           <div class="inscription text-center">
-            <h2>Inscrivez-vous maintenant</h2>
-            <a class="col-2 btn btn-outline-secondary" href="{% url 'signup' %}"
-            >S'inscrire</a
-              >
-            </div>
+            {% if request.session.langue == 'fr' %}
+              <h2>Inscrivez-vous maintenant</h2>
+            {% else %}
+              <h2>Register now</h2>
+            {% endif %}
+            {% if request.session.langue == 'fr' %}
+                <a class="col-2 btn btn-outline-secondary" href="{% url 'signup' %}"
+                      >S'inscrire</a>
+            {% else %}
+                <a class="col-2 btn btn-outline-secondary" href="{% url 'signup' %}"
+                          >Register</a>
+            {% endif %}
           </div>
-          <div class="col-md-6">
+        </div>
+        <div class="col-md-6">
             <div class="connexion text-center">
-              <h2>Connectez-vous</h2>
+              {% if request.session.langue == 'fr' %}
+                <h2>Connectez-vous</h2>
+              {% else %}  
+                <h2>Log on </h2>
+              {% endif %}
               <form class="row pt-1 pb-3 justify-content-end" method="post">
                 {% csrf_token %}
                 {{ form|crispy }}
-                <button class="col-3 btn btn-outline-secondary" type="submit">
-                  Se connecter
-                </button>
+                {% if request.session.langue == 'fr' %}
+                  <button class="col-3 btn btn-outline-secondary" type="submit">
+                    Se connecter
+                  </button>
+                {% else %}  
+                  <button class="col-3 btn btn-outline-secondary" type="submit">
+                    Sign in
+                  </button>
+                {% endif %}
               </form>
             </div>
           </div>

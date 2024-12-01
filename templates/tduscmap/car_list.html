@@ -13,10 +13,18 @@
           {% endfor %}
         </select>
         {% csrf_token %}
-        <button type="submit" >Voir l'historique des prix</button>
+        {% if request.session.langue == 'fr' %}
+            <button type="submit" >Voir l'historique des prix</button>
+        {% else %}
+            <button type="submit" >View price history</button>  
+        {% endif %}
       </form>
-      {% if car_selected %}
-      <h1>Historique des Prix de {{ car_selected }}</h1>
+        {% if car_selected %}
+            {% if request.session.langue == 'fr' %}
+                <h1>Historique des Prix de {{ car_selected }}</h1>
+            {% else %}
+                <h1>Historique des Prix de {{ car_selected }}</h1>
+            {% endif %}
       <canvas id="priceChart" style="width: 40%;"></canvas>
   
       <script>
