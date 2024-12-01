@@ -1,0 +1,4 @@
+{% if request.session.langue == 'fr' %}
+
+{% else %} 
+{% endif %}

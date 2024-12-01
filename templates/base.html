@@ -43,7 +43,7 @@
                     {% if request.session.langue == 'fr' %}
                     <li class="nav-item"><a class="nav-link" href="{% url 'liste_reglages' %}">Reglages</a></li>
                     {% else %}
-                    <li class="nav-item"><a class="nav-link" href="{% url 'liste_reglages' %}">Settings</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'liste_reglages' %}">Tuning settings</a></li>
                     {% endif %}
                     {% if request.session.langue == 'fr' %}
                     <li class="nav-item"><a class="nav-link" href="{% url 'car_select' %}">Historique prix Cars</a></li>
