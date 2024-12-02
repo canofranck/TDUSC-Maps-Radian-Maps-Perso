@@ -6,78 +6,149 @@
 <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
 <link rel="stylesheet" href="{% static 'stylesmymaps.css' %}" type="text/css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-
-<div >
-    
+{% if request.session.langue == 'fr' %}
     <div >
-        <!-- Début du conteneur avec fond blanc -->
-          <div class="white-background">
-           
-            <div class="row justify-content-center py-2">
-              <a
-                class="col-3 btn btn-outline-secondary me-3" class="menu-btn"
-                 href="{% url 'mymaps' %}" 
-              >ma carte</a>
-              <a
-                class="col-3 btn btn-outline-secondary ms-3"
-                href="{% url 'myiti' %}" 
-              >Mes iti</a
-                >
-            </div>
-        </div>
-   
-    <h1 id="footer">Ma carte</h1>
-    
-    
-    <!-- Formulaire de recherche -->
-    <form id="searchForm" method="GET" action="{% url 'search_friends' %}">
-        <input type="text" id="searchInput" name="search" placeholder="Rechercher un utilisateur">
-        <button type="submit class="menu-btn"">Rechercher</button>
-    </form>
-    
-    <!-- Zone des résultats de recherche -->
-    <div id="searchResults"></div>
-    
-    <!-- Div où la carte va être affichée -->
-    <div id="container">
-        <div id="menu">
-            <button id="toggle-all" class="menu-btn" data-fr="Afficher/Cacher tout" data-en="Show/Hide All">Afficher/Cacher tout</button>
-            
-            <button id="togglerassemblement" class="menu-btn" data-fr="Afficher/Cacher rassemblement" data-en="Show/Hide All">Afficher/Cacher Rassemblement</button>
-            <button id="togglestation" class="menu-btn" data-fr="Afficher/Cacher station" data-en="Show/Hide All">Afficher/Cacher Station</button>
-            <button id="togglesatelier" class="menu-btn" data-fr="Afficher/Cacher atelier" data-en="Show/Hide All">Afficher/Cacher Atelier</button>
-            <button id="togglesconcession" class="menu-btn" data-fr="Afficher/Cacher concession" data-en="Show/Hide All">Afficher/Cacher Concession</button>
-            <button id="togglesclan" class="menu-btn" data-fr="Afficher/Cacher clan" data-en="Show/Hide All">Afficher/Cacher Clan</button>
-            <button id="togglessolar" class="menu-btn" data-fr="Afficher/Cacher solar" data-en="Show/Hide All">Afficher/Cacher Solar hotel</button>
-            <select id="friendSelect" class="menu-btn">
-                <option value="">Choisir un ami</option>
-                <!-- Options pour les amis seront ajoutées ici dynamiquement -->
-            </select>
-         
-        </div>
-        <div id="map"></div>
         
-    </div>
-    <div class="container text-center px-5">
-    <h9>Usage : Click gauche sur la carte pour ajouter un favori et une description</h9>
-    </br>
-    <h9>        click droit supprimer un favori , click gauche sur un favori affiche la description </h9>
-    </br>
-    <h9>        Bouton recherche pour ajouter un ami et le select affiche les favoris de l'ami selectionner </h9>
-    </br>
-</div>
+        <div >
+            <!-- Début du conteneur avec fond blanc -->
+            <div class="white-background">
+            
+                <div class="row justify-content-center py-2">
+                <a
+                    class="col-3 btn btn-outline-secondary me-3" class="menu-btn"
+                    href="{% url 'mymaps' %}" 
+                >ma carte</a>
+                <a
+                    class="col-3 btn btn-outline-secondary ms-3"
+                    href="{% url 'myiti' %}" 
+                >Mes itinéraires</a
+                    >
+                </div>
+            </div>
     
-</br>
-    <footer>
-        <div class="container2">
-            <p>By <a href="https://www.youtube.com/@fcr_77" target="_blank">FCR</a> Septembre 2024</p>
-            <a href="https://www.mon-compteur.fr">
-                <img src="https://www.mon-compteur.fr/html_c01genv2-242818-3" alt="compteur" border="0" />
-            </a><br>
+        <h1 id="footer">Ma carte</h1>
+        
+        
+        <!-- Formulaire de recherche -->
+        <form id="searchForm" method="GET" action="{% url 'search_friends' %}">
+            <input type="text" id="searchInput" name="search" placeholder="Rechercher un utilisateur">
+            <button type="submit class="menu-btn"">Rechercher</button>
+        </form>
+        
+        <!-- Zone des résultats de recherche -->
+        <div id="searchResults"></div>
+        
+        <!-- Div où la carte va être affichée -->
+        <div id="container">
+            <div id="menu">
+                <button id="toggle-all" class="menu-btn" data-fr="Afficher/Cacher tout" data-en="Show/Hide All">Afficher/Cacher tout</button>
+                
+                <button id="togglerassemblement" class="menu-btn" data-fr="Afficher/Cacher rassemblement" data-en="Show/Hide All">Afficher/Cacher Rassemblement</button>
+                <button id="togglestation" class="menu-btn" data-fr="Afficher/Cacher station" data-en="Show/Hide All">Afficher/Cacher Station</button>
+                <button id="togglesatelier" class="menu-btn" data-fr="Afficher/Cacher atelier" data-en="Show/Hide All">Afficher/Cacher Atelier</button>
+                <button id="togglesconcession" class="menu-btn" data-fr="Afficher/Cacher concession" data-en="Show/Hide All">Afficher/Cacher Concession</button>
+                <button id="togglesclan" class="menu-btn" data-fr="Afficher/Cacher clan" data-en="Show/Hide All">Afficher/Cacher Clan</button>
+                <button id="togglessolar" class="menu-btn" data-fr="Afficher/Cacher solar" data-en="Show/Hide All">Afficher/Cacher Solar hotel</button>
+                <select id="friendSelect" class="menu-btn">
+                    <option value="">Choisir un ami</option>
+                    <!-- Options pour les amis seront ajoutées ici dynamiquement -->
+                </select>
+            
+            </div>
+            <div id="map"></div>
+            
         </div>
-    </footer>  
-</div>
+        <div class="container text-center px-5">
+        <h9>Usage : Click gauche sur la carte pour ajouter un favori et une description</h9>
+        </br>
+        <h9>        click droit supprimer un favori , click gauche sur un favori affiche la description </h9>
+        </br>
+        <h9>        Bouton recherche pour ajouter un ami et le select affiche les favoris de l'ami selectionner </h9>
+        </br>
+    </div>
+        
+    </br>
+        <footer>
+            <div class="container2">
+                <p>Par <a href="https://www.youtube.com/@fcr_77" target="_blank">FCR</a> Novembre 2024</p>
+                <a href="https://www.mon-compteur.fr">
+                    <img src="https://www.mon-compteur.fr/html_c01genv2-242818-3" alt="compteur" border="0" />
+                </a><br>
+            </div>
+        </footer>  
+    </div>
+{% else %}
+    <div >
+            
+        <div >
+            <!-- Début du conteneur avec fond blanc -->
+            <div class="white-background">
+            
+                <div class="row justify-content-center py-2">
+                <a
+                    class="col-3 btn btn-outline-secondary me-3" class="menu-btn"
+                    href="{% url 'mymaps' %}" 
+                >my map</a>
+                <a
+                    class="col-3 btn btn-outline-secondary ms-3"
+                    href="{% url 'myiti' %}" 
+                >My itineraries</a
+                    >
+                </div>
+            </div>
 
+        <h1 id="footer">My map</h1>
+        
+        
+        <!-- Formulaire de recherche -->
+        <form id="searchForm" method="GET" action="{% url 'search_friends' %}">
+            <input type="text" id="searchInput" name="search" placeholder="Search for a user">
+            <button type="submit class="menu-btn"">Search</button>
+        </form>
+        
+        <!-- Zone des résultats de recherche -->
+        <div id="searchResults"></div>
+        
+        <!-- Div où la carte va être affichée -->
+        <div id="container">
+            <div id="menu">
+                <button id="toggle-all" class="menu-btn" data-fr="Afficher/Cacher tout" data-en="Show/Hide All">Show/Hide all</button>
+                
+                <button id="togglerassemblement" class="menu-btn" data-fr="Afficher/Cacher rassemblement" data-en="Show/Hide All">Show/Hide Gathering</button>
+                <button id="togglestation" class="menu-btn" data-fr="Afficher/Cacher station" data-en="Show/Hide All">Show/Hide Station</button>
+                <button id="togglesatelier" class="menu-btn" data-fr="Afficher/Cacher atelier" data-en="Show/Hide All">Show/Hide Workshop</button>
+                <button id="togglesconcession" class="menu-btn" data-fr="Afficher/Cacher concession" data-en="Show/Hide All">Show/Hide Concession</button>
+                <button id="togglesclan" class="menu-btn" data-fr="Afficher/Cacher clan" data-en="Show/Hide All">Show/Hide Clan</button>
+                <button id="togglessolar" class="menu-btn" data-fr="Afficher/Cacher solar" data-en="Show/Hide All">Show/Hide Solar hotel</button>
+                <select id="friendSelect" class="menu-btn">
+                    <option value="">Choose a friend</option>
+                    <!-- Options pour les amis seront ajoutées ici dynamiquement -->
+                </select>
+            
+            </div>
+            <div id="map"></div>
+            
+        </div>
+        <div class="container text-center px-5">
+        <h9>Usage: Left-click on the map to add a favourite and a description</h9>
+        </br>
+        <h9>        right click delete a favourite , left click on a favourite to display the description </h9>
+        </br>
+        <h9>        Search button to add a friend and select displays the favourites of the selected friend </h9>
+        </br>
+    </div>
+        
+    </br>
+        <footer>
+            <div class="container2">
+                <p>by <a href="https://www.youtube.com/@fcr_77" target="_blank">FCR</a> November 2024</p>
+                <a href="https://www.mon-compteur.fr">
+                    <img src="https://www.mon-compteur.fr/html_c01genv2-242818-3" alt="compteur" border="0" />
+                </a><br>
+            </div>
+        </footer>  
+    </div>  
+{% endif %}
 <!-- Inclure le JS de Leaflet -->
 <script src="{% static 'js/map.js' %}"></script>
 
@@ -85,7 +156,7 @@
 <script>
   // Récupère l'ID de l'utilisateur actuellement connecté depuis Django
   const currentUserId = "{{ request.user.id }}";
-
+  const ajoutami = `{% if request.session.langue == 'fr' %}Ajouter en ami{% else %}Add as a friend{% endif %}`;  
   // Gestionnaire d'événements pour le formulaire de recherche
   document.getElementById('searchForm').addEventListener('submit', function(event) {
       event.preventDefault(); // Empêche l'envoi du formulaire classique
@@ -101,7 +172,7 @@
                   data.users.forEach(user => {
                       const userElement = document.createElement('div');
                       userElement.innerHTML = `
-                          <p>${user.username} <button onclick="addFriend(${currentUserId}, ${user.id})">Ajouter en ami</button></p>
+                          <p>${user.username} <button onclick="addFriend(${currentUserId}, ${user.id})">${ajoutami}</button></p>
                       `;
                       resultsContainer.appendChild(userElement);
                   });

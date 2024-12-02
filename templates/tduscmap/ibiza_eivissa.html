@@ -19,39 +19,71 @@
         height: 315px; /* Hauteur de la vidéo */
     }
 </style>
+{% if request.session.langue == 'fr' %}
+    <h1 id="footer">Bienvenue a Ibiza, eivissa </h1>
 
-<h1 id="footer">Bienvenue a Ibiza, eivissa </h1>
+    <p>Rappel l'ile d'Ibiza dans TDU 2</p>
 
-<p>Rappel l'ile d'Ibiza dans TDU 2</p>
-
-<img id="test" src="{% static 'images/mapibizatdu.jpg' %}" alt="Maps Ibiza" width="1400">
+    <img id="test" src="{% static 'images/mapibizatdu.jpg' %}" alt="Maps Ibiza" width="1400">
 
 
 
-<h3>Maps interactive pour Eivissa sur Ibiza tres prochainement</h3>
-<!-- Div où la carte va être affichée -->
-<div id="container">
-    <div id="menu">
-        <button id="toggle-all" class="menu-btn" data-fr="Afficher/Cacher tout" data-en="Show/Hide All">Afficher/Cacher tout</button>
-        <button id="toggleMarkers" class="menu-btn" data-fr="Afficher/Cacher Favoris" data-en="Show/Hide All">Afficher/CacherFavoris</button>
-        <button id="togglerassemblement" class="menu-btn" data-fr="Afficher/Cacher rassemblement" data-en="Show/Hide All">Afficher/Cacher Rassemblement</button>
-        <button id="togglestation" class="menu-btn" data-fr="Afficher/Cacher station" data-en="Show/Hide All">Afficher/Cacher Station</button>
-        <button id="togglesatelier" class="menu-btn" data-fr="Afficher/Cacher atelier" data-en="Show/Hide All">Afficher/Cacher Atelier</button>
-        <button id="togglesconcession" class="menu-btn" data-fr="Afficher/Cacher concession" data-en="Show/Hide All">Afficher/Cacher Concession</button>
-        <button id="togglesclan" class="menu-btn" data-fr="Afficher/Cacher clan" data-en="Show/Hide All">Afficher/Cacher Clan</button>
-        <button id="togglessolar" class="menu-btn" data-fr="Afficher/Cacher solar" data-en="Show/Hide All">Afficher/Cacher Solar hotel</button>
-        <select id="friendSelect" class="menu-btn">
-            <option value="">Choisir un ami</option>
-            <!-- Options pour les amis seront ajoutées ici dynamiquement -->
-        </select>
-     
+    <h3>Maps interactive pour Eivissa sur Ibiza tres prochainement</h3>
+    <!-- Div où la carte va être affichée -->
+    <div id="container">
+        <div id="menu">
+            <button id="toggle-all" class="menu-btn" data-fr="Afficher/Cacher tout" data-en="Show/Hide All">Afficher/Cacher tout</button>
+            <button id="toggleMarkers" class="menu-btn" data-fr="Afficher/Cacher Favoris" data-en="Show/Hide All">Afficher/Cacher Favoris</button>
+            <button id="togglerassemblement" class="menu-btn" data-fr="Afficher/Cacher rassemblement" data-en="Show/Hide All">Afficher/Cacher Rassemblement</button>
+            <button id="togglestation" class="menu-btn" data-fr="Afficher/Cacher station" data-en="Show/Hide All">Afficher/Cacher Station</button>
+            <button id="togglesatelier" class="menu-btn" data-fr="Afficher/Cacher atelier" data-en="Show/Hide All">Afficher/Cacher Atelier</button>
+            <button id="togglesconcession" class="menu-btn" data-fr="Afficher/Cacher concession" data-en="Show/Hide All">Afficher/Cacher Concession</button>
+            <button id="togglesclan" class="menu-btn" data-fr="Afficher/Cacher clan" data-en="Show/Hide All">Afficher/Cacher Clan</button>
+            <button id="togglessolar" class="menu-btn" data-fr="Afficher/Cacher solar" data-en="Show/Hide All">Afficher/Cacher Solar hotel</button>
+            <select id="friendSelect" class="menu-btn">
+                <option value="">Choisir un ami</option>
+                <!-- Options pour les amis seront ajoutées ici dynamiquement -->
+            </select>
+        
+        </div>
+        <div id="map"></div>
+        
     </div>
-    <div id="map"></div>
-    
-</div>
 
-<p>Video pour rappel ou decouvrir Ibiza</p>
+    <p>Video pour rappel ou decouvrir Ibiza</p>
+{% else %}
+    <h1 id="footer">Welcome to Ibiza, eivissa  </h1>
 
+    <p>A reminder of the island of Ibiza in TDU 2</p>
+
+    <img id="test" src="{% static 'images/mapibizatdu.jpg' %}" alt="Maps Ibiza" width="1400">
+
+
+
+    <h3>Interactive maps for Eivissa on Ibiza coming soon</h3>
+    <!-- Div où la carte va être affichée -->
+    <div id="container">
+        <div id="menu">
+            <button id="toggle-all" class="menu-btn" data-fr="Afficher/Cacher tout" data-en="Show/Hide All">Show/Hide all</button>
+            <button id="toggleMarkers" class="menu-btn" data-fr="Afficher/Cacher Favoris" data-en="Show/Hide All">Show/Hide Favourites</button>
+            <button id="togglerassemblement" class="menu-btn" data-fr="Afficher/Cacher rassemblement" data-en="Show/Hide All">Show/Hide Gathering</button>
+            <button id="togglestation" class="menu-btn" data-fr="Afficher/Cacher station" data-en="Show/Hide All">Show/Hide Station</button>
+            <button id="togglesatelier" class="menu-btn" data-fr="Afficher/Cacher atelier" data-en="Show/Hide All">Show/Hide Workshop</button>
+            <button id="togglesconcession" class="menu-btn" data-fr="Afficher/Cacher concession" data-en="Show/Hide All">Show/Hide Concession</button>
+            <button id="togglesclan" class="menu-btn" data-fr="Afficher/Cacher clan" data-en="Show/Hide All">Show/Hide Clan</button>
+            <button id="togglessolar" class="menu-btn" data-fr="Afficher/Cacher solar" data-en="Show/Hide All">Show/Hide Solar hotel</button>
+            <select id="friendSelect" class="menu-btn">
+                <option value="">Choose a friend</option>
+                <!-- Options pour les amis seront ajoutées ici dynamiquement -->
+            </select>
+        
+        </div>
+        <div id="map"></div>
+        
+    </div>
+
+    <p>Video to remind you or to discover Ibiza</p>
+{% endif %}
 <div class="video-container">
     <iframe width="560" height="315" 
         src="https://www.youtube.com/embed/yQtXg3o5QFE?start=9" 

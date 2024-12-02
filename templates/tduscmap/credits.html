@@ -4,7 +4,7 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'stylesmymaps.css' %}" type="text/css">
 
-
+{% if request.session.langue == 'fr' %}
      <h4>Site Web concu par Fcr un "jeune" passionné pour des passionnés</h4>
    
     </br>
@@ -30,5 +30,32 @@
     </br>
        <a>si le site vous plait et que vous souhaitez contribué à l achat d un nom de domaine + serveur , c est par ici </a>
         <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support me on Ko-fi', '#72a4f2', 'W7W316BLDV');kofiwidget2.draw();</script> 
+{% else %}  
+    <h4>Website designed by Fcr, a ‘young’ enthusiast for enthusiasts</h4>
+    
+        </br>
+
+            <a>You have improvements, ideas to add or other to submit send me an email : </a><a href="mailto: tduscmaps@gmail.com">tduscmaps@gmail.com</a>
+    
+            </br>
+        </br>
+            <a>Thanks to Flaw for promoting the site.  </a> 
+            <br>
+        </br>
+            <a>Mr Quiche for his help with the collectibles and wrecks, Karl , Kuro and all the contributors who add data. </a>
+            </br>
+        </br>
+
+            <a>The KING is back, long live the King !!!! </a>
+            <br>
         
+            <a>and of course the Yatcheeeees</a>
+        </br>
+    </br>
+        <a>Big thanks to Mamadou for hosting !!!</a>
+        </br>
+        <a>If you like the site and would like to contribute to the purchase of a domain name + server, click here. </a>
+            <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support me on Ko-fi', '#72a4f2', 'W7W316BLDV');kofiwidget2.draw();</script> 
+
+{% endif %}    
 {% endblock %}

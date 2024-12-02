@@ -6,111 +6,215 @@
 <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
 <link rel="stylesheet" href="{% static 'stylesmymaps.css' %}" type="text/css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+{% if request.session.langue == 'fr' %}
+    <div>
+        <!-- Image de la bannière -->
+        {% comment %} <div class="image-container">
+            <img id="banner" src="{% static 'images/sharps_Luxe.1d79d72.jpg' %}" alt="Bannière Test Drive" />
+            <img id="banner" src="{% static 'images/test-drive-unlimited-solar-crown-header-art2.jpg' %}" alt="Bannière Solar Hotel" />
+            <img id="banner" src="{% static 'images/sharps_Solar_Hotel.2342470.jpg' %}" alt="Bannière key of Test Drive" />
+        </div>  {% endcomment %}
 
-<div>
-    <!-- Image de la bannière -->
-    {% comment %} <div class="image-container">
-        <img id="banner" src="{% static 'images/sharps_Luxe.1d79d72.jpg' %}" alt="Bannière Test Drive" />
-        <img id="banner" src="{% static 'images/test-drive-unlimited-solar-crown-header-art2.jpg' %}" alt="Bannière Solar Hotel" />
-        <img id="banner" src="{% static 'images/sharps_Solar_Hotel.2342470.jpg' %}" alt="Bannière key of Test Drive" />
-    </div>  {% endcomment %}
-
-    <h1 id="footer">Ma carte</h1>
-    <div >
-        <!-- Début du conteneur avec fond blanc -->
-          <div class="white-background">
-           
-            <div class="row justify-content-center py-4">
-              <a
-                class="col-3 btn btn-outline-secondary me-3"
-                 href="{% url 'mymaps' %}" 
-              >ma carte</a>
-              <a
-                class="col-3 btn btn-outline-secondary ms-3"
-                href="{% url 'myiti' %}" 
-              >Mes iti</a
-                >
+        <h1 id="footer">Ma carte</h1>
+        <div >
+            <!-- Début du conteneur avec fond blanc -->
+            <div class="white-background">
+            
+                <div class="row justify-content-center py-4">
+                <a
+                    class="col-3 btn btn-outline-secondary me-3"
+                    href="{% url 'mymaps' %}" 
+                >ma carte</a>
+                <a
+                    class="col-3 btn btn-outline-secondary ms-3"
+                    href="{% url 'myiti' %}" 
+                >Mes iti</a
+                    >
+                </div>
             </div>
-        </div>
-    <!-- Formulaire de recherche -->
-    <form id="searchForm" method="GET" action="{% url 'search_friends' %}">
-        <input type="text" id="searchInput" name="search" placeholder="Rechercher un utilisateur">
-        <button type="submit">Rechercher</button>
-    </form>
-    
-    <!-- Zone des résultats de recherche -->
-    <div id="searchResults"></div>
-    
-    <!-- Div où la carte va être affichée -->
-    <div id="container">
-        <div id="menu">
-            
+        <!-- Formulaire de recherche -->
+        <form id="searchForm" method="GET" action="{% url 'search_friends' %}">
+            <input type="text" id="searchInput" name="search" placeholder="Rechercher un utilisateur">
+            <button type="submit">Rechercher</button>
+        </form>
+        
+        <!-- Zone des résultats de recherche -->
+        <div id="searchResults"></div>
+        
+        <!-- Div où la carte va être affichée -->
+        <div id="container">
+            <div id="menu">
+                
 
-            
-            <button id="planRoute" class="menu-btn">Planifier un trajet</button>
-            <button id="setArrival" class="menu-btn" disabled>Définir l'arrivée</button>
-            <input type="text" id="trajetNom" placeholder="Nom du trajet" />
-            <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-            <button id="saveRoute" class="menu-btn" disabled>Sauvegarder le trajet</button>
-            <form id="selectTrajetForm">
-                <label for="trajet">Choisir un trajet :</label>
-                <select name="trajet" id="trajet" class="menu-btn">
-                    <option value="">-- Sélectionner un trajet --</option>
-                    {% for trajet in trajets %}
-                        <option value="{{ trajet.id }}" {% if trajet.id == selected_trajet.id %}selected{% endif %}>
-                            {{ trajet.nom }}
-                        </option>
-                    {% endfor %}
+                
+                <button id="planRoute" class="menu-btn">Planifier un trajet</button>
+                <button id="setArrival" class="menu-btn" disabled>Définir l'arrivée</button>
+                <input type="text" id="trajetNom" placeholder="Nom du trajet" />
+                <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                <button id="saveRoute" class="menu-btn" disabled>Sauvegarder le trajet</button>
+                <form id="selectTrajetForm">
+                    <label for="trajet">Choisir un trajet :</label>
+                    <select name="trajet" id="trajet" class="menu-btn">
+                        <option value="">-- Sélectionner un trajet --</option>
+                        {% for trajet in trajets %}
+                            <option value="{{ trajet.id }}" {% if trajet.id == selected_trajet.id %}selected{% endif %}>
+                                {{ trajet.nom }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                    <button id="deleteTrajet" type="button" class="menu-btn">Supprimer le trajet</button>
+                </form>
+                <select id="friendSelect" class="menu-btn">
+                    <option value="">Choisir un ami</option>
+                    <!-- Options pour les amis seront ajoutées ici dynamiquement -->
                 </select>
-                <button id="deleteTrajet" type="button" class="menu-btn">Supprimer le trajet</button>
-            </form>
-            <select id="friendSelect" class="menu-btn">
-                <option value="">Choisir un ami</option>
-                <!-- Options pour les amis seront ajoutées ici dynamiquement -->
-            </select>
-                <label for="friend-trajets">Trajets de l'ami :</label>
-                <select id="friend-trajets" class="menu-btn" onchange="displayFriendTrajet(this.value)" disabled>
-                <option value="">-- Sélectionnez un trajet --</option>
-                <!-- Les trajets de l'ami apparaîtront ici -->
-            </select>
-            <button id="toggleLignesBtn" class="menu-btn">Cacher les lignes</button>
-            <button id="toggle-all" class="menu-btn" data-fr="Afficher/Cacher tout" data-en="Show/Hide All">Afficher/Cacher tout</button>
-            
-            <button id="togglerassemblement" class="menu-btn" data-fr="Afficher/Cacher rassemblement" data-en="Show/Hide All">Afficher/Cacher Rassemblement</button>
-            <button id="togglestation" class="menu-btn" data-fr="Afficher/Cacher station" data-en="Show/Hide All">Afficher/Cacher Station</button>
-            <button id="togglesatelier" class="menu-btn" data-fr="Afficher/Cacher atelier" data-en="Show/Hide All">Afficher/Cacher Atelier</button>
-            <button id="togglesconcession" class="menu-btn" data-fr="Afficher/Cacher concession" data-en="Show/Hide All">Afficher/Cacher Concession</button>
-            <button id="togglesclan" class="menu-btn" data-fr="Afficher/Cacher clan" data-en="Show/Hide All">Afficher/Cacher Clan</button>
-            <button id="togglessolar" class="menu-btn" data-fr="Afficher/Cacher solar" data-en="Show/Hide All">Afficher/Cacher Solar hotel</button>
+                    <label for="friend-trajets">Trajets de l'ami :</label>
+                    <select id="friend-trajets" class="menu-btn" onchange="displayFriendTrajet(this.value)" disabled>
+                    <option value="">-- Sélectionnez un trajet --</option>
+                    <!-- Les trajets de l'ami apparaîtront ici -->
+                </select>
+                <button id="toggleLignesBtn" class="menu-btn">Cacher les lignes</button>
+                <button id="toggle-all" class="menu-btn" data-fr="Afficher/Cacher tout" data-en="Show/Hide All">Afficher/Cacher tout</button>
+                
+                <button id="togglerassemblement" class="menu-btn" data-fr="Afficher/Cacher rassemblement" data-en="Show/Hide All">Afficher/Cacher Rassemblement</button>
+                <button id="togglestation" class="menu-btn" data-fr="Afficher/Cacher station" data-en="Show/Hide All">Afficher/Cacher Station</button>
+                <button id="togglesatelier" class="menu-btn" data-fr="Afficher/Cacher atelier" data-en="Show/Hide All">Afficher/Cacher Atelier</button>
+                <button id="togglesconcession" class="menu-btn" data-fr="Afficher/Cacher concession" data-en="Show/Hide All">Afficher/Cacher Concession</button>
+                <button id="togglesclan" class="menu-btn" data-fr="Afficher/Cacher clan" data-en="Show/Hide All">Afficher/Cacher Clan</button>
+                <button id="togglessolar" class="menu-btn" data-fr="Afficher/Cacher solar" data-en="Show/Hide All">Afficher/Cacher Solar hotel</button>
+            </div>
+                
+            <div id="map"></div>
         </div>
-            
-        <div id="map"></div>
+        <div class="container text-center px-5">
+        <h9>Usage : Bouton Planifier un trajet, pour choisir le départ sur la map</h9>
+        </br>
+        <h9>        puis ajouter autant d'étapes que souhaité, pour finir le bouton definir l'arrivée</h9>
+        </br>
+        <h9>        Choisir un nom de trajet, et enfin sauvegarder le trajet sur votre compte</h9>
+        </br>
+        <h9>        Supprimer un trajet, celui du select</h9>
+        </br>
+        <h9>        Possibilité de voir la liste et de choisir le trajet d'un ami</h9>
+        </br>
+        <h9>        Bouton afficher / cacher les lignes pour relier tout les points du trajet</h9>
+    </br>
+    </br>
     </div>
-    <div class="container text-center px-5">
-    <h9>Usage : Bouton Planifier un trajet, pour choisir le départ sur la map</h9>
-    </br>
-    <h9>        puis ajouter autant d'étapes que souhaité, pour finir le bouton definir l'arrivée</h9>
-    </br>
-    <h9>        Choisir un nom de trajet, et enfin sauvegarder le trajet sur votre compte</h9>
-    </br>
-    <h9>        Supprimer un trajet, celui du select</h9>
-    </br>
-    <h9>        Possibilité de voir la liste et de choisir le trajet d'un ami</h9>
-    </br>
-    <h9>        Bouton afficher / cacher les lignes pour relier tout les points du trajet</h9>
-</br>
-</br>
-</div>
-    <footer>
-        <div class="container2">
-            <p>By <a href="https://www.youtube.com/@fcr_77" target="_blank">FCR</a> Septembre 2024</p>
-            <a href="https://www.mon-compteur.fr">
-                <img src="https://www.mon-compteur.fr/html_c01genv2-242818-3" alt="compteur" border="0" />
-            </a><br>
-        </div>
-    </footer>  
-</div>
+        <footer>
+            <div class="container2">
+                <p>By <a href="https://www.youtube.com/@fcr_77" target="_blank">FCR</a> Septembre 2024</p>
+                <a href="https://www.mon-compteur.fr">
+                    <img src="https://www.mon-compteur.fr/html_c01genv2-242818-3" alt="compteur" border="0" />
+                </a><br>
+            </div>
+        </footer>  
+    </div>
+{% else %}
+    <div>
+        <!-- Image de la bannière -->
+        {% comment %} <div class="image-container">
+            <img id="banner" src="{% static 'images/sharps_Luxe.1d79d72.jpg' %}" alt="Bannière Test Drive" />
+            <img id="banner" src="{% static 'images/test-drive-unlimited-solar-crown-header-art2.jpg' %}" alt="Bannière Solar Hotel" />
+            <img id="banner" src="{% static 'images/sharps_Solar_Hotel.2342470.jpg' %}" alt="Bannière key of Test Drive" />
+        </div>  {% endcomment %}
 
+        <h1 id="footer">My map</h1>
+        <div >
+            <!-- Début du conteneur avec fond blanc -->
+            <div class="white-background">
+            
+                <div class="row justify-content-center py-4">
+                <a
+                    class="col-3 btn btn-outline-secondary me-3"
+                    href="{% url 'mymaps' %}" 
+                >My map</a>
+                <a
+                    class="col-3 btn btn-outline-secondary ms-3"
+                    href="{% url 'myiti' %}" 
+                >My itineraries</a
+                    >
+                </div>
+            </div>
+        <!-- Formulaire de recherche -->
+        <form id="searchForm" method="GET" action="{% url 'search_friends' %}">
+            <input type="text" id="searchInput" name="search" placeholder="Search for a user">
+            <button type="submit">Search</button>
+        </form>
+        
+        <!-- Zone des résultats de recherche -->
+        <div id="searchResults"></div>
+        
+        <!-- Div où la carte va être affichée -->
+        <div id="container">
+            <div id="menu">
+                
+
+                
+                <button id="planRoute" class="menu-btn">Planning a trip</button>
+                <button id="setArrival" class="menu-btn" disabled>Defining the arrival</button>
+                <input type="text" id="trajetNom" placeholder="Route name" />
+                <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                <button id="saveRoute" class="menu-btn" disabled>Save trip</button>
+                <form id="selectTrajetForm">
+                    <label for="trajet">Choose a trip :</label>
+                    <select name="trajet" id="trajet" class="menu-btn">
+                        <option value="">-- Select a trip --</option>
+                        {% for trajet in trajets %}
+                            <option value="{{ trajet.id }}" {% if trajet.id == selected_trajet.id %}selected{% endif %}>
+                                {{ trajet.nom }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                    <button id="deleteTrajet" type="button" class="menu-btn">Delete the trip</button>
+                </form>
+                <select id="friendSelect" class="menu-btn">
+                    <option value="">Choose a friend</option>
+                    <!-- Options pour les amis seront ajoutées ici dynamiquement -->
+                </select>
+                    <label for="friend-trajets">Friend's trip :</label>
+                    <select id="friend-trajets" class="menu-btn" onchange="displayFriendTrajet(this.value)" disabled>
+                    <option value="">-- Select a trip --</option>
+                    <!-- Les trajets de l'ami apparaîtront ici -->
+                </select>
+                <button id="toggleLignesBtn" class="menu-btn">Hide lines</button>
+                <button id="toggle-all" class="menu-btn" data-fr="Afficher/Cacher tout" data-en="Show/Hide All">Show/Hide all</button>
+                
+                <button id="togglerassemblement" class="menu-btn" data-fr="Afficher/Cacher rassemblement" data-en="Show/Hide All">Show/Hide Gathering</button>
+                <button id="togglestation" class="menu-btn" data-fr="Afficher/Cacher station" data-en="Show/Hide All">Show/Hide Station</button>
+                <button id="togglesatelier" class="menu-btn" data-fr="Afficher/Cacher atelier" data-en="Show/Hide All">Show/Hide Workshop</button>
+                <button id="togglesconcession" class="menu-btn" data-fr="Afficher/Cacher concession" data-en="Show/Hide All">Show/Hide Concession</button>
+                <button id="togglesclan" class="menu-btn" data-fr="Afficher/Cacher clan" data-en="Show/Hide All">Show/Hide Clan</button>
+                <button id="togglessolar" class="menu-btn" data-fr="Afficher/Cacher solar" data-en="Show/Hide All">Show/Hide Solar hotel</button>
+            </div>
+                
+            <div id="map"></div>
+        </div>
+        <div class="container text-center px-5">
+        <h9>Usage: Plan a trip button, to choose the departure point on the map</h9>
+        </br>
+        <h9>        then add as many stages as you like, and finally click the finish button</h9>
+        </br>
+        <h9>        Choose a trip name, and save the route to your account</h9>
+        </br>
+        <h9>        Delete a route, the select route</h9>
+        </br>
+        <h9>        View the list and choose a friend's trip</h9>
+        </br>
+        <h9>        Show/hide lines button to link all the points on the route</h9>
+    </br>
+    </br>
+    </div>
+        <footer>
+            <div class="container2">
+                <p>By <a href="https://www.youtube.com/@fcr_77" target="_blank">FCR</a> Septembre 2024</p>
+                <a href="https://www.mon-compteur.fr">
+                    <img src="https://www.mon-compteur.fr/html_c01genv2-242818-3" alt="compteur" border="0" />
+                </a><br>
+            </div>
+        </footer>  
+    </div>
+{% endif %}
 <!-- Inclure le JS de Leaflet -->
 <script src="{% static 'js/map.js' %}"></script>
 
