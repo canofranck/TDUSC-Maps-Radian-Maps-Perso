@@ -3,44 +3,85 @@
 
 {% load static %}
 <link rel="stylesheet" href="{% static 'stylesmymaps.css' %}" type="text/css">
-<div class="container text-center px-5">
-<h6>Mes réglages</h6>
+{% if request.session.langue == 'fr' %}
+    <div class="container text-center px-5">
+        <h6>Mes réglages</h6>
 
 
-    
-    {% for reglage in reglages %}
-    <div class="reglage">
-        <p class="titre-reglage">Réglage pour {{ reglage.car }}  Posté par : <span style="color: red;">{{ reglage.user }}</span></p>
-        <p class="titre-reglage">Date : {{reglage.created_at}}</p>
         
-        <p class="titre-reglage">Description : {{ reglage.description }}</p>
-        <div class="like-container">
-        <a class="col-2 btn btn-secondary ms-1" href="{% url 'modifier_reglages' reglage.id %}">Modifier le réglage</a>
-        <a class="col-2 btn btn-secondary ms-1" href="{% url 'supprimer_reglage' reglage.id %}">Effacer le réglage</a>
-        
-            <img src="{% static 'images/likes.png' %}" alt="icône de like" >
-            <span> Nb :{{ reglage.like_count }}</span>
+        {% for reglage in reglages %}
+        <div class="reglage">
+            <p class="titre-reglage">Réglage pour {{ reglage.car }}  Posté par : <span style="color: red;">{{ reglage.user }}</span></p>
+            <p class="titre-reglage">Date : {{reglage.created_at}}</p>
             
-          </div> 
-        </div>
-    {% endfor %}
-       
-{% if paginator.num_pages > 1 %}
-<div class="container">
-    <div class="pagination centered">
-        <span class="step-links">
-            {% if reglages.has_previous %}
-                <a href="?page={{ reglages.previous_page_number }}">Précédent</a>
-            {% endif %}
-            <span class="current">
-                Page {{ reglages.number }} / {{ paginator.num_pages }}
+            <p class="titre-reglage">Description : {{ reglage.description }}</p>
+            <div class="like-container">
+            <a class="col-2 btn btn-secondary ms-1" href="{% url 'modifier_reglages' reglage.id %}">Modifier le réglage</a>
+            <a class="col-2 btn btn-secondary ms-1" href="{% url 'supprimer_reglage' reglage.id %}">Effacer le réglage</a>
+            
+                <img src="{% static 'images/likes.png' %}" alt="icône de like" >
+                <span> Nb :{{ reglage.like_count }}</span>
+                
+            </div> 
+            </div>
+        {% endfor %}
+        
+    {% if paginator.num_pages > 1 %}
+    <div class="container">
+        <div class="pagination centered">
+            <span class="step-links">
+                {% if reglages.has_previous %}
+                    <a href="?page={{ reglages.previous_page_number }}">Précédent</a>
+                {% endif %}
+                <span class="current">
+                    Page {{ reglages.number }} / {{ paginator.num_pages }}
+                </span>
+                {% if reglages.has_next %}
+                    <a href="?page={{ reglages.next_page_number }}">Suivant</a>
+                {% endif %}
             </span>
-            {% if reglages.has_next %}
-                <a href="?page={{ reglages.next_page_number }}">Suivant</a>
-            {% endif %}
-        </span>
+        </div>
     </div>
-</div>
-{% endif %}
+    {% endif %}
+{% else %}
+    <div class="container text-center px-5">
+        <h6>My settings</h6>
 
+
+        
+        {% for reglage in reglages %}
+        <div class="reglage">
+            <p class="titre-reglage">Setting for {{ reglage.car }}  Posted by: <span style="color: red;">{{ reglage.user }}</span></p>
+            <p class="titre-reglage">Date : {{reglage.created_at|date:"m/d/Y"}}</p>
+            
+            <p class="titre-reglage">Description : {{ reglage.description }}</p>
+            <div class="like-container">
+            <a class="col-2 btn btn-secondary ms-1" href="{% url 'modifier_reglages' reglage.id %}">Edit setting</a>
+            <a class="col-2 btn btn-secondary ms-1" href="{% url 'supprimer_reglage' reglage.id %}">Delete Setting</a>
+            
+                <img src="{% static 'images/likes.png' %}" alt="icône de like" >
+                <span> Nb :{{ reglage.like_count }}</span>
+                
+            </div> 
+            </div>
+        {% endfor %}
+        
+    {% if paginator.num_pages > 1 %}
+    <div class="container">
+        <div class="pagination centered">
+            <span class="step-links">
+                {% if reglages.has_previous %}
+                    <a href="?page={{ reglages.previous_page_number }}">Previous</a>
+                {% endif %}
+                <span class="current">
+                    Page {{ reglages.number }} / {{ paginator.num_pages }}
+                </span>
+                {% if reglages.has_next %}
+                    <a href="?page={{ reglages.next_page_number }}">Next</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+    {% endif %}
+{% endif %}
 {% endblock%}

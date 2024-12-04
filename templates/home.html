@@ -9,7 +9,7 @@
   <div >
 
 
-<h1 id="footer">Maps interactive TDUSC (ALL 380 Radian)</h1>
+<h1 id="footer">Interactive Map TDUSC (ALL 380 Radiant)</h1>
 
 <div id="container">
     <!-- Menu de contrôle à gauche -->
@@ -48,9 +48,15 @@
         <button id="toggle-solarCoins" class="menu-btn">
             <img src="{% static 'images/SolarCoins.png' %}" alt="Solar Coins"> Solar Coins
         </button>
-        <button id="toggle-reputation" class="menu-btn">
-            <img src="{% static 'images/reputation2.png' %}" alt="Réputation"> Réputation
-        </button>
+        {% if request.session.langue == 'fr' %}   
+            <button id="toggle-reputation" class="menu-btn">
+                <img src="{% static 'images/reputation2.png' %}" alt="Réputation"> Réputation
+            </button>
+        {% else %} 
+            <button id="toggle-reputation" class="menu-btn">
+                <img src="{% static 'images/reputation2.png' %}" alt="Reputation"> Réputation
+            </button>
+        {% endif %}
         <button id="toggle-clan" class="menu-btn">
             <img src="{% static 'images/clan.png' %}" alt="Clan"> Clan
         </button>
@@ -60,7 +66,7 @@
             </button>
         {% else %} 
         <button id="toggle-tresor" class="menu-btn">
-            <img src="{% static 'images/tresor.png' %}" alt="Trésor"> treasure
+            <img src="{% static 'images/tresor.png' %}" alt="Trésor"> Collectibles
         </button> 
         {% endif %}  
         {% if request.session.langue == 'fr' %}      
