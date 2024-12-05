@@ -139,14 +139,16 @@
     </div>
         
     </br>
-        <footer>
-            <div class="container2">
-                <p>by <a href="https://www.youtube.com/@fcr_77" target="_blank">FCR</a> November 2024</p>
-                <a href="https://www.mon-compteur.fr">
-                    <img src="https://www.mon-compteur.fr/html_c01genv2-242818-3" alt="compteur" border="0" />
-                </a><br>
-            </div>
-        </footer>  
+    <footer>
+        <div class="container2">
+            <p>By <a href="https://www.youtube.com/@fcr_77" target="_blank">FCR</a> Septembre 2024</p><a href="https://www.mon-compteur.fr">
+                
+        <img src="https://www.mon-compteur.fr/html_c01genv2-242818-3" alt="compteur" border="0" /></a><br>
+        <p>images © Nacon - KT Racing</p>
+        </div>
+        
+        
+    </footer>    
     </div>  
 {% endif %}
 <!-- Inclure le JS de Leaflet -->
@@ -154,6 +156,13 @@
 
 
 <script>
+    
+        const traduction = {
+            choisirAmi: "{% if request.session.langue == 'fr' %}Choisir un ami{% else %}Choose a friend{% endif %}",
+            entrerfavori: "{% if request.session.langue == 'fr' %}Entrez une description pour ce favori : {% else %}Enter a description for this favourite : {% endif %}",
+            supfavori: "{% if request.session.langue == 'fr' %}Voulez-vous vraiment supprimer ce favori ? {% else %}Do you really want to delete this favourite? {% endif %}"
+        };
+   
   // Récupère l'ID de l'utilisateur actuellement connecté depuis Django
   const currentUserId = "{{ request.user.id }}";
   const ajoutami = `{% if request.session.langue == 'fr' %}Ajouter en ami{% else %}Add as a friend{% endif %}`;  

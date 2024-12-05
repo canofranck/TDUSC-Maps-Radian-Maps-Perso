@@ -67,7 +67,7 @@ function loadMarkers2(district = "all") {
             var marker = L.marker([favorite.lat, favorite.lng], { icon: favoriteIcon }).addTo(map)
                 .bindPopup(favorite.description);
             marker.on('contextmenu', function () {
-                if (confirm('Voulez-vous vraiment supprimer ce favori ?')) {
+                if (confirm(traduction.supfavori)) {
                     deleteFavorite(favorite.id, marker);
                 }
             });
@@ -83,7 +83,7 @@ function loadMarkers2(district = "all") {
 map.on('click', function (e) {
     var lat = e.latlng.lat;
     var lng = e.latlng.lng;
-    var description = prompt("Entrez une description pour ce point :");
+    var description = prompt(traduction.entrerfavori);
 
     if (description) {
         addFavorite(lat, lng, description);
@@ -177,7 +177,7 @@ function loadFriends() {
             friendSelect.innerHTML = '';  // Nettoyer d'abord le select
             const defaultOption = document.createElement('option');
             defaultOption.value = '';
-            defaultOption.textContent = 'Choisir un ami';
+            defaultOption.textContent = traduction.choisirAmi;
             friendSelect.appendChild(defaultOption);
 
             friends.forEach(friend => {
@@ -231,26 +231,26 @@ function deleteFavorite(favoriteId, marker) {
 }
 
 
-function loadFriends() {
-    fetch('/get_friends/')
-        .then(response => response.json())
-        .then(friends => {
-            const friendSelect = document.getElementById('friendSelect');
-            friendSelect.innerHTML = ''; // Nettoie d'abord le select
-            const defaultOption = document.createElement('option');
-            defaultOption.value = '';
-            defaultOption.textContent = 'Choisir un ami';
-            friendSelect.appendChild(defaultOption);
+// function loadFriends() {
+//     fetch('/get_friends/')
+//         .then(response => response.json())
+//         .then(friends => {
+//             const friendSelect = document.getElementById('friendSelect');
+//             friendSelect.innerHTML = ''; // Nettoie d'abord le select
+//             const defaultOption = document.createElement('option');
+//             defaultOption.value = '';
+//             defaultOption.textContent = traduction.choisirAmi;
+//             friendSelect.appendChild(defaultOption);
 
-            friends.forEach(friend => {
-                const option = document.createElement('option');
-                option.value = friend.id;  // `friend.id` est l'identifiant de l'ami
-                option.textContent = friend.username;  // `friend.username` est le nom d'utilisateur de l'ami
-                friendSelect.appendChild(option);
-            });
-        })
-        .catch(error => console.error('Erreur lors de la récupération des amis:', error));
-}
+//             friends.forEach(friend => {
+//                 const option = document.createElement('option');
+//                 option.value = friend.id;  // `friend.id` est l'identifiant de l'ami
+//                 option.textContent = friend.username;  // `friend.username` est le nom d'utilisateur de l'ami
+//                 friendSelect.appendChild(option);
+//             });
+//         })
+//         .catch(error => console.error('Erreur lors de la récupération des amis:', error));
+// }
 
 
 

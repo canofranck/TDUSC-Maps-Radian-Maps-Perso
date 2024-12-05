@@ -59,7 +59,7 @@ function loadFriends() {
             friendSelect.innerHTML = ''; // Nettoie d'abord le select
             const defaultOption = document.createElement('option');
             defaultOption.value = '';
-            defaultOption.textContent = 'Choisir un ami';
+            defaultOption.textContent = traduction.choisirAmi;
             friendSelect.appendChild(defaultOption);
 
             friends.forEach(friend => {
@@ -214,7 +214,7 @@ document.getElementById("planRoute").addEventListener("click", () => {
     routePoints = { depart: null, etapes: [], arrivee: null };
     document.getElementById("setArrival").disabled = !isPlanningRoute;
     document.getElementById("saveRoute").disabled = !isPlanningRoute;
-    alert(isPlanningRoute ? "Mode itinéraire activé !" : "Mode itinéraire désactivé.");
+    alert(isPlanningRoute ? traduction.alertplanningon : traduction.alertplanningoff);
     
 });
 // Ajouter un point à l'itinéraire
@@ -224,12 +224,12 @@ map.on("click", (e) => {
     if (!routePoints.depart) {
         routePoints.depart = { lat: e.latlng.lat, lng: e.latlng.lng };
         L.marker([e.latlng.lat, e.latlng.lng], { icon: startIcon }).addTo(map).bindPopup("Départ").openPopup();
-        alert("Point de départ défini !");
+        alert(traduction.alertpointdepart);
     } else if (isSettingArrival) {
         // Si le mode pour définir l'arrivée est activé
         routePoints.arrivee = { lat: e.latlng.lat, lng: e.latlng.lng };
         L.marker([e.latlng.lat, e.latlng.lng], { icon: endIcon }).addTo(map).bindPopup("Arrivée").openPopup();
-        alert("Point d'arrivée défini !");
+        alert(traduction.alertpointarrive);
         isSettingArrival = false; // Désactive le mode arrivée
         document.getElementById("saveRoute").disabled = false; // Active le bouton de sauvegarde
     } else {
@@ -243,16 +243,16 @@ map.on("click", (e) => {
 document.getElementById("setArrival").addEventListener("click", () => {
     if (routePoints.depart && routePoints.etapes.length > 0) {
         isSettingArrival = true; // Active le mode pour définir l'arrivée
-        alert("Cliquez sur la carte pour définir l'arrivée.");
+        alert(traduction.messpointarrive);
     } else {
-        alert("Veuillez d'abord définir un point de départ et au moins une étape.");
+        alert(traduction.errpointarrive);
     }
 });
 
 document.getElementById("saveRoute").addEventListener("click", () => {
     const nom = document.getElementById("trajetNom").value;
     if (!nom) {
-        alert("Veuillez entrer un nom pour le trajet.");
+        alert(traduction.alertnomtraj);
         return;
     }
 
@@ -272,7 +272,7 @@ document.getElementById("saveRoute").addEventListener("click", () => {
         .then(result => {
             // console.log("Résultat de la requête :", result);
             if (result.success) {
-                alert("Trajet sauvegardé avec succès !");
+                alert(traduction.saveok);
                 location.reload();
             } else {
                 alert("Erreur : " + result.message);

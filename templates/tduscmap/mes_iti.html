@@ -205,14 +205,16 @@
     </br>
     </br>
     </div>
-        <footer>
-            <div class="container2">
-                <p>By <a href="https://www.youtube.com/@fcr_77" target="_blank">FCR</a> Septembre 2024</p>
-                <a href="https://www.mon-compteur.fr">
-                    <img src="https://www.mon-compteur.fr/html_c01genv2-242818-3" alt="compteur" border="0" />
-                </a><br>
-            </div>
-        </footer>  
+    <footer>
+        <div class="container2">
+            <p>By <a href="https://www.youtube.com/@fcr_77" target="_blank">FCR</a> Septembre 2024</p><a href="https://www.mon-compteur.fr">
+                
+        <img src="https://www.mon-compteur.fr/html_c01genv2-242818-3" alt="compteur" border="0" /></a><br>
+        <p>images © Nacon - KT Racing</p>
+        </div>
+        
+        
+    </footer>   
     </div>
 {% endif %}
 <!-- Inclure le JS de Leaflet -->
@@ -221,6 +223,18 @@
 
 
 <script>
+    const traduction = {
+        choisirAmi: "{% if request.session.langue == 'fr' %}Choisir un ami{% else %}Choose a friend{% endif %}",
+        alertplanningon: "{% if request.session.langue == 'fr' %}Mode itinéraire activé ! {% else %}Route mode activated!: {% endif %}",
+        alertplanningoff: "{% if request.session.langue == 'fr' %}Mode itinéraire désactivé ! {% else %}Route mode deactivated!: {% endif %}",
+        alertpointdepart: "{% if request.session.langue == 'fr' %}Point de départ défini ! {% else %}Starting point defined! {% endif %}",
+        alertpointarrive: "{% if request.session.langue == 'fr' %}Point d'arrivée défini ! {% else %}finish point defined! {% endif %}",
+        messpointarrive: "{% if request.session.langue == 'fr' %}Cliquez sur la carte pour définir l'arrivée. {% else %}Click on the map to set the Finish point. {% endif %}",
+        errpointarrive: "{% if request.session.langue == 'fr' %}Veuillez d'abord définir un point de départ et au moins une étape. {% else %}First define a starting point and at least one stage. {% endif %}",
+        alertnomtraj: "{% if request.session.langue == 'fr' %}Veuillez entrer un nom pour le trajet. {% else %}Please enter a name for the trip. {% endif %}",
+        saveok: "{% if request.session.langue == 'fr' %}Trajet sauvegardé avec succès ! {% else %}Route successfully saved! {% endif %}",
+    
+    };
     // Récupère l'ID de l'utilisateur actuellement connecté depuis Django
     const currentUserId = "{{ request.user.id }}";
   
