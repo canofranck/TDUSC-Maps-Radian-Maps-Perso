@@ -373,11 +373,11 @@ class Reglage(models.Model):
         max_digits=6, decimal_places=2, null=True, blank=True
     )
     # barre anti roulis
-    durete_barre_antiroulis_avant = models.IntegerField(
-        validators=[MinValueValidator(0), MaxValueValidator(100)]
+    durete_barre_antiroulis_avant = models.DecimalField(
+         max_digits=6, decimal_places=2, null=True, blank=True
     )
-    durete_barre_antiroulis_arriere = models.IntegerField(
-        validators=[MinValueValidator(0), MaxValueValidator(100)]
+    durete_barre_antiroulis_arriere = models.DecimalField(
+        max_digits=6, decimal_places=2, null=True, blank=True
     )
     # carrossge
     angle_carrossage_arriere = models.DecimalField(
@@ -399,11 +399,11 @@ class Reglage(models.Model):
     )
 
     # Freinage
-    repartiteur_freinage_avant = models.IntegerField(
-        validators=[MinValueValidator(0), MaxValueValidator(100)]
+    repartiteur_freinage_avant = models.DecimalField(
+         max_digits=6, decimal_places=2, null=True, blank=True
     )
-    pression_freinage = models.IntegerField(
-        validators=[MinValueValidator(-1000), MaxValueValidator(1000)]
+    pression_freinage = models.DecimalField(
+         max_digits=6, decimal_places=2, null=True, blank=True
     )
     created_at = models.DateTimeField(auto_now_add=True)
     background = models.CharField(max_length=50, default='default_background')
@@ -454,7 +454,7 @@ class Trajet(models.Model):
 #         ('rassemblement', 'Rassemblement'),
 #     ]
 
-#     district = models.IntegerField()  # Numéro de district (1 à 14)
+#     district = models.DecimalField()  # Numéro de district (1 à 14)
 #     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)  # Catégorie principale
 #     sub_category = models.CharField(max_length=50, blank=True, null=True)  # Sous-catégorie pour les concessionnaires
 #     latitude = models.FloatField()  # Coordonnée latitude
