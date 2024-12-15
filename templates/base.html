@@ -53,6 +53,7 @@
                     <li class="nav-item"><a class="nav-link" href="{% url 'ibiza' %}">Map Ibiza</a></li>
                     <li class="nav-item"><a class="nav-link" href="">Clan</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'credits' %}">Credits</a></li>
+                    {% comment %} <li class="nav-item"><a class="nav-link" href="{% url 'farm' %}">Farm</a></li> {% endcomment %}
                     {% if user.is_authenticated %}
                       <li class="nav-item">
                         {% if request.session.langue == 'fr' %}

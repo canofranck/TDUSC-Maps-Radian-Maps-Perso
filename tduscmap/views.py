@@ -631,3 +631,9 @@ def changer_langue(request):
         request.session['langue'] = nouvelle_langue
     return redirect(request.META.get('HTTP_REFERER', '/'))
 
+# @login_required
+def farm(request):
+    return render(
+        request,
+        "tduscmap/farm.html",
+    )

@@ -4,7 +4,7 @@
 {% load static %}
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
-<link rel="stylesheet" href="{% static 'stylesmymaps.css' %}" type="text/css">
+<link rel="stylesheet" href="{% static 'stylesmaps.css' %}" type="text/css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <style>
     .video-container {
@@ -20,79 +20,147 @@
     }
 </style>
 {% if request.session.langue == 'fr' %}
-    <h1 id="footer">Bienvenue a Ibiza, eivissa </h1>
+    <h1 id="footer">Maps interactive pour Eivissa sur Ibiza </h1>
 
-    <p>Rappel l'ile d'Ibiza dans TDU 2</p>
-
-    <img id="test" src="{% static 'images/mapibizatdu.jpg' %}" alt="Maps Ibiza" width="1400">
+    
 
 
-
-    <h3>Maps interactive pour Eivissa sur Ibiza tres prochainement</h3>
+    
     <!-- Div où la carte va être affichée -->
     <div id="container">
         <div id="menu">
+       
+                  
             <button id="toggle-all" class="menu-btn" data-fr="Afficher/Cacher tout" data-en="Show/Hide All">Afficher/Cacher tout</button>
-            <button id="toggleMarkers" class="menu-btn" data-fr="Afficher/Cacher Favoris" data-en="Show/Hide All">Afficher/Cacher Favoris</button>
-            <button id="togglerassemblement" class="menu-btn" data-fr="Afficher/Cacher rassemblement" data-en="Show/Hide All">Afficher/Cacher Rassemblement</button>
-            <button id="togglestation" class="menu-btn" data-fr="Afficher/Cacher station" data-en="Show/Hide All">Afficher/Cacher Station</button>
-            <button id="togglesatelier" class="menu-btn" data-fr="Afficher/Cacher atelier" data-en="Show/Hide All">Afficher/Cacher Atelier</button>
-            <button id="togglesconcession" class="menu-btn" data-fr="Afficher/Cacher concession" data-en="Show/Hide All">Afficher/Cacher Concession</button>
-            <button id="togglesclan" class="menu-btn" data-fr="Afficher/Cacher clan" data-en="Show/Hide All">Afficher/Cacher Clan</button>
-            <button id="togglessolar" class="menu-btn" data-fr="Afficher/Cacher solar" data-en="Show/Hide All">Afficher/Cacher Solar hotel</button>
-            <select id="friendSelect" class="menu-btn">
-                <option value="">Choisir un ami</option>
-                <!-- Options pour les amis seront ajoutées ici dynamiquement -->
+            
+               
+            <select id="district-select" class="menu-btn"style="appearance: auto;">
+             
+              
+                <option value="all">Sélection du district:</option>
+            
+                <option value="1">District 1</option>
+                <option value="2">District 2</option>
+                <option value="3">District 3</option>
+                <option value="4">District 4</option>
+                <option value="5">District 5</option>
+                <option value="6">District 6</option>
+                
             </select>
-        
+            <button id="toggle-solarCoins" class="menu-btn">
+                <img src="{% static 'images/SolarCoins.png' %}" alt="Solar Coins"> Solar Coins
+            </button>
+            
+            <button id="toggle-clan" class="menu-btn">
+                <img src="{% static 'images/clan.png' %}" alt="Clan"> Clan
+            </button>
+             
+            
+           
+            <select id="districtvideo-select" class="menu-btn">
+               
+                    <option value="">Sélectionner le tuto vidéo</option>
+                
+                <option value="district1">District 1</option>
+                <option value="district2">District 2</option>
+                <option value="district3">District 3</option>
+                <option value="district4">District 4</option>
+                <option value="district5">District 5</option>
+                <option value="district6">District 6</option>
+                
+            </select>
+            
+            <button id="toggle-flaw" class="menu-btn">
+                <img src="{% static 'images/channels4_profile.jpg' %}" alt="yt Flaw">Youtube Flaw Motore
+            </button>
         </div>
         <div id="map"></div>
         
     </div>
-
-    <p>Video pour rappel ou decouvrir Ibiza</p>
+    <footer>
+        <div class="container2">
+            <p>By <a href="https://www.youtube.com/@fcr_77" target="_blank">FCR</a> Septembre 2024</p><a href="https://www.mon-compteur.fr">
+                
+        <img src="https://www.mon-compteur.fr/html_c01genv2-242818-3" alt="compteur" border="0" /></a><br>
+        <p>images © Nacon - KT Racing</p>
+        </div>
+        
+        
+    </footer>  
+   
 {% else %}
-    <h1 id="footer">Welcome to Ibiza, eivissa  </h1>
+    <h1 id="footer">Interactive Ibiza, eivissa Map TDUSC</h1>
 
-    <p>A reminder of the island of Ibiza in TDU 2</p>
-
-    <img id="test" src="{% static 'images/mapibizatdu.jpg' %}" alt="Maps Ibiza" width="1400">
+    
 
 
 
-    <h3>Interactive maps for Eivissa on Ibiza coming soon</h3>
+    
     <!-- Div où la carte va être affichée -->
     <div id="container">
         <div id="menu">
+       
+            
             <button id="toggle-all" class="menu-btn" data-fr="Afficher/Cacher tout" data-en="Show/Hide All">Show/Hide all</button>
-            <button id="toggleMarkers" class="menu-btn" data-fr="Afficher/Cacher Favoris" data-en="Show/Hide All">Show/Hide Favourites</button>
-            <button id="togglerassemblement" class="menu-btn" data-fr="Afficher/Cacher rassemblement" data-en="Show/Hide All">Show/Hide Gathering</button>
-            <button id="togglestation" class="menu-btn" data-fr="Afficher/Cacher station" data-en="Show/Hide All">Show/Hide Station</button>
-            <button id="togglesatelier" class="menu-btn" data-fr="Afficher/Cacher atelier" data-en="Show/Hide All">Show/Hide Workshop</button>
-            <button id="togglesconcession" class="menu-btn" data-fr="Afficher/Cacher concession" data-en="Show/Hide All">Show/Hide Concession</button>
-            <button id="togglesclan" class="menu-btn" data-fr="Afficher/Cacher clan" data-en="Show/Hide All">Show/Hide Clan</button>
-            <button id="togglessolar" class="menu-btn" data-fr="Afficher/Cacher solar" data-en="Show/Hide All">Show/Hide Solar hotel</button>
-            <select id="friendSelect" class="menu-btn">
-                <option value="">Choose a friend</option>
-                <!-- Options pour les amis seront ajoutées ici dynamiquement -->
+            
+               
+            <select id="district-select" class="menu-btn"style="appearance: auto;">
+             
+            
+                <option value="all">District selection:</option>  
+               
+                <option value="1">District 1</option>
+                <option value="2">District 2</option>
+                <option value="3">District 3</option>
+                <option value="4">District 4</option>
+                <option value="5">District 5</option>
+                <option value="6">District 6</option>
+                
             </select>
-        
+            <button id="toggle-solarCoins" class="menu-btn">
+                <img src="{% static 'images/SolarCoins.png' %}" alt="Solar Coins"> Solar Coins
+            </button>
+            
+            <button id="toggle-clan" class="menu-btn">
+                <img src="{% static 'images/clan.png' %}" alt="Clan"> Clan
+            </button>
+             
+            
+           
+            <select id="districtvideo-select" class="menu-btn">
+                
+                    
+                <option value="">Select the video tutorial</option>
+                
+                <option value="district1">District 1</option>
+                <option value="district2">District 2</option>
+                <option value="district3">District 3</option>
+                <option value="district4">District 4</option>
+                <option value="district5">District 5</option>
+                <option value="district6">District 6</option>
+                
+            </select>
+            
+            <button id="toggle-flaw" class="menu-btn">
+                <img src="{% static 'images/channels4_profile.jpg' %}" alt="yt Flaw">Youtube Flaw Motore
+            </button>
         </div>
         <div id="map"></div>
         
     </div>
 
-    <p>Video to remind you or to discover Ibiza</p>
+    
 {% endif %}
-<div class="video-container">
-    <iframe width="560" height="315" 
-        src="https://www.youtube.com/embed/yQtXg3o5QFE?start=9" 
-        title="YouTube video player" 
-        frameborder="0" 
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-        allowfullscreen>
-    </iframe>
-</div>
+<footer>
+    <div class="container2">
+        <p>By <a href="https://www.youtube.com/@fcr_77" target="_blank">FCR</a> Septembre 2024</p><a href="https://www.mon-compteur.fr">
+            
+    <img src="https://www.mon-compteur.fr/html_c01genv2-242818-3" alt="compteur" border="0" /></a><br>
+    <p>images © Nacon - KT Racing</p>
+    </div>
+    
+    
+</footer>  
 <script src="{% static 'js/map.js' %}"></script>
 <script src="{% static 'js/mapibiza.js' %}"></script>
 

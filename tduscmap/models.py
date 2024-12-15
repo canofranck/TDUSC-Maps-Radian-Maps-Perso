@@ -69,6 +69,7 @@ class Car(models.Model):
         ("E", "Catégorie E"),
         ("F", "Catégorie F"),
         ("G", "Catégorie G"),
+        ("S", "Catégorie S"),
         ("H", "Catégorie H"),
     ]
 

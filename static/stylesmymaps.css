@@ -12,10 +12,21 @@ img {
     width: auto;
     height: auto;
   }
-.image-container {
-    display: flex; /* Rend le conteneur flexible */
-    justify-content: space-evenly; /* Espace les éléments uniformément */
-}
+  .text-and-image-container {
+    display: flex;
+    justify-content: center; /* Centre horizontalement le contenu */
+    align-items: center; /* Centre verticalement le contenu */
+  }
+  
+  .text-container,
+  .image-container {
+    display: flex;
+    flex-direction: column; /* Aligne le texte et l'image verticalement */
+    align-items: center; /* Centre le texte et l'image horizontalement */
+  }
+  .image-container {
+    margin-left: 2px; /* Ajustez cette valeur pour réduire l'espace */
+  }
 .container2 {
     display: flex;
     justify-content: space-between; /* Distribue l'espace entre les éléments */

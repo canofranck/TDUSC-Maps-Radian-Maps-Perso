@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Car, CarPrice, Reglage, Like,  CustomUser
+from .models import Car, CarPrice, Reglage, Like,  CustomUser, Favorite, Trajet
 from django.core.exceptions import ValidationError
 from django.forms import ModelForm
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
@@ -176,3 +176,10 @@ class UserAdmin(admin.ModelAdmin):
 
 
 admin.site.register(CustomUser, UserAdmin)
+class FavoriteAdmin(admin.ModelAdmin):
+    list_display = ["user", "lat", "lng", "description"]
+
+class TrajetAdmin(admin.ModelAdmin):
+    list_display = ["user", "nom", "depart_lat", "depart_lng", "arrivee_lat", "arrivee_lng"]
+admin.site.register(Favorite, FavoriteAdmin)
+admin.site.register(Trajet, TrajetAdmin)
