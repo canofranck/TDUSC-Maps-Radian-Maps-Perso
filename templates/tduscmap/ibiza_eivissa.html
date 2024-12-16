@@ -22,7 +22,20 @@
 {% if request.session.langue == 'fr' %}
     <h1 id="footer">Maps interactive pour Eivissa sur Ibiza </h1>
 
-    
+    <div class="white-background">
+            
+        <div class="row justify-content-center py-2">
+        <a
+            class="col-3 btn btn-outline-secondary me-3" class="menu-btn"
+            href="{% url 'mymaps_ibiza' %}" 
+        >ma carte ibiza</a>
+        <a
+            class="col-3 btn btn-outline-secondary ms-3"
+            href="{% url 'myiti_ibiza' %}" 
+        >Mes itinéraires ibiza</a
+            >
+        </div>
+    </div>
 
 
     
@@ -91,7 +104,20 @@
 {% else %}
     <h1 id="footer">Interactive Ibiza, eivissa Map TDUSC</h1>
 
-    
+    <div class="white-background">
+            
+        <div class="row justify-content-center py-2">
+        <a
+            class="col-3 btn btn-outline-secondary me-3" class="menu-btn"
+            href="{% url 'mymaps_ibiza' %}" 
+        >my map Ibiza</a>
+        <a
+            class="col-3 btn btn-outline-secondary ms-3"
+            href="{% url 'myiti_ibiza' %}" 
+        >My itineraries Ibiza</a
+            >
+        </div>
+    </div>
 
 
 
@@ -148,19 +174,19 @@
         <div id="map"></div>
         
     </div>
-
+    <footer>
+        <div class="container2">
+            <p>By <a href="https://www.youtube.com/@fcr_77" target="_blank">FCR</a> Septembre 2024</p><a href="https://www.mon-compteur.fr">
+                
+        <img src="https://www.mon-compteur.fr/html_c01genv2-242818-3" alt="compteur" border="0" /></a><br>
+        <p>images © Nacon - KT Racing</p>
+        </div>
+        
+        
+    </footer> 
     
 {% endif %}
-<footer>
-    <div class="container2">
-        <p>By <a href="https://www.youtube.com/@fcr_77" target="_blank">FCR</a> Septembre 2024</p><a href="https://www.mon-compteur.fr">
-            
-    <img src="https://www.mon-compteur.fr/html_c01genv2-242818-3" alt="compteur" border="0" /></a><br>
-    <p>images © Nacon - KT Racing</p>
-    </div>
-    
-    
-</footer>  
+ 
 <script src="{% static 'js/map.js' %}"></script>
 <script src="{% static 'js/mapibiza.js' %}"></script>
 

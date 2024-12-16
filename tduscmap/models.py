@@ -17,6 +17,16 @@ class Favorite(models.Model):
     def __str__(self):
         return f"{self.user.username}'s favorite at ({self.lat}, {self.lng})"
 
+class Favoriteibiza(models.Model):
+    user = models.ForeignKey(
+        CustomUser, on_delete=models.CASCADE, related_name="favorites_ibiza"
+    )
+    lat = models.FloatField()  # Latitude
+    lng = models.FloatField()  # Longitude
+    description = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.user.username}'s favorite at ({self.lat}, {self.lng})"
 
 class Car(models.Model):
     MARQUES = [
@@ -48,6 +58,7 @@ class Car(models.Model):
         ("MercedesBenz", "MercedesBenz"),
         ("Mini", "Mini"),
         ("Nissan", "Nissan"),
+        ("Pininfarina","Pininfarina"),
         ("Porsche", "Porsche"),
         ("Shelby", "Shelby"),
         ("Sientero", "Sientero"),
@@ -96,7 +107,7 @@ class Car(models.Model):
     prix_initial = models.PositiveIntegerField(null=True)
 
     nb_vitesse = models.IntegerField(default=6, validators=[MinValueValidator(1), MaxValueValidator(10)])
-
+    background = models.CharField(max_length=50, default='default_background')
     def __str__(self):
         return f"{self.marque} {self.modele} ({self.annee})"
 
@@ -113,133 +124,6 @@ class CarPrice(models.Model):
             f"{self.car.marque} {self.car.modele} - {self.date}: "
             f"{self.prix}€"
         )
-
-
-# class ConfigurationReglage(models.Model):
-
-#     car = models.ForeignKey(Car, on_delete=models.CASCADE)
-#     # Champs spécifiques pour la configuration
-#     rapport_final_min = models.DecimalField(
-#         max_digits=5, decimal_places=2, null=True, blank=True
-#     )
-#     rapport_final_max = models.DecimalField(
-#         max_digits=5, decimal_places=2, null=True, blank=True
-#     )
-#     premiere_vitesse_min = models.DecimalField(
-#         max_digits=4, decimal_places=2, null=True, blank=True
-#     )
-#     premiere_vitesse_max = models.DecimalField(
-#         max_digits=4, decimal_places=2, null=True, blank=True
-#     )
-#     deuxieme_vitesse_min = models.DecimalField(
-#         max_digits=4, decimal_places=2, null=True, blank=True
-#     )
-#     deuxieme_vitesse_max = models.DecimalField(
-#         max_digits=4, decimal_places=2, null=True, blank=True
-#     )
-#     troisieme_vitesse_min = models.DecimalField(
-#         max_digits=6, decimal_places=2, null=True, blank=True
-#     )
-#     troisieme_vitesse_max = models.DecimalField(
-#         max_digits=6, decimal_places=2, null=True, blank=True
-#     )
-#     quatrieme_vitesse_min = models.DecimalField(
-#         max_digits=6, decimal_places=2, null=True, blank=True
-#     )
-#     quatrieme_vitesse_max = models.DecimalField(
-#         max_digits=6, decimal_places=2, null=True, blank=True
-#     )
-#     cinquieme_vitesse_min = models.DecimalField(
-#         max_digits=6, decimal_places=2, null=True, blank=True
-#     )
-#     cinquieme_vitesse_max = models.DecimalField(
-#         max_digits=6, decimal_places=2, null=True, blank=True
-#     )
-#     sixieme_vitesse_min = models.DecimalField(
-#         max_digits=6, decimal_places=2, null=True, blank=True
-#     )
-#     sixieme_vitesse_max = models.DecimalField(
-#         max_digits=6, decimal_places=2, null=True, blank=True
-#     )
-#     septieme_vitesse_min = models.DecimalField(
-#         max_digits=6, decimal_places=2, null=True, blank=True
-#     )
-#     septieme_vitesse_max = models.DecimalField(
-#         max_digits=6, decimal_places=2, null=True, blank=True
-#     )
-#     huitieme_vitesse_min = models.DecimalField(
-#         max_digits=6, decimal_places=2, null=True, blank=True
-#     )
-#     huitieme_vitesse_max = models.DecimalField(
-#         max_digits=6, decimal_places=2, null=True, blank=True
-#     )
-#     taille_suspension_arriere_min = models.DecimalField(
-#         max_digits=6, decimal_places=2, null=True, blank=True
-#     )
-#     taille_suspension_arriere_max = models.DecimalField(
-#         max_digits=6, decimal_places=2, null=True, blank=True
-#     )
-#     taille_suspension_avant_min = models.DecimalField(
-#         max_digits=6, decimal_places=2, null=True, blank=True
-#     )
-#     taille_suspension_avant_max = models.DecimalField(
-#         max_digits=6, decimal_places=2, null=True, blank=True
-#     )
-#     acceleration_avant_min = models.DecimalField(
-#         max_digits=6, decimal_places=2, null=True, blank=True
-#     )
-#     acceleration_avant_max = models.DecimalField(
-#         max_digits=6, decimal_places=2, null=True, blank=True
-#     )
-#     deceleration_avant_min = models.DecimalField(
-#         max_digits=6, decimal_places=2, null=True, blank=True
-#     )
-#     deceleration_avant_max = models.DecimalField(
-#         max_digits=6, decimal_places=2, null=True, blank=True
-#     )
-#     freinage_avant_min = models.DecimalField(
-#         max_digits=6, decimal_places=2, null=True, blank=True
-#     )
-#     freinage_avant_max = models.DecimalField(
-#         max_digits=6, decimal_places=2, null=True, blank=True
-#     )
-#     distribution_puissance_avant_arriere_min = models.DecimalField(
-#         max_digits=6, decimal_places=2, null=True, blank=True
-#     )
-#     distribution_puissance_avant_arriere_max = models.DecimalField(
-#         max_digits=6, decimal_places=2, null=True, blank=True
-#     )
-#     acceleration_centrale_min = models.DecimalField(
-#         max_digits=6, decimal_places=2, null=True, blank=True
-#     )
-#     acceleration_centrale_max = models.DecimalField(
-#         max_digits=6, decimal_places=2, null=True, blank=True
-#     )
-#     deceleration_centrale_min = models.DecimalField(
-#         max_digits=6, decimal_places=2, null=True, blank=True
-#     )
-#     deceleration_centrale_max = models.DecimalField(
-#         max_digits=6, decimal_places=2, null=True, blank=True
-#     )
-#     freinage_centrale_min = models.DecimalField(
-#         max_digits=6, decimal_places=2, null=True, blank=True
-#     )
-#     freinage_centrale_max = models.DecimalField(
-#         max_digits=6, decimal_places=2, null=True, blank=True
-#     )
-#     pression_pneus_arriere_min = models.DecimalField(
-#         max_digits=6, decimal_places=2, null=True, blank=True
-#     )
-#     pression_pneus_arriere_max = models.DecimalField(
-#         max_digits=6, decimal_places=2, null=True, blank=True
-#     )
-#     pression_pneus_avant_min = models.DecimalField(
-#         max_digits=6, decimal_places=2, null=True, blank=True
-#     )
-#     pression_pneus_avant_max = models.DecimalField(
-#         max_digits=6, decimal_places=2, null=True, blank=True
-#     )
-#     background = models.CharField(max_length=50, default='default_background')
 
 
 class Reglage(models.Model):
@@ -441,25 +325,16 @@ class Trajet(models.Model):
     def __str__(self):
         return f"{self.nom} - {self.user.username}"
 
+class Trajetibiza(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="trajets_ibiza")
+    nom = models.CharField(max_length=100, help_text="Nom ou description du trajet")
+    depart_lat = models.FloatField(help_text="Coordonnée Y en pixels du point de départ")
+    depart_lng = models.FloatField(help_text="Coordonnée X en pixels du point de départ")
+    etapes = models.JSONField(help_text="Liste des points intermédiaires sous forme de coordonnées pixels")
+    arrivee_lat = models.FloatField(help_text="Coordonnée Y en pixels du point d'arrivée")
+    arrivee_lng = models.FloatField(help_text="Coordonnée X en pixels du point d'arrivée")
+    date_creation = models.DateTimeField(auto_now_add=True)
 
-# class MapElement(models.Model):
-#     CATEGORY_CHOICES = [
-#         ('solarCoins', 'Solar Coins'),
-#         ('clan', 'Clan'),
-#         ('reputation', 'Réputation'),
-#         ('epave', 'Épave'),
-#         ('epave2', 'Épave 2'),
-#         ('concessionaire', 'Concessionnaire'),
-#         ('station', 'Station'),
-#         ('atelier', 'Atelier'),
-#         ('rassemblement', 'Rassemblement'),
-#     ]
+    def __str__(self):
+        return f"{self.nom} - {self.user.username}"
 
-#     district = models.DecimalField()  # Numéro de district (1 à 14)
-#     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)  # Catégorie principale
-#     sub_category = models.CharField(max_length=50, blank=True, null=True)  # Sous-catégorie pour les concessionnaires
-#     latitude = models.FloatField()  # Coordonnée latitude
-#     longitude = models.FloatField()  # Coordonnée longitude
-
-#     def __str__(self):
-#         return f"{self.nom or 'Élément'} - {self.category} ({self.latitude}, {self.longitude})"

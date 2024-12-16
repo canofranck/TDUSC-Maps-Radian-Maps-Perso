@@ -1,0 +1,17 @@
+{
+    "districts": {
+        "1":[
+    
+   
+    
+    
+    {"type": "station", "lat": 1040.5, "lng": 1168.55},
+    {"type": "station", "lat": 516, "lng": 1484.46},
+    {"type": "station", "lat": 305.5, "lng": 492.91},
+    {"type": "shop_sharp", "lat": 162.331, "lng": 331.35},
+    {"type": "shop_street", "lat": 909.7, "lng": 1737.05}
+    
+    ]
+
+}
+}

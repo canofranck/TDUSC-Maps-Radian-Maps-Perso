@@ -3,7 +3,7 @@ from pathlib import Path
 
 from django.conf import settings
 from django.shortcuts import get_object_or_404, render, redirect
-from .models import Favorite, Car, Reglage,  Like, Trajet
+from .models import Favorite, Car, Reglage,  Like, Trajet, Trajetibiza, Favoriteibiza
 from django.http import FileResponse, HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
@@ -45,6 +45,26 @@ def ajouter_favori(request):
             {"success": False, "error": "Invalid request method"}
         )
 
+@login_required
+def ajouter_favori_ibiza(request):
+    if request.method == "POST":
+        try:
+            # Convertir les données JSON en dictionnaire Python
+            data = json.loads(request.body)
+            lat = data.get("lat")
+            lng = data.get("lng")
+            description = data.get("description")
+            # Créer et sauvegarder un nouveau favori dans la base de données
+            Favoriteibiza.objects.create(
+                user=request.user, lat=lat, lng=lng, description=description
+            )
+            return JsonResponse({"success": True})
+        except Exception as e:
+            return JsonResponse({"success": False, "error": str(e)})
+    else:
+        return JsonResponse(
+            {"success": False, "error": "Invalid request method"}
+        )
 
 # Supprimer un favori
 @login_required
@@ -53,6 +73,11 @@ def supprimer_favori(request, favori_id):
     favori.delete()
     return redirect("afficher_favoris")
 
+@login_required
+def supprimer_favori_ibiza(request, favori_id):
+    favori = Favoriteibiza.objects.get(id=favori_id, user=request.user)
+    favori.delete()
+    return redirect("afficher_favoris")
 
 # Afficher les favoris de l'utilisateur connecté
 @login_required
@@ -60,11 +85,18 @@ def afficher_favoris(request):
     favoris = Favorite.objects.filter(user=request.user)
     return render(request, "afficher_favoris.html", {"favoris": favoris})
 
+@login_required
+def afficher_favoris_ibiza(request):
+    favoris = Favoriteibiza.objects.filter(user=request.user)
+    return render(request, "afficher_favoris_ibiza.html", {"favoris": favoris})
 
 @login_required
 def mymaps(request):
     return render(request, "tduscmap/mymaps.html")
 
+@login_required
+def mymaps_ibiza(request):
+    return render(request, "tduscmap/mymaps_ibiza.html")
 
 @login_required
 def get_favorites(request):
@@ -83,6 +115,22 @@ def get_favorites(request):
     ]
     return JsonResponse(favorites_list, safe=False)
 
+@login_required
+def get_favorites_ibiza(request):
+    """Récupérer les favoris de l'utilisateur connecté."""
+    user = request.user
+    # Filtrer les favoris par utilisateur
+    favs = Favoriteibiza.objects.filter(user=user)
+    favorites_list = [
+        {
+            "id": fav.id,
+            "lat": fav.lat,
+            "lng": fav.lng,
+            "description": fav.description,
+        }
+        for fav in favs
+    ]
+    return JsonResponse(favorites_list, safe=False)
 
 @login_required
 @require_http_methods(["DELETE"])
@@ -94,6 +142,15 @@ def delete_favorite(request, favorite_id):
     except Favorite.DoesNotExist:
         return JsonResponse({"success": False, "error": "Favori introuvable"})
 
+@login_required
+@require_http_methods(["DELETE"])
+def delete_favorite_ibiza(request, favorite_id):
+    try:
+        favorite = Favoriteibiza.objects.get(id=favorite_id)
+        favorite.delete()
+        return JsonResponse({"success": True})
+    except Favorite.DoesNotExist:
+        return JsonResponse({"success": False, "error": "Favori introuvable"})
 
 @login_required
 def get_friends(request):
@@ -125,6 +182,24 @@ def get_friend_favorites(request, friend_id):
         except CustomUser.DoesNotExist:
             return JsonResponse({"error": "Ami non trouvé"}, status=404)
 
+@login_required
+def get_friend_favorites_ibiza(request, friend_id):
+    if request.method == "GET":
+        try:
+            friend = CustomUser.objects.get(id=friend_id)
+            favorites = Favoriteibiza.objects.filter(user=friend)
+            favorites_data = [
+                {
+                    "id": fav.id,
+                    "lat": fav.lat,
+                    "lng": fav.lng,
+                    "description": fav.description,
+                }
+                for fav in favorites
+            ]
+            return JsonResponse(favorites_data, safe=False)
+        except CustomUser.DoesNotExist:
+            return JsonResponse({"error": "Ami non trouvé"}, status=404)
 
 @login_required
 def search_friends(request):
@@ -495,12 +570,53 @@ def save_trajet(request):
             return JsonResponse({"success": False, "message": "Données manquantes."}, status=400)
     return JsonResponse({"success": False, "message": "Méthode non autorisée."}, status=405)
 
+@csrf_exempt
+def save_trajet_ibiza(request):
+    if request.method == "POST":
+        # print("Requête POST reçue")
+        data = json.loads(request.body)
+        user = request.user  # Utilisateur connecté
 
+        # Vérifier si toutes les données sont présentes
+        try:
+            data = json.loads(request.body)
+            nom = data["nom"]
+            depart = data["depart"]
+            etapes = data["etapes"]
+            arrivee = data["arrivee"]
+            depart_lat = float(depart["lat"])
+            depart_lng = float(depart["lng"])
+            arrivee_lat = float(arrivee["lat"])
+            arrivee_lng = float(arrivee["lng"])
+            # Sauvegarder dans la base de données
+            trajet = Trajetibiza.objects.create(
+                user=request.user,
+                nom=nom,
+                depart_lat=depart_lat,
+                depart_lng=depart_lng,
+                etapes=json.dumps(etapes),  # Convertir les étapes en JSON
+                arrivee_lat=arrivee_lat,
+                arrivee_lng=arrivee_lng
+            )
+            # print("Trajet sauvegardé :", trajet) 
+            return JsonResponse({"success": True, "message": "Trajet sauvegardé avec succès.", "trajet_id": trajet.id})
+        except KeyError:
+            # print("Erreur dans les données :", e)
+            return JsonResponse({"success": False, "message": "Données manquantes."}, status=400)
+    return JsonResponse({"success": False, "message": "Méthode non autorisée."}, status=405)
+
+
+@login_required
 def liste_trajets(request):
     trajets = Trajet.objects.filter(user=request.user)
     serializer = TrajetSerializer(trajets, many=True)  # many=True for multiple trajets
     return JsonResponse(serializer.data, safe=False)
 
+@login_required
+def liste_trajets_ibiza(request):
+    trajets = Trajetibiza.objects.filter(user=request.user)
+    serializer = TrajetibizaSerializer(trajets, many=True)  # many=True for multiple trajets
+    return JsonResponse(serializer.data, safe=False)
 
 @login_required
 def myiti(request):
@@ -517,6 +633,20 @@ def myiti(request):
         'selected_trajet': selected_trajet
     })
 
+@login_required
+def myiti_ibiza(request):
+    trajets = Trajetibiza.objects.filter(user=request.user)
+    selected_trajet = None
+    
+    if request.method == 'GET' and 'trajet' in request.GET:
+        trajet_id = request.GET['trajet']
+        if trajet_id:
+            selected_trajet = get_object_or_404(Trajetibiza, id=trajet_id, user=request.user)
+    # print(f"Trajets trouvés : {trajets}")  # Ajoute cette ligne pour vérifier
+    return render(request, 'tduscmap/mes_iti_ibiza.html', {
+        'trajets': trajets,
+        'selected_trajet': selected_trajet
+    })
 
 @login_required
 def afficher_trajet(request, trajet_id):
@@ -524,6 +654,11 @@ def afficher_trajet(request, trajet_id):
     serializer = TrajetSerializer(trajet)  # many=False par défaut pour un seul trajet
     return JsonResponse(serializer.data)
 
+@login_required
+def afficher_trajet_ibiza(request, trajet_id):
+    trajet = get_object_or_404(Trajetibiza, id=trajet_id, user=request.user)
+    serializer = TrajetibizaSerializer(trajet)  # many=False par défaut pour un seul trajet
+    return JsonResponse(serializer.data)
 
 @login_required
 def get_friend_trajets(request, friend_id):
@@ -534,7 +669,16 @@ def get_friend_trajets(request, friend_id):
     except CustomUser.DoesNotExist:
         return JsonResponse({'success': False, 'error': 'Utilisateur introuvable.'}, status=404)
 
+@login_required
+def get_friend_trajets_ibiza(request, friend_id):
+    try:
+        friend = CustomUser.objects.get(id=friend_id)
+        trajets = Trajetibiza.objects.filter(user=friend).values('id', 'nom')
+        return JsonResponse({'success': True, 'trajets': list(trajets)}, status=200)
+    except CustomUser.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Utilisateur introuvable.'}, status=404)
 
+@login_required   
 def get_friend_trajet_details(request, trajet_id):
     try:
         # Récupérer l'ami en fonction de l'ID
@@ -568,7 +712,40 @@ def get_friend_trajet_details(request, trajet_id):
     except Exception as e:
         return JsonResponse({"success": False, "error": str(e)})
 
+@login_required   
+def get_friend_trajet_details_ibiza(request, trajet_id):
+    try:
+        # Récupérer l'ami en fonction de l'ID
+        friend_id = request.GET.get('friend_id')
+        friend = CustomUser.objects.get(id=friend_id)
 
+        # Récupérer les trajets associés à l'ami
+        trajets_ami = Trajetibiza.objects.filter(user=friend)
+
+        trajet = trajets_ami.get(id=trajet_id)  # Trouver le trajet spécifique
+
+        # Convertir les étapes en une liste de coordonnées
+        etapes = trajet.etapes  # Si c'est un JSONField, il sera déjà sous forme de liste
+
+        return JsonResponse({
+            "success": True,
+            "trajet": {
+                "id": trajet.id,
+                "nom": trajet.nom,
+                "depart_lat": trajet.depart_lat,
+                "depart_lng": trajet.depart_lng,
+                "etapes": etapes,
+                "arrivee_lat": trajet.arrivee_lat,
+                "arrivee_lng": trajet.arrivee_lng,
+            },
+        })
+    except CustomUser.DoesNotExist:
+        return JsonResponse({"success": False, "error": "Ami non trouvé."})
+    except Trajet.DoesNotExist:
+        return JsonResponse({"success": False, "error": "Trajet non trouvé pour cet ami."})
+    except Exception as e:
+        return JsonResponse({"success": False, "error": str(e)})
+    
 @csrf_exempt  # Permet de traiter les requêtes POST sans jeton CSRF (utile pour AJAX)
 def supprimer_trajet(request, trajet_id):
     if request.method == 'POST':
@@ -582,6 +759,18 @@ def supprimer_trajet(request, trajet_id):
             return JsonResponse({"success": False, "message": "Vous n'êtes pas autorisé à supprimer ce trajet."})
     return JsonResponse({"success": False, "message": "Requête invalide."})
 
+@csrf_exempt  # Permet de traiter les requêtes POST sans jeton CSRF (utile pour AJAX)
+def supprimer_trajet_ibiza(request, trajet_id):
+    if request.method == 'POST':
+        trajet = get_object_or_404(Trajetibiza, id=trajet_id)
+
+        # Vérifier si l'utilisateur est propriétaire du trajet
+        if trajet.user == request.user:
+            trajet.delete()
+            return JsonResponse({"success": True, "message": "Trajet supprimé avec succès."})
+        else:
+            return JsonResponse({"success": False, "message": "Vous n'êtes pas autorisé à supprimer ce trajet."})
+    return JsonResponse({"success": False, "message": "Requête invalide."})
 
 @staff_member_required
 def telecharger(request):
@@ -616,6 +805,16 @@ class TrajetSerializer(serializers.ModelSerializer):
         except (TypeError, json.JSONDecodeError):
             return []
 
+class TrajetibizaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Trajetibiza
+        fields = '__all__'  # Ou spécifiez les champs à inclure
+
+    def get_etapes(self, obj):
+        try:
+            return json.loads(obj.etapes)  # Convertir en tableau Python
+        except (TypeError, json.JSONDecodeError):
+            return []
 
 @login_required
 def ibiza(request):

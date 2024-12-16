@@ -660,9 +660,9 @@
         
         window.addEventListener("load", function() {
           // Fonction réutilisable pour créer un slider
-          const backgroundImage = '{{ reglage.configurationreglage.background }}.png'
+          const backgroundImage = '{{ reglage.car.background }}.jpg'
           const body = document.body;
-          const imagePath = `{% static 'images/' %}${backgroundImage}`;
+          const imagePath = `{% static 'images/car/' %}${backgroundImage}`;
           body.style.backgroundImage = `url(${imagePath})`;
         
           function createSlider(sliderId, value, minValue, maxValue) {

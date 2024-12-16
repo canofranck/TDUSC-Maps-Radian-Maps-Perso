@@ -1,0 +1,227 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
+<link rel="stylesheet" href="{% static 'stylesmymaps.css' %}" type="text/css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+{% if request.session.langue == 'fr' %}
+    <div >
+        
+        <div >
+            <!-- Début du conteneur avec fond blanc -->
+            <div class="white-background">
+            
+                <div class="row justify-content-center py-2">
+                <a
+                    class="col-3 btn btn-outline-secondary me-3" class="menu-btn"
+                    href="{% url 'mymaps_ibiza' %}" 
+                >ma carte Ibiza</a>
+                <a
+                    class="col-3 btn btn-outline-secondary ms-3"
+                    href="{% url 'myiti_ibiza' %}" 
+                >Mes itinéraires Ibiza</a
+                    >
+                </div>
+            </div>
+    
+        <h1 id="footer">Ma carte</h1>
+        
+        
+        <!-- Formulaire de recherche -->
+        <form id="searchForm" method="GET" action="{% url 'search_friends' %}">
+            <input type="text" id="searchInput" name="search" placeholder="Rechercher un utilisateur">
+            <button type="submit class="menu-btn"">Rechercher</button>
+        </form>
+        
+        <!-- Zone des résultats de recherche -->
+        <div id="searchResults"></div>
+        
+        <!-- Div où la carte va être affichée -->
+        <div id="container">
+            <div id="menu">
+                <button id="toggle-all" class="menu-btn" data-fr="Afficher/Cacher tout" data-en="Show/Hide All">Afficher/Cacher tout</button>
+                
+                <button id="toggleshop_sharp" class="menu-btn" data-fr="Afficher/Cacher rassemblement" data-en="Show/Hide All">Afficher/Cacher Boutique sharp</button>
+                <button id="togglestation" class="menu-btn" data-fr="Afficher/Cacher station" data-en="Show/Hide All">Afficher/Cacher Station</button>
+                
+                
+                <button id="togglesshop_street" class="menu-btn" data-fr="Afficher/Cacher boutique street" data-en="Show/Hide All">Afficher/Cacher Boutique Street</button>
+                
+                <select id="friendSelect" class="menu-btn">
+                    <option value="">Choisir un ami</option>
+                    <!-- Options pour les amis seront ajoutées ici dynamiquement -->
+                </select>
+            
+            </div>
+            <div id="map"></div>
+            
+        </div>
+        <div class="container text-center px-5">
+        <h9>Usage : Click gauche sur la carte pour ajouter un favori et une description</h9>
+        </br>
+        <h9>        click droit supprimer un favori , click gauche sur un favori affiche la description </h9>
+        </br>
+        <h9>        Bouton recherche pour ajouter un ami et le select affiche les favoris de l'ami selectionner </h9>
+        </br>
+    </div>
+        
+    </br>
+        <footer>
+            <div class="container2">
+                <p>Par <a href="https://www.youtube.com/@fcr_77" target="_blank">FCR</a> Novembre 2024</p>
+                <a href="https://www.mon-compteur.fr">
+                    <img src="https://www.mon-compteur.fr/html_c01genv2-242818-3" alt="compteur" border="0" />
+                </a><br>
+            </div>
+        </footer>  
+    </div>
+{% else %}
+    <div >
+            
+        <div >
+            <!-- Début du conteneur avec fond blanc -->
+            <div class="white-background">
+            
+                <div class="row justify-content-center py-2">
+                <a
+                    class="col-3 btn btn-outline-secondary me-3" class="menu-btn"
+                    href="{% url 'mymaps_ibiza' %}" 
+                >my map Ibiza</a>
+                <a
+                    class="col-3 btn btn-outline-secondary ms-3"
+                    href="{% url 'myiti_ibiza' %}" 
+                >My itineraries Ibiza</a
+                    >
+                </div>
+            </div>
+
+        <h1 id="footer">My map Ibiza</h1>
+        
+        
+        <!-- Formulaire de recherche -->
+        <form id="searchForm" method="GET" action="{% url 'search_friends' %}">
+            <input type="text" id="searchInput" name="search" placeholder="Search for a user">
+            <button type="submit class="menu-btn"">Search</button>
+        </form>
+        
+        <!-- Zone des résultats de recherche -->
+        <div id="searchResults"></div>
+        
+        <!-- Div où la carte va être affichée -->
+        <div id="container">
+            <div id="menu">
+                <button id="toggle-all" class="menu-btn" data-fr="Afficher/Cacher tout" data-en="Show/Hide All">Show/Hide all</button>
+                
+                <button id="toggleshop_sharp" class="menu-btn" data-fr="Afficher/Cacher boutique sharp" data-en="Show/Hide All">Show/Hide Shop sharp</button>
+                <button id="togglestation" class="menu-btn" data-fr="Afficher/Cacher station" data-en="Show/Hide All">Show/Hide Gas Station</button>
+                
+                
+                <button id="togglesshop_street" class="menu-btn" data-fr="Afficher/Cacher boutique street" data-en="Show/Hide All">Show/Hide Shop  Street</button>
+                <select id="friendSelect" class="menu-btn">
+                    <option value="">Choose a friend</option>
+                    <!-- Options pour les amis seront ajoutées ici dynamiquement -->
+                </select>
+            
+            </div>
+            <div id="map"></div>
+            
+        </div>
+        <div class="container text-center px-5">
+        <h9>Usage: Left-click on the map to add a favourite and a description</h9>
+        </br>
+        <h9>        right click delete a favourite , left click on a favourite to display the description </h9>
+        </br>
+        <h9>        Search button to add a friend and select displays the favourites of the selected friend </h9>
+        </br>
+    </div>
+        
+    </br>
+    <footer>
+        <div class="container2">
+            <p>By <a href="https://www.youtube.com/@fcr_77" target="_blank">FCR</a> Septembre 2024</p><a href="https://www.mon-compteur.fr">
+                
+        <img src="https://www.mon-compteur.fr/html_c01genv2-242818-3" alt="compteur" border="0" /></a><br>
+        <p>images © Nacon - KT Racing</p>
+        </div>
+        
+        
+    </footer>    
+    </div>  
+{% endif %}
+<!-- Inclure le JS de Leaflet -->
+<script src="{% static 'js/map.js' %}"></script>
+
+
+<script>
+    
+        const traduction = {
+            choisirAmi: "{% if request.session.langue == 'fr' %}Choisir un ami{% else %}Choose a friend{% endif %}",
+            entrerfavori: "{% if request.session.langue == 'fr' %}Entrez une description pour ce favori : {% else %}Enter a description for this favourite : {% endif %}",
+            supfavori: "{% if request.session.langue == 'fr' %}Voulez-vous vraiment supprimer ce favori ? {% else %}Do you really want to delete this favourite? {% endif %}"
+        };
+   
+  // Récupère l'ID de l'utilisateur actuellement connecté depuis Django
+  const currentUserId = "{{ request.user.id }}";
+  const ajoutami = `{% if request.session.langue == 'fr' %}Ajouter en ami{% else %}Add as a friend{% endif %}`;  
+  // Gestionnaire d'événements pour le formulaire de recherche
+  document.getElementById('searchForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Empêche l'envoi du formulaire classique
+
+      const searchQuery = document.getElementById('searchInput').value;
+      const resultsContainer = document.getElementById('searchResults');
+
+      fetch(`/search-friends/?search=${encodeURIComponent(searchQuery)}`)
+          .then(response => response.json())
+          .then(data => {
+              resultsContainer.innerHTML = ''; // Vide les anciens résultats
+              if (data.users.length > 0) {
+                  data.users.forEach(user => {
+                      const userElement = document.createElement('div');
+                      userElement.innerHTML = `
+                          <p>${user.username} <button onclick="addFriend(${currentUserId}, ${user.id})">${ajoutami}</button></p>
+                      `;
+                      resultsContainer.appendChild(userElement);
+                  });
+              } else {
+                  resultsContainer.innerHTML = '<p>Aucun utilisateur trouvé.</p>';
+              }
+          })
+          .catch(error => {
+              resultsContainer.innerHTML = '<p>Erreur lors de la recherche.</p>';
+              console.error("Erreur lors de la recherche :", error);
+          });
+  });
+
+  // Fonction pour ajouter un ami
+  function addFriend(userId, friendId) {
+      fetch(`/add-friend/${userId}/`, {
+          method: 'POST',
+          headers: {
+              'X-CSRFToken': '{{ csrf_token }}', // Nécessaire pour Django
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+              friend_id: friendId  // Envoyer l'ID de l'ami dans le corps de la requête
+          })
+      })
+      .then(response => response.json())
+      .then(data => {
+          if (data.success) {
+              alert(data.message);  // Afficher un message de succès
+          } else {
+              alert('Erreur : ' + data.message);  // Afficher un message d'erreur
+          }
+      })
+      .catch(error => {
+          console.error("Erreur lors de l'ajout de l'ami :", error);
+      });
+  }
+
+
+</script>
+<script src="{% static 'js/mymaps_ibiza.js' %}"></script>
+
+
+{% endblock content %}
