@@ -57,8 +57,8 @@ function loadFriends() {
 }
 document.getElementById('friendSelect').addEventListener('change', function () {
     const selectedFriendId = this.value;
-    const friendTrajetSelect = document.getElementById('friend-trajets'); // Sélecteur pour les trajets de l'ami
-    const userTrajetSelect = document.getElementById('user-trajets'); // Sélecteur pour les trajets de l'utilisateur (si nécessaire)
+    const friendTrajetSelect = document.getElementById('friend-trajets-ibiza'); // Sélecteur pour les trajets de l'ami
+    const userTrajetSelect = document.getElementById('user-trajets-ibiza'); // Sélecteur pour les trajets de l'utilisateur (si nécessaire)
     
     // Réinitialise uniquement le sélecteur des trajets de l'ami
     friendTrajetSelect.innerHTML = '<option value="">-- Sélectionner un trajet --</option>';
@@ -66,7 +66,7 @@ document.getElementById('friendSelect').addEventListener('change', function () {
 
     if (selectedFriendId) {
         // Charge les trajets de l'ami
-        fetch(`/get-friend-trajets/${selectedFriendId}/`)
+        fetch(`/get-friend-trajets-ibiza/${selectedFriendId}/`)
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
@@ -418,14 +418,14 @@ function updateIconSize() {
 
     
 
-    sharp.eachLayer(function(layer) {
+    shop_sharp.eachLayer(function(layer) {
         layer.setIcon(L.icon({
             iconUrl: getIconUrl('shop_sharp'),
             iconSize: newSize
         }));
     });
 
-    street.eachLayer(function(layer) {
+    shop_street.eachLayer(function(layer) {
         layer.setIcon(L.icon({
             iconUrl: getIconUrl('shop_street'),
             iconSize: newSize
@@ -487,10 +487,7 @@ function loadMarkers(district = "all") {
             // Ajouter les couches à la carte
            
             map.addLayer(station);
-            
-            
             map.addLayer(shop_sharp);
-           
             map.addLayer(shop_street);
             
              // Afficher le compte des collectibles par district dans la console

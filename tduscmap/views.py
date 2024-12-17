@@ -11,10 +11,10 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods
 from .models import CustomUser
 from tduscmap.form import  ReglageForm, ChoixModeleForm
-from django.db.models import Count, Q, Prefetch
+from django.db.models import Count, Q, Prefetch, Value, CharField
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from rest_framework import serializers
-
+from django.db.models.functions import Concat
 from django.contrib.admin.views.decorators import staff_member_required 
 
 def home(request):
@@ -413,7 +413,9 @@ def choix_modele(request):
     else:
         form = ChoixModeleForm()
         # Récupérer tous les modèles de voitures distincts
-        modeles = Car.objects.values_list('marque', 'modele')
+        modeles = Car.objects.annotate(
+            modele_complet=Concat('marque', Value(' '), 'modele', output_field=CharField())
+        ).order_by('modele_complet').values_list('marque', 'modele').distinct()
         
         return render(
             request,
@@ -674,6 +676,7 @@ def get_friend_trajets_ibiza(request, friend_id):
     try:
         friend = CustomUser.objects.get(id=friend_id)
         trajets = Trajetibiza.objects.filter(user=friend).values('id', 'nom')
+       
         return JsonResponse({'success': True, 'trajets': list(trajets)}, status=200)
     except CustomUser.DoesNotExist:
         return JsonResponse({'success': False, 'error': 'Utilisateur introuvable.'}, status=404)
@@ -684,7 +687,7 @@ def get_friend_trajet_details(request, trajet_id):
         # Récupérer l'ami en fonction de l'ID
         friend_id = request.GET.get('friend_id')
         friend = CustomUser.objects.get(id=friend_id)
-
+        print("je suis dans friend trajet  details ibiza")
         # Récupérer les trajets associés à l'ami
         trajets_ami = Trajet.objects.filter(user=friend)
 
