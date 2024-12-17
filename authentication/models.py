@@ -23,10 +23,10 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=30, unique=True)
     email = models.EmailField(unique=True)
     friends = models.ManyToManyField('self', blank=True, symmetrical=False, related_name='friend_of')
-    
+    is_active = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)  # Permet l'accès à l'admin
     is_superuser = models.BooleanField(default=False)  # Superutilisateur
-
+    reglage_is_active = models.BooleanField(default=False, help_text="Autorise l'utilisateur à enregistrer des réglages.")
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
 

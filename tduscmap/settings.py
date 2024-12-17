@@ -29,7 +29,13 @@ SECRET_KEY = os.getenv("SECRET_KEY", "secret-key")
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
-
+EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND')
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
+EMAIL_PORT = int(os.environ.get('EMAIL_PORT', 587)) #mettre une valeur par defaut au cas ou la variable n est pas set
+EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS') == 'True' # convertie la chaine de caractere en booleen
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
 
 # Application definition
 

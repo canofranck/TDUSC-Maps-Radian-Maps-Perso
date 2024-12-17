@@ -435,28 +435,29 @@ def saisie_reglage(request, car_id):
         }
    
     if request.method == "POST":
-        form = ReglageForm(request.POST)
-        # (request.POST)
-        if form.is_valid():
-            # print(request.POST)
-            # Comme les champs exclus ne sont pas dans le formulaire,
-            # on les ajoute manuellement à l'instance avant de l'enregistrer
-            reglage = form.save(commit=False)
-            reglage.car = car
-            reglage.user = request.user
-            reglage.background = 'default_background'
-            reglage.save()
-            return redirect("liste_reglages")
-        else:
-            print(form.errors)  # For debugging purposes
+        if request.user.reglage_is_active:  # Check for user permission
+            form = ReglageForm(request.POST)
+            # (request.POST)
+            if form.is_valid():
+                # print(request.POST)
+                # Comme les champs exclus ne sont pas dans le formulaire,
+                # on les ajoute manuellement à l'instance avant de l'enregistrer
+                reglage = form.save(commit=False)
+                reglage.car = car
+                reglage.user = request.user
+                reglage.background = 'default_background'
+                reglage.save()
+                return redirect("liste_reglages")
+            else:
+                print(form.errors)  # For debugging purposes
     else:
-        form = ReglageForm(initial=initial_data)
-        # print(form.errors)
+            form = ReglageForm(initial=initial_data)
+            # print(form.errors)
     return render(
-        request,
-        "tduscmap/reglage_form.html",
-        {"form": form, "car": car, "errors": form.errors},
-    )
+            request,
+            "tduscmap/reglage_form.html",
+            {"form": form, "car": car, "errors": form.errors},
+        )
 
 
 # def user_configurationreglage(request, car_id):  # Add message argument
