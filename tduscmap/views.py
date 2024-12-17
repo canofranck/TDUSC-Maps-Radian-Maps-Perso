@@ -840,3 +840,19 @@ def farm(request):
         request,
         "tduscmap/farm.html",
     )
+
+from django.core.mail import send_mail
+from django.http import HttpResponse
+
+def test_email(request):
+    try:
+        send_mail(
+            'Test email',
+            'Ceci est un test.',
+            settings.DEFAULT_FROM_EMAIL,
+            ['tduscmaps@gmail.com'],
+            fail_silently=False,
+        )
+        return HttpResponse("Email de test envoyé !")
+    except Exception as e:
+        return HttpResponse(f"Erreur : {e}")

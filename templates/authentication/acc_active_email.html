@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Activation de compte</title>
+</head>
+<body>
+    <p>Bonjour {{ user.username }},</p>
+    <p>Merci de vous être inscrit sur notre site. Cliquez sur le lien ci-dessous pour activer votre compte :</p>
+    <p>
+        <a href="http://{{ domain }}/activate/{{ uid }}/{{ token }}/">
+            Activer mon compte
+        </a>
+    </p>
+</body>
+</html>

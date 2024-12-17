@@ -172,6 +172,8 @@ class UserAdmin(admin.ModelAdmin):
         "last_login",
         "is_superuser",
         "is_staff",
+        "is_active",
+        "reglage_is_active"
             )
 
 
