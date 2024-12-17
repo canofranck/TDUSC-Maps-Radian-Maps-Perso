@@ -1,2 +1,14 @@
-<h1>Activation échouée</h1>
-<p>Le lien d'activation est invalide ou a expiré.</p>
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<link rel="icon" type="image" href="{% static '/images/favicon.png' %}">
+<link rel="stylesheet" href="{% static 'stylesmaps.css' %}" type="text/css">
+
+
+
+
+<h1 id="footer">Interactive Map TDUSC (ALL 380 Radiant)</h1>
+<h1 id="footer">Activation échouée</h1>
+<h1 id="footer">Le lien d'activation est invalide ou a expiré.</h1>
+{% endblock content %}

@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from dotenv import load_dotenv
 from pathlib import Path
 import os
+import ssl
+import certifi
 
 load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -36,7 +38,9 @@ EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS') == 'True' # convertie la chaine 
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
-
+# Utilisation du fichier de certificats fourni par certifi
+os.environ['SSL_CERT_FILE'] = certifi.where()
+ssl._create_default_https_context = ssl.create_default_context
 # Application definition
 
 INSTALLED_APPS = [

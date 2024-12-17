@@ -121,7 +121,7 @@ urlpatterns = [
     path('changer-langue/', tduscmap.views.changer_langue, name='changer_langue'),
     path('myiti_biza/', tduscmap.views.myiti_ibiza, name='myiti_ibiza'),
     path("mymaps_ibiza/", tduscmap.views.mymaps_ibiza, name="mymaps_ibiza"),
-    path("email/", tduscmap.views.test_email, name="test_email"),
+    
 ]  
 if settings.DEBUG:
     urlpatterns += static(
