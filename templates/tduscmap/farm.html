@@ -2,10 +2,10 @@
 {% block content %}
 
 {% load static %}
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
 <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
 <link rel="stylesheet" href="{% static 'stylesmymaps.css' %}" type="text/css">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
 {% if request.session.langue == 'fr' %}
     <div>
         <!-- Image de la bannière -->
@@ -23,138 +23,129 @@
             Temps réalisé avec ip max (véhicules améliorés et pneus slicks) et aides suivantes :</p>
             <h6> abs 100 - tcs 0 = +25% bonus de revenu de course supplémentaire 
             <h6> 💦 = pneus standard car piste humide </h6>
+          
             
-            <h6>Les calculs suivants sont fait en tenant compte du bonus d’argent (9.990€) dispo a partir du niveau 30 de réputation additionné du bonus d’aide à +25% </h6>
-            
-            <h6>Revenu par course : 28.740 €/1ere place</h6>
-            
-            <h6>Course faite 5x avant système anti farm de la course = 143.700 €</h6>
-            
-            <h6>Revenus totaux par jour :  1.724.400 € / jour</h6>
-            
-            <h6>Temps total de course par rotation (1fois chaque course ) : 15m22</h6>
-            <h6>Temps de course total x5 : 1h16 </h6>
-            
-            
-            <h6>Les calculs suivants sont fait en ne tenant pas compte du bonus d’argent (en dessous du niveau 30) </h6>
-           
-            <h6>Sans bonus : 18750 € / 1ere place </h6>
-            <h6>5x avant anti farm = 93.750€ par course </h6>
-            <h6>Revenus totaux par jour:  1.125.000€ / jour </h6>
+            <h6>Revenus totaux par jour :  234968  / 16 min</h6>
             
             
             <div class="text-and-image-container">
                 <div class="text-container">
-                <h6> Causeway 
-                    <h6>Course de trot (solar hotel) - 1m10s -2cv </h6>
+                    <h6> Courses à 10.000 </h6>
+                    <h6> Bonus aide conduite : 2500 </h6>
+                    <h6> Bonus argent 6660 </h6>
+                    <h6> Montant total = 19160 </h6>
+                    <h6>Course de trot (solar hotel) - 1m30s -2cv </h6>
+                </div>
+                <div class="image-container">        
+                <img id="banner" src="{% static 'images/d2_course_trot.jpg' %}" alt="Maps Ibiza" width="1400">
+                </div>
+            </div>  
+            <div class="text-and-image-container">   
+                    <h6>Route des ferrys  - 1m00 -  TTRS 💦</h6>
+                    <div class="image-container">        
+                        <img id="banner" src="{% static 'images/d13_route_ferrys.jpg' %}" alt="Maps Ibiza" width="1400">
+                    </div>
+            </div>
+            <div class="text-and-image-container">
+                <div class="text-container">
+                    <h6>Sur les docks -1m00 -TTRS</h6> 
+                </div>
+                <div class="image-container">        
+                    <img id="banner" src="{% static 'images/d14_sur_les_docks.jpg' %}" alt="Maps Ibiza" width="1400">
+                </div>   
+            </div>    
+            
+            <div class="text-and-image-container">
+                <div class="text-container">
+                    <h6>Courses à 11.000 </h6>
+                    <h6> Bonus aide conduite : 2750 </h6>
+                    <h6> Bonus argent 7326 </h6>
+                    <h6> Montant total = 21076 </h6>
+                    <h6>Voie royale - 1m10 - TTRS 💦</h6>
+                </div>
+                    <div class="image-container">        
+                        <img id="banner" src="{% static 'images/d2_voie_royale.jpg' %}" alt="Maps Ibiza" width="1400">
+                    </div>
+            </div> 
+                    
                 
-                    <h6>    Voie royale - 1m10 - TTRS 💦</h6>
+                
+            <div class="text-and-image-container"> 
+                <div class="text-container">
                     <h6> Route des bateliers - 1m20s - 488 pista</h6>
+                </div>
+                <div class="image-container">        
+                    <img id="banner" src="{% static 'images/d2_route_batelier.jpg' %}" alt="Maps Ibiza" width="1400">
+                </div>
+            </div> 
+            
+            <div class="text-and-image-container"> 
+                <div class="text-container">
                     <h6>Visite centre ville - 1m20s -TT RS💦</h6>
                 </div>
                 <div class="image-container">        
-            <img id="banner" src="{% static 'images/d2_course_trot.jpg' %}" alt="Maps Ibiza" width="1400">
-        </div>
+                    <img id="banner" src="{% static 'images/d2_visite_centre_ville.jpg' %}" alt="Maps Ibiza" width="1400">
+                </div>
             </div> 
-            <div class="text-and-image-container">
+         
+            <div class="text-and-image-container"> 
                 <div class="text-container">
-                    <h6>Quarry bay (ver QG Street)</h6>
-                    <div class="image-container">        
-                        <img id="banner" src="{% static 'images/d5_exces_vitesse.jpg' %}" alt="Maps Ibiza" width="1400">
-                    </div>
-                    <h6>Excès de vitesse - 1m40 - 918 spyder 💦</h6>
-                    <h6>Défilé de gratte-ciel -1m40-TTRS 💦</h6>
                     <h6>Transport de marchandise - 1m20- delta </h6>
-                    </div>
+                </div>
+                <div class="image-container">        
+                    <img id="banner" src="{% static 'images/d8_transport_marchandise.jpg' %}" alt="Maps Ibiza" width="1400">
+                </div>
+            </div> 
+         
+            <div class="text-and-image-container"> 
+                <div class="text-container">
+                    <h6>Traversée de western district -1m28-veyron 💦</h6>
+                </div>
+                <div class="image-container">        
+                    <img id="banner" src="{% static 'images/d14_traversee_western.jpg' %}" alt="Maps Ibiza" width="1400">
+                </div>
+                
+            </div>
                     
-                </div> 
             <div class="text-and-image-container">
-            <div class="text-container">
-            <h6> Wan Chai </h6>
-            <h6>Route des ferrys  - 1m00 -  TTRS 💦</h6>
-            </div>
-            <div class="image-container">        
-            <img id="banner" src="{% static 'images/d13_route_ferrys.jpg' %}" alt="Maps Ibiza" width="1400">
-            </div>
+                <div class="text-container">
+                    <h6> Courses à 12.000 </h6>
+                    <h6> Bonus aide conduite : 3000 </h6>
+                    <h6> Bonus argent 7192 </h6>
+                    <h6> Montant total = 22292 </h6>
+                    <h6>Soleil levant - 1m32- 918 SPYDER 💦</h6>
+                </div>
+                <div class="image-container">        
+                    <img id="banner" src="{% static 'images/d1_soleil_levant.jpg' %}" alt="Maps Ibiza" width="1400">
+                </div>
+            </div>   
+                    
+            <div class="text-and-image-container">
+                <div class="text-container">
+                    <h6> Courses à 13.000 </h6>
+                    <h6> Bonus aide conduite : 3250 </h6>
+                    <h6> Bonus argent 8568 </h6>
+                    <h6> Montant total = 24908 </h6>
+                    <h6>Défilé de gratte-ciel -1m40-TTRS 💦</h6>
+                </div>
+                <div class="image-container">        
+                    <img id="banner" src="{% static 'images/d8_defile_gratte_ciel.jpg' %}" alt="Maps Ibiza" width="1400">
+                </div>
             </div> 
             <div class="text-and-image-container">
                 <div class="text-container">
-            <h6> Western District (vers QG Sharp)</h6>
-            <h6>Traversée de western district -1m28-veyron 💦</h6>
-            </div>
-            <div class="image-container">        
-            <img id="banner" src="{% static 'images/d14_traversee_western.jpg' %}" alt="Maps Ibiza" width="1400">
-            </div>
+                   
+                    <h6>Excès de vitesse - 1m48 - 918 spyder 💦</h6>
+                </div>
+                <div class="image-container">        
+                    <img id="banner" src="{% static 'images/d8_defile_gratte_ciel.jpg' %}" alt="Maps Ibiza" width="1400">
+                </div>
             </div> 
-            <h6>Sur les docks -1m00 -TTRS</h6> 
-            
-            <h6>Aberdeen</h6>
-            
-            <h6>Soleil levant - 1m24- 918 SPYDER 💦</h6>
-            <h6>Droit de passage - 1m31 -TTRS 💦</h6>
 
-        <!-- Zone des résultats de recherche -->
-        <div id="searchResults"></div>
+
+      
+
         
-        <!-- Div où la carte va être affichée -->
-        <div id="container">
-            <div id="menu">
-                
-
-                
-                <button id="planRoute" class="menu-btn">Planifier un trajet</button>
-                <button id="setArrival" class="menu-btn" disabled>Définir l'arrivée</button>
-                <input type="text" id="trajetNom" placeholder="Nom du trajet" />
-                <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-                <button id="saveRoute" class="menu-btn" disabled>Sauvegarder le trajet</button>
-                <form id="selectTrajetForm">
-                    <label for="trajet">Choisir un trajet :</label>
-                    <select name="trajet" id="trajet" class="menu-btn">
-                        <option value="">-- Sélectionner un trajet --</option>
-                        {% for trajet in trajets %}
-                            <option value="{{ trajet.id }}" {% if trajet.id == selected_trajet.id %}selected{% endif %}>
-                                {{ trajet.nom }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                    <button id="deleteTrajet" type="button" class="menu-btn">Supprimer le trajet</button>
-                </form>
-                <select id="friendSelect" class="menu-btn">
-                    <option value="">Choisir un ami</option>
-                    <!-- Options pour les amis seront ajoutées ici dynamiquement -->
-                </select>
-                    <label for="friend-trajets">Trajets de l'ami :</label>
-                    <select id="friend-trajets" class="menu-btn" onchange="displayFriendTrajet(this.value)" disabled>
-                    <option value="">-- Sélectionnez un trajet --</option>
-                    <!-- Les trajets de l'ami apparaîtront ici -->
-                </select>
-                <button id="toggleLignesBtn" class="menu-btn">Cacher les lignes</button>
-                <button id="toggle-all" class="menu-btn" data-fr="Afficher/Cacher tout" data-en="Show/Hide All">Afficher/Cacher tout</button>
-                
-                <button id="togglerassemblement" class="menu-btn" data-fr="Afficher/Cacher rassemblement" data-en="Show/Hide All">Afficher/Cacher Rassemblement</button>
-                <button id="togglestation" class="menu-btn" data-fr="Afficher/Cacher station" data-en="Show/Hide All">Afficher/Cacher Station</button>
-                <button id="togglesatelier" class="menu-btn" data-fr="Afficher/Cacher atelier" data-en="Show/Hide All">Afficher/Cacher Atelier</button>
-                <button id="togglesconcession" class="menu-btn" data-fr="Afficher/Cacher concession" data-en="Show/Hide All">Afficher/Cacher Concession</button>
-                <button id="togglesclan" class="menu-btn" data-fr="Afficher/Cacher clan" data-en="Show/Hide All">Afficher/Cacher Clan</button>
-                <button id="togglessolar" class="menu-btn" data-fr="Afficher/Cacher solar" data-en="Show/Hide All">Afficher/Cacher Solar hotel</button>
-            </div>
-                
-            <div id="map"></div>
-        </div>
-        <div class="container text-center px-5">
-        <h9>Usage : Bouton Planifier un trajet, pour choisir le départ sur la map</h9>
-        </br>
-        <h9>        puis ajouter autant d'étapes que souhaité, pour finir le bouton definir l'arrivée</h9>
-        </br>
-        <h9>        Choisir un nom de trajet, et enfin sauvegarder le trajet sur votre compte</h9>
-        </br>
-        <h9>        Supprimer un trajet, celui du select</h9>
-        </br>
-        <h9>        Possibilité de voir la liste et de choisir le trajet d'un ami</h9>
-        </br>
-        <h9>        Bouton afficher / cacher les lignes pour relier tout les points du trajet</h9>
-    </br>
-    </br>
     </div>
         <footer>
             <div class="container2">
@@ -166,191 +157,157 @@
         </footer>  
     </div>
 {% else %}
-    <div>
-        <!-- Image de la bannière -->
-        {% comment %} <div class="image-container">
-            <img id="banner" src="{% static 'images/sharps_Luxe.1d79d72.jpg' %}" alt="Bannière Test Drive" />
-            <img id="banner" src="{% static 'images/test-drive-unlimited-solar-crown-header-art2.jpg' %}" alt="Bannière Solar Hotel" />
-            <img id="banner" src="{% static 'images/sharps_Solar_Hotel.2342470.jpg' %}" alt="Bannière key of Test Drive" />
-        </div>  {% endcomment %}
+<div>
+    <!-- Image de la bannière -->
+    {% comment %} <div class="image-container">
+        <img id="banner" src="{% static 'images/sharps_Luxe.1d79d72.jpg' %}" alt="Bannière Test Drive" />
+        <img id="banner" src="{% static 'images/test-drive-unlimited-solar-crown-header-art2.jpg' %}" alt="Bannière Solar Hotel" />
+        <img id="banner" src="{% static 'images/sharps_Solar_Hotel.2342470.jpg' %}" alt="Bannière key of Test Drive" />
+    </div>  {% endcomment %}
 
-        <h1 id="footer">My map</h1>
-        <div >
-            <!-- Début du conteneur avec fond blanc -->
-            <div class="white-background">
-            
-                <div class="row justify-content-center py-4">
-                <a
-                    class="col-3 btn btn-outline-secondary me-3"
-                    href="{% url 'mymaps' %}" 
-                >My map</a>
-                <a
-                    class="col-3 btn btn-outline-secondary ms-3"
-                    href="{% url 'myiti' %}" 
-                >My itineraries</a
-                    >
+    <h1 id="footer">Farm Road</h1>
+    
+    <h3> Tuto designed and created by SamouraiiiiDz <a href="https:///www.twitch.tv/samouraiiiidz" target="_blank">find it here</a></h3>
+
+    <h6>Farm road TDU 
+        Time achieved with ip max (upgraded vehicles and slicks) and the following aids  :</p>
+        <h6> abs 100 - tcs 0 = +25% additional race income bonus
+        <h6> 💦 = standard tires for wet tracks </h6>
+       
+        
+        <h6>Total revenue per day :  234968  / 16 min</h6>
+        
+        
+        <div class="text-and-image-container">
+            <div class="text-container">
+                <h6> Races 10.000 </h6>
+                <h6> Driving assistance bonus : 2500 </h6>
+                <h6> Money bonus 6660 </h6>
+                <h6> Total amount = 19160 </h6>
+                <h6>Course de trot (solar hotel) - 1m30s -2cv </h6>
+            </div>
+            <div class="image-container">        
+            <img id="banner" src="{% static 'images/d2_course_trot.jpg' %}" alt="Maps Ibiza" width="1400">
+            </div>
+        </div>  
+        <div class="text-and-image-container">   
+                <h6>Route des ferrys  - 1m00 -  TTRS 💦</h6>
+                <div class="image-container">        
+                    <img id="banner" src="{% static 'images/d13_route_ferrys.jpg' %}" alt="Maps Ibiza" width="1400">
                 </div>
-            </div>
-        <!-- Formulaire de recherche -->
-        <form id="searchForm" method="GET" action="{% url 'search_friends' %}">
-            <input type="text" id="searchInput" name="search" placeholder="Search for a user">
-            <button type="submit">Search</button>
-        </form>
-        
-        <!-- Zone des résultats de recherche -->
-        <div id="searchResults"></div>
-        
-        <!-- Div où la carte va être affichée -->
-        <div id="container">
-            <div id="menu">
-                
-
-                
-                <button id="planRoute" class="menu-btn">Planning a trip</button>
-                <button id="setArrival" class="menu-btn" disabled>Defining the arrival</button>
-                <input type="text" id="trajetNom" placeholder="Route name" />
-                <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-                <button id="saveRoute" class="menu-btn" disabled>Save trip</button>
-                <form id="selectTrajetForm">
-                    <label for="trajet">Choose a trip :</label>
-                    <select name="trajet" id="trajet" class="menu-btn">
-                        <option value="">-- Select a trip --</option>
-                        {% for trajet in trajets %}
-                            <option value="{{ trajet.id }}" {% if trajet.id == selected_trajet.id %}selected{% endif %}>
-                                {{ trajet.nom }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                    <button id="deleteTrajet" type="button" class="menu-btn">Delete the trip</button>
-                </form>
-                <select id="friendSelect" class="menu-btn">
-                    <option value="">Choose a friend</option>
-                    <!-- Options pour les amis seront ajoutées ici dynamiquement -->
-                </select>
-                    <label for="friend-trajets">Friend's trip :</label>
-                    <select id="friend-trajets" class="menu-btn" onchange="displayFriendTrajet(this.value)" disabled>
-                    <option value="">-- Select a trip --</option>
-                    <!-- Les trajets de l'ami apparaîtront ici -->
-                </select>
-                <button id="toggleLignesBtn" class="menu-btn">Hide lines</button>
-                <button id="toggle-all" class="menu-btn" data-fr="Afficher/Cacher tout" data-en="Show/Hide All">Show/Hide all</button>
-                
-                <button id="togglerassemblement" class="menu-btn" data-fr="Afficher/Cacher rassemblement" data-en="Show/Hide All">Show/Hide Meeting Points</button>
-                <button id="togglestation" class="menu-btn" data-fr="Afficher/Cacher station" data-en="Show/Hide All">Show/Hide Gas Station</button>
-                <button id="togglesatelier" class="menu-btn" data-fr="Afficher/Cacher atelier" data-en="Show/Hide All">Show/Hide Workshop</button>
-                <button id="togglesconcession" class="menu-btn" data-fr="Afficher/Cacher concession" data-en="Show/Hide All">Show/Hide Concession</button>
-                <button id="togglesclan" class="menu-btn" data-fr="Afficher/Cacher clan" data-en="Show/Hide All">Show/Hide Clan</button>
-                <button id="togglessolar" class="menu-btn" data-fr="Afficher/Cacher solar" data-en="Show/Hide All">Show/Hide Solar hotel</button>
-            </div>
-                
-            <div id="map"></div>
         </div>
-        <div class="container text-center px-5">
-        <h9>Usage: Plan a trip button, to choose the departure point on the map</h9>
-        </br>
-        <h9>        then add as many stages as you like, and finally click the finish button</h9>
-        </br>
-        <h9>        Choose a trip name, and save the route to your account</h9>
-        </br>
-        <h9>        Delete a route, the select route</h9>
-        </br>
-        <h9>        View the list and choose a friend's trip</h9>
-        </br>
-        <h9>        Show/hide lines button to link all the points on the route</h9>
-    </br>
-    </br>
-    </div>
+        <div class="text-and-image-container">
+            <div class="text-container">
+                <h6>Sur les docks -1m00 -TTRS</h6> 
+            </div>
+            <div class="image-container">        
+                <img id="banner" src="{% static 'images/d14_sur_les_docks.jpg' %}" alt="Maps Ibiza" width="1400">
+            </div>   
+        </div>    
+        
+        <div class="text-and-image-container">
+            <div class="text-container">
+                <h6>Races  11.000 </h6>
+                <h6> Driving assistance bonus : 2750 </h6>
+                <h6> Money bonus 7326 </h6>
+                <h6> Total amount = 21076 </h6>
+                <h6>Voie royale - 1m10 - TTRS 💦</h6>
+            </div>
+                <div class="image-container">        
+                    <img id="banner" src="{% static 'images/d2_voie_royale.jpg' %}" alt="Maps Ibiza" width="1400">
+                </div>
+        </div> 
+                
+            
+            
+        <div class="text-and-image-container"> 
+            <div class="text-container">
+                <h6> Route des bateliers - 1m20s - 488 pista</h6>
+            </div>
+            <div class="image-container">        
+                <img id="banner" src="{% static 'images/d2_route_batelier.jpg' %}" alt="Maps Ibiza" width="1400">
+            </div>
+        </div> 
+        
+        <div class="text-and-image-container"> 
+            <div class="text-container">
+                <h6>Visite centre ville - 1m20s -TT RS💦</h6>
+            </div>
+            <div class="image-container">        
+                <img id="banner" src="{% static 'images/d2_visite_centre_ville.jpg' %}" alt="Maps Ibiza" width="1400">
+            </div>
+        </div> 
+     
+        <div class="text-and-image-container"> 
+            <div class="text-container">
+                <h6>Transport de marchandise - 1m20- delta </h6>
+            </div>
+            <div class="image-container">        
+                <img id="banner" src="{% static 'images/d8_transport_marchandise.jpg' %}" alt="Maps Ibiza" width="1400">
+            </div>
+        </div> 
+     
+        <div class="text-and-image-container"> 
+            <div class="text-container">
+                <h6>Traversée de western district -1m28-veyron 💦</h6>
+            </div>
+            <div class="image-container">        
+                <img id="banner" src="{% static 'images/d14_traversee_western.jpg' %}" alt="Maps Ibiza" width="1400">
+            </div>
+            
+        </div>
+                
+        <div class="text-and-image-container">
+            <div class="text-container">
+                <h6>Races  12.000 </h6>
+                <h6> Driving assistance bonus : 3000 </h6>
+                <h6> Money bonus 7192 </h6>
+                <h6> Total amount = 22292 </h6>
+                <h6>Soleil levant - 1m32- 918 SPYDER 💦</h6>
+            </div>
+            <div class="image-container">        
+                <img id="banner" src="{% static 'images/d1_soleil_levant.jpg' %}" alt="Maps Ibiza" width="1400">
+            </div>
+        </div>   
+                
+        <div class="text-and-image-container">
+            <div class="text-container">
+                <h6> Races  13.000 </h6>
+                <h6> Driving assistance bonus : 3250 </h6>
+                <h6> Money bonus 8568 </h6>
+                <h6> Total amount = 24908 </h6>
+                <h6>Défilé de gratte-ciel -1m40-TTRS 💦</h6>
+            </div>
+            <div class="image-container">        
+                <img id="banner" src="{% static 'images/d8_defile_gratte_ciel.jpg' %}" alt="Maps Ibiza" width="1400">
+            </div>
+        </div> 
+        <div class="text-and-image-container">
+            <div class="text-container">
+               
+                <h6>Excès de vitesse - 1m48 - 918 spyder 💦</h6>
+            </div>
+            <div class="image-container">        
+                <img id="banner" src="{% static 'images/d8_defile_gratte_ciel.jpg' %}" alt="Maps Ibiza" width="1400">
+            </div>
+        </div> 
+
+
+  
+
+    
+</div>
     <footer>
         <div class="container2">
-            <p>By <a href="https://www.youtube.com/@fcr_77" target="_blank">FCR</a> Septembre 2024</p><a href="https://www.mon-compteur.fr">
-                
-        <img src="https://www.mon-compteur.fr/html_c01genv2-242818-3" alt="compteur" border="0" /></a><br>
-        <p>images © Nacon - KT Racing</p>
+            <p>By <a href="https://www.youtube.com/@fcr_77" target="_blank">FCR</a> Septembre 2024</p>
+            <a href="https://www.mon-compteur.fr">
+                <img src="https://www.mon-compteur.fr/html_c01genv2-242818-3" alt="compteur" border="0" />
+            </a><br>
         </div>
-        
-        
-    </footer>   
-    </div>
+    </footer>  
+</div> 
 {% endif %}
-<!-- Inclure le JS de Leaflet -->
-<script src="{% static 'js/map.js' %}"></script>
 
-
-
-<script>
-    const traduction = {
-        choisirAmi: "{% if request.session.langue == 'fr' %}Choisir un ami{% else %}Choose a friend{% endif %}",
-        alertplanningon: "{% if request.session.langue == 'fr' %}Mode itinéraire activé ! {% else %}Route mode activated!: {% endif %}",
-        alertplanningoff: "{% if request.session.langue == 'fr' %}Mode itinéraire désactivé ! {% else %}Route mode deactivated!: {% endif %}",
-        alertpointdepart: "{% if request.session.langue == 'fr' %}Point de départ défini ! {% else %}Starting point defined! {% endif %}",
-        alertpointarrive: "{% if request.session.langue == 'fr' %}Point d'arrivée défini ! {% else %}finish point defined! {% endif %}",
-        messpointarrive: "{% if request.session.langue == 'fr' %}Cliquez sur la carte pour définir l'arrivée. {% else %}Click on the map to set the Finish point. {% endif %}",
-        errpointarrive: "{% if request.session.langue == 'fr' %}Veuillez d'abord définir un point de départ et au moins une étape. {% else %}First define a starting point and at least one stage. {% endif %}",
-        alertnomtraj: "{% if request.session.langue == 'fr' %}Veuillez entrer un nom pour le trajet. {% else %}Please enter a name for the trip. {% endif %}",
-        saveok: "{% if request.session.langue == 'fr' %}Trajet sauvegardé avec succès ! {% else %}Route successfully saved! {% endif %}",
-    
-    };
-    // Récupère l'ID de l'utilisateur actuellement connecté depuis Django
-    const currentUserId = "{{ request.user.id }}";
-  
-    // Gestionnaire d'événements pour le formulaire de recherche
-    document.getElementById('searchForm').addEventListener('submit', function(event) {
-        event.preventDefault(); // Empêche l'envoi du formulaire classique
-  
-        const searchQuery = document.getElementById('searchInput').value;
-        const resultsContainer = document.getElementById('searchResults');
-  
-        fetch(`/search-friends/?search=${encodeURIComponent(searchQuery)}`)
-            .then(response => response.json())
-            .then(data => {
-                resultsContainer.innerHTML = ''; // Vide les anciens résultats
-                if (data.users.length > 0) {
-                    data.users.forEach(user => {
-                        const userElement = document.createElement('div');
-                        userElement.innerHTML = `
-                            <p>${user.username} <button onclick="addFriend(${currentUserId}, ${user.id})">Ajouter en ami</button></p>
-                        `;
-                        resultsContainer.appendChild(userElement);
-                    });
-                } else {
-                    resultsContainer.innerHTML = '<p>Aucun utilisateur trouvé.</p>';
-                }
-            })
-            .catch(error => {
-                resultsContainer.innerHTML = '<p>Erreur lors de la recherche.</p>';
-                console.error("Erreur lors de la recherche :", error);
-            });
-    });
-  
-    // Fonction pour ajouter un ami
-    function addFriend(userId, friendId) {
-        fetch(`/add-friend/${userId}/`, {
-            method: 'POST',
-            headers: {
-                'X-CSRFToken': '{{ csrf_token }}', // Nécessaire pour Django
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                friend_id: friendId  // Envoyer l'ID de l'ami dans le corps de la requête
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert(data.message);  // Afficher un message de succès
-            } else {
-                alert('Erreur : ' + data.message);  // Afficher un message d'erreur
-            }
-        })
-        .catch(error => {
-            console.error("Erreur lors de l'ajout de l'ami :", error);
-        });
-    }
-  
-  
-  </script>
-
-<script src="{% static 'js/myiti.js' %}"></script>
 
 
 {% endblock content %}

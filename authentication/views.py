@@ -40,7 +40,18 @@ def signup_page(request):
                 )
                 email.attach_alternative(message, "text/html")  # Contenu HTML
                 email.send(fail_silently=False)  # Important pour lever les erreurs
-                print("Email envoyé avec succès !")
+                # print("Email envoyé avec succès !")
+                # Envoi de l'email de notification à l'administrateur
+                admin_mail_subject = 'Nouvel utilisateur inscrit'
+                admin_message = f"Un nouvel utilisateur vient de s'inscrire :\n\nNom d'utilisateur : {user.username}\nEmail : {user.email}"
+                admin_email = EmailMultiAlternatives(
+                    admin_mail_subject,
+                    admin_message,
+                    settings.DEFAULT_FROM_EMAIL,
+                    [settings.DEFAULT_FROM_EMAIL],  # Remplace par ton email
+                )
+                admin_email.send(fail_silently=False)
+                # print("Email de notification envoyé à l'administrateur.")
                 return render(request, "authentication/confirm_email.html")  # Confirmation page
             except Exception as e:
                 print(f"Erreur lors de l'envoi de l'email d'activation : {e}")
