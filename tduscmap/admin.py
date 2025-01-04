@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Car, CarPrice, Reglage, Like,  CustomUser, Favorite, Trajet
+from .models import Car, CarPrice, Reglage, Like,  CustomUser, Favorite, Trajet,Trajetibiza,Favoriteibiza
 from django.core.exceptions import ValidationError
 from django.forms import ModelForm
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
@@ -17,6 +17,8 @@ class CarAdmin(admin.ModelAdmin):
         "categorie",
         "rarete",
         "prix_initial",
+        "nb_vitesse",
+        "background",
     )
     list_filter = ("marque", "transmission", "categorie", "rarete")
     search_fields = ("marque", "modele")
@@ -185,3 +187,11 @@ class TrajetAdmin(admin.ModelAdmin):
     list_display = ["user", "nom", "depart_lat", "depart_lng", "arrivee_lat", "arrivee_lng"]
 admin.site.register(Favorite, FavoriteAdmin)
 admin.site.register(Trajet, TrajetAdmin)
+
+class FavoriteibizaAdmin(admin.ModelAdmin):
+    list_display = ["user", "lat", "lng", "description"]
+
+class TrajetibizaAdmin(admin.ModelAdmin):
+    list_display = ["user", "nom", "depart_lat", "depart_lng", "arrivee_lat", "arrivee_lng"]
+admin.site.register(Favoriteibiza, FavoriteibizaAdmin)
+admin.site.register(Trajetibiza, TrajetibizaAdmin)

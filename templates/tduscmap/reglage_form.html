@@ -84,6 +84,7 @@
                     <span class="slider-value" id="min-value-rapport"></span>
                     <div id="slider1" class="slider"></div>
                     <span class="slider-value" id="max-value-rapport"></span>
+                    <input id="input1" type="number" step="0.01" min="0" max="10" value="5">
                 </div>
                 <div class="slider-container">
                     {% if request.session.langue == 'fr' %}
@@ -94,6 +95,7 @@
                     <span class="slider-value" id="min-value-vitesse"></span>
                     <div id="slider2" class="slider"></div>
                     <span class="slider-value" id="max-value-vitesse"></span>
+                    <input id="input2" type="number" step="0.01" min="0" max="10" value="5">
                 </div>
                 {% if car.nb_vitesse >= 2 %}
                 <div class="slider-container">
@@ -105,6 +107,7 @@
                     <span class="slider-value" id="min-value-vitesse2"></span>
                     <div id="slider3" class="slider"></div>
                     <span class="slider-value" id="max-value-vitesse2"></span>
+                    <input id="input3" type="number" step="0.01" min="0" max="10" value="5">
                 </div>
                 {%endif%}
                 {% if car.nb_vitesse >= 3 %}
@@ -117,6 +120,7 @@
                     <span class="slider-value" id="min-value-vitesse3"></span>
                     <div id="slider4" class="slider"></div>
                     <span class="slider-value" id="max-value-vitesse3"></span>
+                    <input id="input4" type="number" step="0.01" min="0" max="10" value="5">
                 </div>
                 {%endif%}
                 {% if car.nb_vitesse >= 4 %}
@@ -129,6 +133,7 @@
                     <span class="slider-value" id="min-value-vitesse4"></span>
                     <div id="slider5" class="slider"></div>
                     <span class="slider-value" id="max-value-vitesse4"></span>
+                    <input id="input5" type="number" step="0.01" min="0" max="10" value="5">
                 </div>
                 {%endif%}
                 {% if car.nb_vitesse >= 5 %}
@@ -141,6 +146,7 @@
                     <span class="slider-value" id="min-value-vitesse5"></span>
                     <div id="slider6" class="slider"></div>
                     <span class="slider-value" id="max-value-vitesse5"></span>
+                    <input id="input6" type="number" step="0.01" min="0" max="10" value="5">
                 </div>
                 {%endif%}
                 {% if car.nb_vitesse >= 6 %}
@@ -153,6 +159,7 @@
                     <span class="slider-value" id="min-value-vitesse6"></span>
                     <div id="slider7" class="slider"></div>
                     <span class="slider-value" id="max-value-vitesse6"></span>
+                    <input id="input7" type="number" step="0.01" min="0" max="10" value="5">
                 </div>
                 {%endif%} 
                 {% if car.nb_vitesse >= 7 %}
@@ -165,6 +172,7 @@
                     <span class="slider-value" id="min-value-vitesse7"></span>
                     <div id="slider8" class="slider"></div>
                     <span class="slider-value" id="max-value-vitesse7"></span>
+                    <input id="input8" type="number" step="0.01" min="0" max="10" value="5">
                 </div>
                 {%endif%} 
                 {% if car.nb_vitesse >= 8 %}
@@ -177,6 +185,7 @@
                     <span class="slider-value" id="min-value-vitesse8"></span>
                     <div id="slider37" class="slider"></div>
                     <span class="slider-value" id="max-value-vitesse8"></span>
+                    <input id="input37" type="number" step="0.01" min="0" max="10" value="5">
                 </div>
                 {%endif%}
                 {% if car.nb_vitesse >= 9 %}
@@ -189,6 +198,7 @@
                     <span class="slider-value" id="min-value-vitesse9"></span>
                     <div id="slider38" class="slider"></div>
                     <span class="slider-value" id="max-value-vitesse9"></span>
+                    <input id="input38" type="number" step="0.01" min="0" max="10" value="5">
                 </div>
                 {%endif%}
                 {% if car.nb_vitesse >= 10 %}
@@ -201,6 +211,7 @@
                     <span class="slider-value" id="min-value-vitesse10"></span>
                     <div id="slider39" class="slider"></div>
                     <span class="slider-value" id="max-value-vitesse10"></span>
+                    <input id="input39" type="number" step="0.01" min="0" max="10" value="5">
                 </div>
                 {%endif%}
                 {% if request.session.langue == 'fr' %} 
@@ -210,12 +221,14 @@
                         <span class="slider-value" id="min-value-appui-aerodynamique-avant"></span>
                         <div id="slider9" class="slider"></div>
                         <span class="slider-value" id="max-value-appui-aerodynamique-avant"></span>
+                        <input id="input9" type="number" step="0.1" min="-1" max="1" value="0">
                     </div>
                     <div class="slider-container">
                         <span class="slider-label">appui aérodynamique arrière :</span>
                         <span class="slider-value" id="min-value-appui-aerodynamique-arriere"></span>
                         <div id="slider10" class="slider"></div>
                         <span class="slider-value" id="max-value-appui-aerodynamique-arriere"></span>
+                        <input id="input10" type="number" step="0.1" min="-1" max="1" value="0">
                     </div>
                 {% else %} 
                     <span>aerodynamics</span>
@@ -224,12 +237,14 @@
                         <span class="slider-value" id="min-value-appui-aerodynamique-avant"></span>
                         <div id="slider9" class="slider"></div>
                         <span class="slider-value" id="max-value-appui-aerodynamique-avant"></span>
+                        <input id="input9" type="number" step="0.1" min="-1" max="1" value="0">
                     </div>
                     <div class="slider-container">
                         <span class="slider-label">rear downforce :</span>
                         <span class="slider-value" id="min-value-appui-aerodynamique-arriere"></span>
                         <div id="slider10" class="slider"></div>
                         <span class="slider-value" id="max-value-appui-aerodynamique-arriere"></span>
+                        <input id="input10" type="number" step="0.1" min="-1" max="1" value="0">
                     </div>
                   {% endif %}    
             </div>
@@ -243,6 +258,7 @@
                         <span class="slider-value" id="min-value-taille-suspension-arriere"></span>
                         <div id="slider11" class="slider"></div>
                         <span class="slider-value" id="max-value-taille-suspension-arriere"></span>
+                        <input id="input11" type="number" step="0.01" min="0" max="0.5" value="0.2">
                     </div>
 
                     <div class="slider-container">
@@ -250,6 +266,7 @@
                         <span class="slider-value" id="min-value-taille-suspension-avant"></span>
                         <div id="slider12" class="slider"></div>
                         <span class="slider-value" id="max-value-taille-suspension-avant"></span>
+                        <input id="input12" type="number" step="0.01" min="0" max="0.5" value="0.2">
                     </div>
                     <span>Ressorts</span>
                     <div class="slider-container">
@@ -257,12 +274,14 @@
                         <span class="slider-value" id="min-value-durete-ressorts-arriere"></span>
                         <div id="slider13" class="slider"></div>
                         <span class="slider-value" id="max-value-durete-ressorts-arriere"></span>
+                        <input id="input13" type="number" step="0.1" min="80" max="120" value="100">
                     </div>
                     <div class="slider-container">
                         <span class="slider-label">Dureté ressorts avant</span>
                         <span class="slider-value" id="min-value-durete-ressorts-avant"></span>
                         <div id="slider14" class="slider"></div>
                         <span class="slider-value" id="max-value-durete-ressorts-avant"></span>
+                        <input id="input14" type="number" step="0.1" min="80" max="120" value="100">
                     </div>
                     <span>Amortisseurs</span>
                     <div class="slider-container">
@@ -270,24 +289,28 @@
                         <span class="slider-value" id="min-value-compression-amortisseurs-avant"></span>
                         <div id="slider15" class="slider"></div>
                         <span class="slider-value" id="max-value-compression-amortisseurs-avant"></span>
+                        <input id="input15" type="number" step="0.1" min="80" max="120" value="100">
                     </div>
                     <div class="slider-container">
                         <span class="slider-label">Compression amortisseurs arrière </span>
                         <span class="slider-value" id="min-value-compression-amortisseurs-arriere"></span>
                         <div id="slider16" class="slider"></div>
                         <span class="slider-value" id="max-value-compression-amortisseurs-arriere"></span>
+                        <input id="input16" type="number" step="0.1" min="80" max="120" value="100">
                     </div>
                     <div class="slider-container">
                         <span class="slider-label">Décompression amortisseurs avant </span>
                         <span class="slider-value" id="min-value-decompression-amortisseurs-avant"></span>
                         <div id="slider17" class="slider"></div>
                         <span class="slider-value" id="max-value-decompression-amortisseurs-avant"></span>
+                        <input id="input17" type="number" step="0.1" min="80" max="120" value="100">
                     </div>
                     <div class="slider-container">
                         <span class="slider-label">Décompression amortisseurs arrière </span>
                         <span class="slider-value" id="min-value-decompression-amortisseurs-arriere"></span>
                         <div id="slider18" class="slider"></div>
                         <span class="slider-value" id="max-value-decompression-amortisseurs-arriere"></span>
+                        <input id="input18" type="number" step="0.1" min="80" max="120" value="100">
                     </div>
                 {% else %}
                     <span>Stability</span>
@@ -298,6 +321,7 @@
                         <span class="slider-value" id="min-value-taille-suspension-arriere"></span>
                         <div id="slider11" class="slider"></div>
                         <span class="slider-value" id="max-value-taille-suspension-arriere"></span>
+                        <input id="input11" type="number" step="0.01" min="0" max="0.5" value="0.2">
                     </div>
         
                     <div class="slider-container">
@@ -305,6 +329,7 @@
                         <span class="slider-value" id="min-value-taille-suspension-avant"></span>
                         <div id="slider12" class="slider"></div>
                         <span class="slider-value" id="max-value-taille-suspension-avant"></span>
+                        <input id="input12" type="number" step="0.01" min="0" max="0.5" value="0.2">
                     </div>
                     <span>Springs</span>
                     <div class="slider-container">
@@ -312,12 +337,14 @@
                         <span class="slider-value" id="min-value-durete-ressorts-arriere"></span>
                         <div id="slider13" class="slider"></div>
                         <span class="slider-value" id="max-value-durete-ressorts-arriere"></span>
+                        <input id="input13" type="number" step="0.1" min="80" max="120" value="100">
                     </div>
                     <div class="slider-container">
                         <span class="slider-label">Front spring stiffness</span>
                         <span class="slider-value" id="min-value-durete-ressorts-avant"></span>
                         <div id="slider14" class="slider"></div>
                         <span class="slider-value" id="max-value-durete-ressorts-avant"></span>
+                        <input id="input14" type="number" step="0.1" min="80" max="120" value="100">
                     </div>
                     <span>Shock absorbers</span>
                     <div class="slider-container">
@@ -325,24 +352,28 @@
                         <span class="slider-value" id="min-value-compression-amortisseurs-avant"></span>
                         <div id="slider15" class="slider"></div>
                         <span class="slider-value" id="max-value-compression-amortisseurs-avant"></span>
+                        <input id="input15" type="number" step="0.1" min="80" max="120" value="100">
                     </div>
                     <div class="slider-container">
                         <span class="slider-label">Rear shock absorber compression </span>
                         <span class="slider-value" id="min-value-compression-amortisseurs-arriere"></span>
                         <div id="slider16" class="slider"></div>
                         <span class="slider-value" id="max-value-compression-amortisseurs-arriere"></span>
+                        <input id="input16" type="number" step="0.1" min="80" max="120" value="100">
                     </div>
                     <div class="slider-container">
                         <span class="slider-label">Front shock absorber rebound </span>
                         <span class="slider-value" id="min-value-decompression-amortisseurs-avant"></span>
                         <div id="slider17" class="slider"></div>
                         <span class="slider-value" id="max-value-decompression-amortisseurs-avant"></span>
+                        <input id="input17" type="number" step="0.1" min="80" max="120" value="100">
                     </div>
                     <div class="slider-container">
                         <span class="slider-label">Rear shock absorber rebound </span>
                         <span class="slider-value" id="min-value-decompression-amortisseurs-arriere"></span>
                         <div id="slider18" class="slider"></div>
                         <span class="slider-value" id="max-value-decompression-amortisseurs-arriere"></span>
+                        <input id="input18" type="number" step="0.1" min="80" max="120" value="100">
                     </div>
                 {%endif%}
                 
@@ -360,6 +391,7 @@
                             <span class="slider-value" id="min-value-acceleration-avant"></span>
                             <div id="slider19" class="slider"></div>
                             <span class="slider-value" id="max-value-acceleration-avant"></span>
+                            <input id="input19" type="number" step="0.1" min="0" max="100" value="50">
                         </div>
                     {%endif%}
                     {% if car.transmission == "4WD" or car.transmission == "FWD" %}
@@ -368,6 +400,7 @@
                         <span class="slider-value" id="min-value-deceleration-avant"></span>
                         <div id="slider20" class="slider"></div>
                         <span class="slider-value" id="max-value-deceleration-avant"></span>
+                        <input id="input20" type="number" step="0.1" min="0" max="100" value="50">
                     </div>
                     {%endif%}  {% if car.transmission == "4WD" or car.transmission == "FWD" %}
                     <div class="slider-container">
@@ -375,6 +408,7 @@
                         <span class="slider-value" id="min-value-freinage-avant"></span>
                         <div id="slider21" class="slider"></div>
                         <span class="slider-value" id="max-value-freinage-avant"></span>
+                        <input id="input21" type="number" step="0.1" min="0" max="100" value="50">
                     </div>
                     {%endif%} {% if car.transmission == "4WD" %}
                     <span>Differentiel central</span>
@@ -384,6 +418,8 @@
                         <span class="slider-value" id="min-value-distribution-avant-arriere"></span>
                         <div id="slider22" class="slider"></div>
                         <span class="slider-value" id="max-value-distribution-avant-arriere"></span>
+                        <input id="input22" type="number" step="0.1" min="0" max="100" value="50">
+                        
                     </div>
                     {%endif%} {% if car.transmission == "4WD" %}
                     <div class="slider-container">
@@ -391,6 +427,7 @@
                         <span class="slider-value" id="min-value-acceleration-centrale"></span>
                         <div id="slider23" class="slider"></div>
                         <span class="slider-value" id="max-value-acceleration-centrale"></span>
+                        <input id="input23" type="number" step="0.1" min="0" max="100" value="50">
                     </div>
                     {%endif%} {% if car.transmission == "4WD" %}
                     <div class="slider-container">
@@ -398,6 +435,7 @@
                         <span class="slider-value" id="min-value-deceleration-centrale"></span>
                         <div id="slider24" class="slider"></div>
                         <span class="slider-value" id="max-value-deceleration-centrale"></span>
+                        <input id="input24" type="number" step="0.1" min="0" max="100" value="50">
                     </div>
                     {%endif%} {% if car.transmission == "4WD" %}
                     <div class="slider-container">
@@ -405,6 +443,7 @@
                         <span class="slider-value" id="min-value-freinage-centrale"></span>
                         <div id="slider25" class="slider"></div>
                         <span class="slider-value" id="max-value-freinage-centrale"></span>
+                        <input id="input25" type="number" step="0.1" min="0" max="100" value="50">
                     </div>
                     {%endif%} {% if car.transmission == "4WD" or car.transmission == "RWD" %}
                     <span>Differentiel arriere</span>
@@ -414,6 +453,7 @@
                         <span class="slider-value" id="min-value-acceleration-arriere"></span>
                         <div id="slider26" class="slider"></div>
                         <span class="slider-value" id="max-value-acceleration-arriere"></span>
+                        <input id="input26" type="number" step="0.1" min="0" max="100" value="50">
                     </div>
                     {%endif%} {% if car.transmission == "4WD" or car.transmission == "RWD" %}
                     <div class="slider-container">
@@ -421,6 +461,7 @@
                         <span class="slider-value" id="min-value-deceleration-arriere"></span>
                         <div id="slider27" class="slider"></div>
                         <span class="slider-value" id="max-value-deceleration-arriere"></span>
+                        <input id="input27" type="number" step="0.1" min="0" max="100" value="50">
                     </div>
                     {%endif%} {% if car.transmission == "4WD" or car.transmission == "RWD" %}
                     <div class="slider-container">
@@ -428,6 +469,7 @@
                         <span class="slider-value" id="min-value-freinage-arriere"></span>
                         <div id="slider28" class="slider"></div>
                         <span class="slider-value" id="max-value-freinage-arriere"></span>
+                        <input id="input28" type="number" step="0.1" min="0" max="100" value="50">
                     </div>
                     {%endif%}
                     <span>Barre anti roulis</span>
@@ -437,12 +479,14 @@
                         <span class="slider-value" id="min-value-durete-barre-antiroulis-avant"></span>
                         <div id="slider29" class="slider"></div>
                         <span class="slider-value" id="max-value-durete-barre-antiroulis-avant"></span>
+                        <input id="input29" type="number" step="0.1" min="0" max="100" value="50">
                     </div>
                     <div class="slider-container">
                         <span class="slider-label">Durete barre antiroulis arriere :</span>
                         <span class="slider-value" id="min-value-durete-barre-antiroulis-arriere"></span>
                         <div id="slider30" class="slider"></div>
                         <span class="slider-value" id="max-value-durete-barre-antiroulis-arriere"></span>
+                        <input id="input30" type="number" step="0.1" min="0" max="100" value="50">
                     </div>
                     <span>Carrosage</span>
 
@@ -451,12 +495,14 @@
                         <span class="slider-value" id="min-value-angle-carrossage-arriere"></span>
                         <div id="slider31" class="slider"></div>
                         <span class="slider-value" id="max-value-angle-carrossage-arriere"></span>
+                        <input id="input31" type="number" step="0.1" min="-6" max="3" value="0">
                     </div>
                     <div class="slider-container">
                         <span class="slider-label">Angle de carrossage avant :</span>
                         <span class="slider-value" id="min-value-angle-carrossage-avant"></span>
                         <div id="slider32" class="slider"></div>
                         <span class="slider-value" id="max-value-angle-carrossage-avant"></span>
+                        <input id="input32" type="number" step="0.1" min="-6" max="3" value="0">
                     </div>
                     {% if car.transmission == "FWD" or car.transmission == "RWD" %}
                     <span>Pression des pneus</span>
@@ -466,6 +512,7 @@
                         <span class="slider-value" id="min-value-pression-pneus-arriere"></span>
                         <div id="slider33" class="slider"></div>
                         <span class="slider-value" id="max-value-pression-pneus-arriere"></span>
+                        <input id="input33" type="number" step="0.1" min="2" max="6" value="4">
                     </div>
                     {%endif%} {% if car.transmission == "FWD" or car.transmission == "RWD" %}
                     <div class="slider-container">
@@ -473,6 +520,7 @@
                         <span class="slider-value" id="min-value-pression-pneus-avant"></span>
                         <div id="slider34" class="slider"></div>
                         <span class="slider-value" id="max-value-pression-pneus-avant"></span>
+                        <input id="input34" type="number" step="0.1" min="2" max="6" value="4">
                     </div>
                     {%endif%}
                 {% else %}
@@ -486,6 +534,7 @@
                                 <span class="slider-value" id="min-value-acceleration-avant"></span>
                                 <div id="slider19" class="slider"></div>
                                 <span class="slider-value" id="max-value-acceleration-avant"></span>
+                                <input id="input19" type="number" step="0.1" min="0" max="100" value="50">
                             </div>
                         {%endif%}
                         {% if car.transmission == "4WD" or car.transmission == "FWD" %}
@@ -494,6 +543,7 @@
                             <span class="slider-value" id="min-value-deceleration-avant"></span>
                             <div id="slider20" class="slider"></div>
                             <span class="slider-value" id="max-value-deceleration-avant"></span>
+                            <input id="input20" type="number" step="0.1" min="0" max="100" value="50">
                         </div>
                         {%endif%}  {% if car.transmission == "4WD" or car.transmission == "FWD" %}
                         <div class="slider-container">
@@ -501,6 +551,7 @@
                             <span class="slider-value" id="min-value-freinage-avant"></span>
                             <div id="slider21" class="slider"></div>
                             <span class="slider-value" id="max-value-freinage-avant"></span>
+                            <input id="input21" type="number" step="0.1" min="0" max="100" value="50">
                         </div>
                         {%endif%} {% if car.transmission == "4WD" %}
                         <span>Central differential</span>
@@ -510,6 +561,7 @@
                             <span class="slider-value" id="min-value-distribution-avant-arriere"></span>
                             <div id="slider22" class="slider"></div>
                             <span class="slider-value" id="max-value-distribution-avant-arriere"></span>
+                            <input id="input22" type="number" step="0.1" min="0" max="100" value="50">
                         </div>
                         {%endif%} {% if car.transmission == "4WD" %}
                         <div class="slider-container">
@@ -517,6 +569,7 @@
                             <span class="slider-value" id="min-value-acceleration-centrale"></span>
                             <div id="slider23" class="slider"></div>
                             <span class="slider-value" id="max-value-acceleration-centrale"></span>
+                            <input id="input23" type="number" step="0.1" min="0" max="100" value="50">
                         </div>
                         {%endif%} {% if car.transmission == "4WD" %}
                         <div class="slider-container">
@@ -524,6 +577,7 @@
                             <span class="slider-value" id="min-value-deceleration-centrale"></span>
                             <div id="slider24" class="slider"></div>
                             <span class="slider-value" id="max-value-deceleration-centrale"></span>
+                            <input id="input24" type="number" step="0.1" min="0" max="100" value="50">
                         </div>
                         {%endif%} {% if car.transmission == "4WD" %}
                         <div class="slider-container">
@@ -531,6 +585,7 @@
                             <span class="slider-value" id="min-value-freinage-centrale"></span>
                             <div id="slider25" class="slider"></div>
                             <span class="slider-value" id="max-value-freinage-centrale"></span>
+                            <input id="input25" type="number" step="0.1" min="0" max="100" value="50">
                         </div>
                         {%endif%} {% if car.transmission == "4WD" or car.transmission == "RWD" %}
                         <span>Differentiel arriere</span>
@@ -540,6 +595,7 @@
                             <span class="slider-value" id="min-value-acceleration-arriere"></span>
                             <div id="slider26" class="slider"></div>
                             <span class="slider-value" id="max-value-acceleration-arriere"></span>
+                            <input id="input26" type="number" step="0.1" min="0" max="100" value="50">
                         </div>
                         {%endif%} {% if car.transmission == "4WD" or car.transmission == "RWD" %}
                         <div class="slider-container">
@@ -547,6 +603,7 @@
                             <span class="slider-value" id="min-value-deceleration-arriere"></span>
                             <div id="slider27" class="slider"></div>
                             <span class="slider-value" id="max-value-deceleration-arriere"></span>
+                            <input id="input27" type="number" step="0.1" min="0" max="100" value="50">
                         </div>
                         {%endif%} {% if car.transmission == "4WD" or car.transmission == "RWD" %}
                         <div class="slider-container">
@@ -554,6 +611,7 @@
                             <span class="slider-value" id="min-value-freinage-arriere"></span>
                             <div id="slider28" class="slider"></div>
                             <span class="slider-value" id="max-value-freinage-arriere"></span>
+                            <input id="input28" type="number" step="0.1" min="0" max="100" value="50">
                         </div>
                         {%endif%}
                 
@@ -564,12 +622,14 @@
                             <span class="slider-value" id="min-value-durete-barre-antiroulis-avant"></span>
                             <div id="slider29" class="slider"></div>
                             <span class="slider-value" id="max-value-durete-barre-antiroulis-avant"></span>
+                            <input id="input29" type="number" step="0.1" min="0" max="100" value="50">
                         </div>
                         <div class="slider-container">
                             <span class="slider-label">Rear anti-roll strength :</span>
                             <span class="slider-value" id="min-value-durete-barre-antiroulis-arriere"></span>
                             <div id="slider30" class="slider"></div>
                             <span class="slider-value" id="max-value-durete-barre-antiroulis-arriere"></span>
+                            <input id="input30" type="number" step="0.1" min="0" max="100" value="50">
                         </div>
                         <span>Camber</span>
 
@@ -578,12 +638,14 @@
                             <span class="slider-value" id="min-value-angle-carrossage-arriere"></span>
                             <div id="slider31" class="slider"></div>
                             <span class="slider-value" id="max-value-angle-carrossage-arriere"></span>
+                            <input id="input31" type="number" step="0.1" min="-6" max="3" value="0">
                         </div>
                         <div class="slider-container">
                             <span class="slider-label">Front camber angle :</span>
                             <span class="slider-value" id="min-value-angle-carrossage-avant"></span>
                             <div id="slider32" class="slider"></div>
                             <span class="slider-value" id="max-value-angle-carrossage-avant"></span>
+                            <input id="input32" type="number" step="0.1" min="-6" max="3" value="0">
                         </div>
                         {% if car.transmission == "FWD" or car.transmission == "RWD" %}
                         <span>Tire pressure</span>
@@ -593,6 +655,7 @@
                             <span class="slider-value" id="min-value-pression-pneus-arriere"></span>
                             <div id="slider33" class="slider"></div>
                             <span class="slider-value" id="max-value-pression-pneus-arriere"></span>
+                            <input id="input33" type="number" step="0.1" min="2" max="6" value="4">
                         </div>
                         {%endif%} {% if car.transmission == "FWD" or car.transmission == "RWD" %}
                         <div class="slider-container">
@@ -600,6 +663,7 @@
                             <span class="slider-value" id="min-value-pression-pneus-avant"></span>
                             <div id="slider34" class="slider"></div>
                             <span class="slider-value" id="max-value-pression-pneus-avant"></span>
+                            <input id="input34" type="number" step="0.1" min="2" max="6" value="4">
                         </div>
                         {%endif%}
                 {% endif %}
@@ -614,6 +678,7 @@
                         <span class="slider-value" id="min-value-repartiteur-freinage-avant"></span>
                         <div id="slider35" class="slider"></div>
                         <span class="slider-value" id="max-value-repartiteur-freinage-avant"></span>
+                        <input id="input35" type="number" step="0.1" min="0" max="100" value="50">
                     </div>
 
                     <span>Puissance de freinage</span>
@@ -622,6 +687,7 @@
                         <span class="slider-value" id="min-value-pression-freinage"></span>
                         <div id="slider36" class="slider"></div>
                         <span class="slider-value" id="max-value-pression-freinage"></span>
+                        <input id="input36" type="number" step="0.1" min="-1000" max="1000" value="0">
                     </div>
                     <button class="col-2 btn btn-secondary ms-1" type="submit">Enregistrer</button>
                 {% else %}
@@ -633,6 +699,7 @@
                             <span class="slider-value" id="min-value-repartiteur-freinage-avant"></span>
                             <div id="slider35" class="slider"></div>
                             <span class="slider-value" id="max-value-repartiteur-freinage-avant"></span>
+                            <input id="input35" type="number" step="0.1" min="0" max="100" value="50">
                         </div>
 
                         <span>Brake power</span>
@@ -641,6 +708,7 @@
                             <span class="slider-value" id="min-value-pression-freinage"></span>
                             <div id="slider36" class="slider"></div>
                             <span class="slider-value" id="max-value-pression-freinage"></span>
+                            <input id="input36" type="number" step="0.1" min="-1000" max="1000" value="0">
                         </div>
 
                     <button class="col-2 btn btn-secondary ms-1" type="submit">Save</button>
@@ -653,9 +721,20 @@
         <script>
             window.addEventListener("load", function() {
                 // Fonction réutilisable pour créer un slider
-                function createSlider(sliderId, value, minValue, maxValue, step) {
+                function createSlider(sliderId, inputId, value, minValue, maxValue, step) {
                   const slider = document.getElementById(sliderId);
-              
+                  const input = document.getElementById(inputId);
+                 
+                  // Vérifie si le slider et l'input existent
+                  if (!slider) {
+                        console.error(`Element with ID "${sliderId}" not found.`);
+                        return;
+                    }
+                  if (!input) {
+                        console.error(`Element with ID "${inputId}" not found.`);
+                        return;
+                    }
+ 
                   noUiSlider.create(slider, {
                     // ... configuration du slider ...
                     start: [value],
@@ -682,6 +761,33 @@
                         }
                     }
                 });
+                // Synchronise le slider avec l'input
+                slider.noUiSlider.on("update", function (values) {
+                    input.value = values[0]; // Met à jour l'input lorsque le slider bouge
+                });
+                 // Synchronise l'input avec le slider
+                input.addEventListener("input", function () {
+                    const value = parseFloat(input.value);
+            
+                    // Vérifie si la valeur est valide et dans la plage
+                    if (!isNaN(value) && value >= minValue && value <= maxValue) {
+                    slider.noUiSlider.set(value); // Met à jour le slider si la valeur est valide
+                    input.style.borderColor = ""; // Réinitialise le style si la valeur est correcte
+                    } else {
+                    input.style.borderColor = "red"; // Affiche une bordure rouge si la valeur est incorrecte
+                    }
+                });
+            
+                // Ajout d'un gestionnaire pour les erreurs d'entrée invalides
+                input.addEventListener("blur", function () {
+                    const value = parseFloat(input.value);
+            
+                    // Remet la valeur dans la plage si l'utilisateur quitte l'input avec une valeur incorrecte
+                    if (isNaN(value) || value < minValue || value > maxValue) {
+                    input.value = slider.noUiSlider.get(); // Réinitialise l'input à la valeur actuelle du slider
+                    input.style.borderColor = ""; // Réinitialise la bordure
+                    }
+                });
                 }
               
                 // Fonction pour afficher les valeurs minimales et maximales
@@ -697,20 +803,24 @@
                   createSlider(sliderId, initialValue, min, max);
                   afficheSlider(sliderId, minValueId, maxValueId, min, max);
                 }
-              
+            
+            
+                
+  
+                
                 
                 // Appels aux fonctions
                 const slider1Min = 0;
                 const slider1Max = 15;
                 const slider1Value = 5
-                createSlider('slider1', slider1Value, slider1Min, slider1Max, 0.01);
+                createSlider('slider1','input1', slider1Value, slider1Min, slider1Max, 0.01);
                 afficheSlider(document.getElementById('slider1'), 'min-value-rapport', 'max-value-rapport', 
                 slider1Min,slider1Max);
             
                 const slider2Min = 0;
                 const slider2Max = 15;
                 const slider2Value = 5;
-                createSlider('slider2',slider2Value, slider2Min , slider2Max, 0.01 );
+                createSlider('slider2','input2', slider2Value, slider2Min , slider2Max, 0.01 );
                 afficheSlider(document.getElementById('slider2'), 'min-value-vitesse', 'max-value-vitesse', slider2Min, slider2Max );
             
                 const slider3Min = 0;
@@ -718,7 +828,7 @@
                 const slider3Value = 5;
                 const vitesse2 ={{car.nb_vitesse  }};
                 if ( vitesse2 >=2 ){
-                createSlider('slider3', slider3Value, slider3Min, slider3Max, 0.01);
+                createSlider('slider3','input3', slider3Value, slider3Min, slider3Max, 0.01);
                 afficheSlider(slider3, 'min-value-vitesse2', 'max-value-vitesse2', slider3Min, slider3Max);
                 }
                 const slider4Min = 0;
@@ -726,7 +836,7 @@
                 const slider4Value = 5;
                 const vitesse3 ={{car.nb_vitesse  }};
                 if ( vitesse3 >=3 ){
-                  createSlider('slider4', slider4Value, slider4Min, slider4Max, 0.01);
+                  createSlider('slider4','input4', slider4Value, slider4Min, slider4Max, 0.01);
                   afficheSlider(slider4, 'min-value-vitesse3', 'max-value-vitesse3', slider4Min, slider4Max);
                 }
             
@@ -735,7 +845,7 @@
                 const slider5Value = 5;
                 const vitesse4 ={{car.nb_vitesse }};
                 if ( vitesse4 >= 4 ){  
-                createSlider('slider5', slider5Value, slider5Min, slider5Max, 0.01);
+                createSlider('slider5','input5', slider5Value, slider5Min, slider5Max, 0.01);
                 afficheSlider(slider5, 'min-value-vitesse4', 'max-value-vitesse4', slider5Min, slider5Max);
                 }
                 const slider6Min = 0;
@@ -743,7 +853,7 @@
                 const slider6Value = 5;
                 const vitesse5 ={{car.nb_vitesse }};
                 if ( vitesse5 >=5 ){  
-                createSlider('slider6', slider6Value, slider6Min, slider6Max, 0.01);
+                createSlider('slider6','input6', slider6Value, slider6Min, slider6Max, 0.01);
                 afficheSlider(slider6, 'min-value-vitesse5', 'max-value-vitesse5', slider6Min, slider6Max);
                 }
                 const slider7Min = 0;
@@ -751,7 +861,7 @@
                 const slider7Value = 5;
                 const vitesse6 ={{car.nb_vitesse }};
                 if ( vitesse6 >=6 ){ 
-                createSlider('slider7', slider7Value, slider7Min, slider7Max, 0.01);
+                createSlider('slider7','input7', slider7Value, slider7Min, slider7Max, 0.01);
                 afficheSlider(slider7, 'min-value-vitesse6', 'max-value-vitesse6', slider7Min, slider7Max);
                 }
                 const slider8Min = 0;
@@ -759,7 +869,7 @@
                 const slider8Value = 5;
                 const vitesse7 ={{car.nb_vitesse }};
                 if ( vitesse7 >=7 ){ 
-                  createSlider('slider8', slider8Value, slider8Min, slider8Max, 0.01);
+                  createSlider('slider8','input8', slider8Value, slider8Min, slider8Max, 0.01);
                   afficheSlider(slider8, 'min-value-vitesse7', 'max-value-vitesse7', slider8Min, slider8Max);
                 }  
                 const slider37Min = 0;
@@ -767,7 +877,7 @@
                 const slider37Value = 5;
                 const vitesse8 ={{car.nb_vitesse }};
                 if ( vitesse8 >=8 ){ 
-                  createSlider('slider37', slider37Value, slider37Min,slider37Max, 0.01);
+                  createSlider('slider37','input37', slider37Value, slider37Min,slider37Max, 0.01);
                   afficheSlider(slider37, 'min-value-vitesse8', 'max-value-vitesse8', slider37Min, slider37Max);
                 }
             
@@ -776,7 +886,7 @@
                 const slider38Value = 5;
                 const vitesse9 ={{car.nb_vitesse }};
                 if ( vitesse9 >=9 ){ 
-                  createSlider('slider38', slider38Value, slider38Min,slider38Max, 0.01);
+                  createSlider('slider38','input38', slider38Value, slider38Min,slider38Max, 0.01);
                   afficheSlider(slider38, 'min-value-vitesse9', 'max-value-vitesse9', slider38Min, slider38Max);
                 }
 
@@ -785,13 +895,13 @@
                 const slider39Value = 5;
                 const vitesse10 ={{car.nb_vitesse }};
                 if ( vitesse10 >=10 ){ 
-                  createSlider('slider39', slider39Value, slider39Min,slider39Max, 0.01);
+                  createSlider('slider39','input39', slider39Value, slider39Min,slider39Max, 0.01);
                   afficheSlider(slider39, 'min-value-vitesse10', 'max-value-vitesse10', slider39Min, slider39Max);
                 }
-                createSlider('slider9', 0, -1, 1,0.1);
+                createSlider('slider9','input9', 0, -1, 1,0.1);
                 afficheSlider(slider9, 'min-value-appui-aerodynamique-avant', 'max-value-appui-aerodynamique-avant', -1, 1);
                     
-                createSlider('slider10', 0, -1, 1,0.1);
+                createSlider('slider10','input10', 0, -1, 1,0.1);
                 afficheSlider(slider10, 'min-value-appui-aerodynamique-arriere', 'max-value-appui-aerodynamique-arriere', -1, 1);
                 
                
@@ -799,7 +909,7 @@
                 const slider11Max = 0.5;
                 const slider11Value = 0.2
                
-                createSlider('slider11', slider11Value,slider11Min ,slider11Max , 0.01);
+                createSlider('slider11','input11',slider11Value,slider11Min ,slider11Max , 0.01);
                 afficheSlider(slider11, 'min-value-taille-suspension-arriere', 'max-value-taille-suspension-arriere', slider11Min, slider11Max);
                 
                            
@@ -807,37 +917,37 @@
                 const slider12Max = 0.5;
                 const slider12Value = 0.2;
                 
-                createSlider('slider12', slider12Value, slider12Min ,slider12Max , 0.01);
+                createSlider('slider12','input12', slider12Value, slider12Min ,slider12Max , 0.01);
                 afficheSlider(slider12, 'min-value-taille-suspension-avant', 'max-value-taille-suspension-avant', slider12Min, slider12Max);
                 
             
                 
-                createSlider('slider13', 100, 80, 120, 0.1);
+                createSlider('slider13', 'input13', 100, 80, 120, 0.1);
                 afficheSlider(slider13, 'min-value-durete-ressorts-arriere', 'max-value-durete-ressorts-arriere', 80, 120);
                 
             
                 
-                createSlider('slider14', 100, 80, 120, 0.1);
+                createSlider('slider14', 'input14', 100, 80, 120, 0.1);
                 afficheSlider(slider14, 'min-value-durete-ressorts-avant', 'max-value-durete-ressorts-avant', 80, 120);
                 
             
                 
-                createSlider('slider15', 100, 80, 120, 0.1);
+                createSlider('slider15', 'input15', 100, 80, 120, 0.1);
                 afficheSlider(slider15, 'min-value-compression-amortisseurs-avant', 'max-value-compression-amortisseurs-avant', 80, 120);
                 
             
                 
-                createSlider('slider16', 100, 80, 120, 0.1);
+                createSlider('slider16', 'input16', 100, 80, 120, 0.1);
                 afficheSlider(slider16, 'min-value-compression-amortisseurs-arriere', 'max-value-compression-amortisseurs-arriere', 80, 120);
                 
             
                 
-                createSlider('slider17', 100, 80, 120, 0.1);
+                createSlider('slider17', 'input17', 100, 80, 120, 0.1);
                 afficheSlider(slider17, 'min-value-decompression-amortisseurs-avant', 'max-value-decompression-amortisseurs-avant', 80, 120);
                 
             
                 
-                createSlider('slider18', 100, 80, 120, 0.1);
+                createSlider('slider18', 'input18', 100, 80, 120, 0.1);
                 afficheSlider(slider18, 'min-value-decompression-amortisseurs-arriere', 'max-value-decompression-amortisseurs-arriere', 80, 120);
                 
                 const slider19Min = 0;
@@ -846,7 +956,7 @@
                 const accelav ="{{car.transmission }}";
                 
                 if (accelav === "4WD" || accelav === "FWD") {
-                    createSlider('slider19',slider19Value , slider19Min,slider19Max, 0.1 );
+                    createSlider('slider19','input19', slider19Value , slider19Min,slider19Max, 0.1 );
                     afficheSlider(slider19, 'min-value-acceleration-avant', 'max-value-acceleration-avant', slider19Min, slider19Max);
                 }
             
@@ -856,7 +966,7 @@
                 const slider20Value = 50;
                 const deccav ="{{car.transmission }}";
                 if (deccav === "4WD" || deccav === "FWD") {
-                  createSlider('slider20', slider20Value, slider20Min, slider20Max, 0.1 );
+                  createSlider('slider20', 'input20', slider20Value, slider20Min, slider20Max, 0.1 );
                   afficheSlider(slider20, 'min-value-deceleration-avant', 'max-value-deceleration-avant',slider20Min, slider20Max);
                 }
                 
@@ -864,7 +974,7 @@
                 const slider21Max = 100;
                 const slider21Value = 50;
                 if (deccav === "4WD" || deccav === "FWD") {
-                  createSlider('slider21',slider21Value , slider21Min , slider21Max, 0.1);
+                  createSlider('slider21','input21', slider21Value , slider21Min , slider21Max, 0.1);
                   afficheSlider(slider21, 'min-value-freinage-avant', 'max-value-freinage-avant', slider21Min, slider21Max);
                 }
                 
@@ -872,7 +982,7 @@
                 const slider22Max =  100;
                 const slider22Value = 50;
                 if (deccav === "4WD" ) {
-                  createSlider('slider22',slider22Value , slider22Min,slider22Max, 0.1);
+                  createSlider('slider22','input22', slider22Value , slider22Min,slider22Max, 0.1);
                   afficheSlider(slider22, 'min-value-distribution-avant-arriere', 'max-value-distribution-avant-arriere',  slider22Min, slider22Max);
                 }
                 
@@ -880,7 +990,7 @@
                 const slider23Max =  100;
                 const slider23Value =  50;
                 if (deccav === "4WD" ) {
-                  createSlider('slider23', slider23Value, slider23Min,  slider23Max, 0.1);
+                  createSlider('slider23','input23',  slider23Value, slider23Min,  slider23Max, 0.1);
                   afficheSlider(slider23, 'min-value-acceleration-centrale', 'max-value-acceleration-centrale', slider23Min ,  slider23Max);
                 }
                 
@@ -888,7 +998,7 @@
                 const slider24Max =  100;
                 const slider24Value = 50;
                 if (deccav === "4WD" ) {
-                  createSlider('slider24', slider24Value, slider24Min, slider24Max, 0.1 );
+                  createSlider('slider24', 'input24', slider24Value, slider24Min, slider24Max, 0.1 );
                   afficheSlider(slider24, 'min-value-deceleration-centrale', 'max-value-deceleration-centrale', slider24Min ,  slider24Max);
                 }
                 
@@ -896,38 +1006,38 @@
                 const slider25Max =  100;
                 const slider25Value =  50;
                 if (deccav === "4WD" ) {
-                  createSlider('slider25', slider25Value, slider25Min, slider25Max, 0.1 );
+                  createSlider('slider25', 'input25', slider25Value, slider25Min, slider25Max, 0.1 );
                   afficheSlider(slider25, 'min-value-freinage-centrale', 'max-value-freinage-centrale', slider25Min ,  slider25Max);
                 }
                 if (deccav === "4WD" || deccav === "RWD" ) {
-                    createSlider('slider26', 50, 0,100, 0.1   );
+                    createSlider('slider26', 'input26', 50, 0,100, 0.1   );
                     afficheSlider(slider26, 'min-value-acceleration-arriere', 'max-value-acceleration-arriere', 0, 100);
                 }
                 if (deccav === "4WD" || deccav === "RWD" ) {
-                    createSlider('slider27', 50,0,100, 0.1  );
+                    createSlider('slider27','input27', 50,0,100, 0.1  );
                     afficheSlider(slider27, 'min-value-deceleration-arriere', 'max-value-deceleration-arriere',0,100  );
                 }
                 if (deccav === "4WD" || deccav === "RWD" ) {
-                    createSlider('slider28', 50, 0,100, 0.1  );
+                    createSlider('slider28', 'input28', 50, 0,100, 0.1  );
                     afficheSlider(slider28, 'min-value-freinage-arriere', 'max-value-freinage-arriere', 0,100  );
                 }
-                createSlider('slider29', 50, 0,100, 0.1  );
+                createSlider('slider29', 'input29',50, 0,100, 0.1  );
                 afficheSlider(slider29, 'min-value-durete-barre-antiroulis-avant', 'max-value-durete-barre-antiroulis-avant', 0,100  );
             
-                createSlider('slider30', 50, 0,100, 0.1  );
-                afficheSlider(slider30, 'min-value-durete-barre-antiroulis-arriere', 'max-value-durete-barre-antiroulis-arriere', 0,100  );
+                createSlider('slider30','input30', 50, 0,100, 0.1  );
+                afficheSlider(slider30,  'min-value-durete-barre-antiroulis-arriere', 'max-value-durete-barre-antiroulis-arriere', 0,100  );
             
-                createSlider('slider31', 0, -6 , 3, 0.1  );
-                afficheSlider(slider31, 'min-value-angle-carrossage-arriere', 'max-value-angle-carrossage-arriere', -6 , 3  );
+                createSlider('slider31', 'input31', 0, -6 , 3, 0.1  );
+                afficheSlider(slider31,'min-value-angle-carrossage-arriere', 'max-value-angle-carrossage-arriere', -6 , 3  );
             
-                createSlider('slider32', 0, -6 , 3, 0.1  );
+                createSlider('slider32','input32', 0, -6 , 3, 0.1  );
                 afficheSlider(slider32, 'min-value-angle-carrossage-avant', 'max-value-angle-carrossage-avant', -6 , 3  );
                 
                 const slider33Min =  2;
                 const slider33Max =  6;
                 const slider33Value =  4;
                 if (deccav !== "4WD" ) {
-                  createSlider('slider33', slider33Value, slider33Min, slider33Max );
+                  createSlider('slider33', 'input33', slider33Value, slider33Min, slider33Max );
                   afficheSlider(slider33, 'min-value-pression-pneus-arriere', 'max-value-pression-pneus-arriere', slider33Min, slider33Max );
                 }
                 
@@ -935,15 +1045,15 @@
                 const slider34Max =  6;
                 const slider34Value = 4;
                 if (deccav !== "4WD" ) {
-                  createSlider('slider34',slider34Value, slider34Min, slider34Max );
+                  createSlider('slider34', 'input34',slider34Value, slider34Min, slider34Max );
                   afficheSlider(slider34, 'min-value-pression-pneus-avant', 'max-value-pression-pneus-avant', slider34Min, slider34Max );
                 }
                 
-                createSlider('slider35', 50, 0 , 100, 0.1  );
+                createSlider('slider35', 'input35',50, 0 , 100, 0.1  );
                 afficheSlider(slider35, 'min-value-repartiteur-freinage-avant', 'max-value-repartiteur-freinage-avant', 0 , 100  );
                 
                 
-                createSlider('slider36', 0, -1000 , 1000, 0.1 );
+                createSlider('slider36', 'input36', 0, -1000 , 1000, 0.1 );
                 afficheSlider(slider36, 'min-value-pression-freinage', 'max-value-pression-freinage', -1000 , 1000 );
                 
                 // Sélectionner le formulaire
