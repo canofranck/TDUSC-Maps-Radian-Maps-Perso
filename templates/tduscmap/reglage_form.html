@@ -504,7 +504,7 @@
                         <span class="slider-value" id="max-value-angle-carrossage-avant"></span>
                         <input id="input32" type="number" step="0.1" min="-6" max="3" value="0">
                     </div>
-                    {% if car.transmission == "FWD" or car.transmission == "RWD" %}
+                    
                     <span>Pression des pneus</span>
 
                     <div class="slider-container">
@@ -514,7 +514,7 @@
                         <span class="slider-value" id="max-value-pression-pneus-arriere"></span>
                         <input id="input33" type="number" step="0.1" min="2" max="6" value="4">
                     </div>
-                    {%endif%} {% if car.transmission == "FWD" or car.transmission == "RWD" %}
+                    
                     <div class="slider-container">
                         <span class="slider-label">Pression pneus avant :</span>
                         <span class="slider-value" id="min-value-pression-pneus-avant"></span>
@@ -522,7 +522,7 @@
                         <span class="slider-value" id="max-value-pression-pneus-avant"></span>
                         <input id="input34" type="number" step="0.1" min="2" max="6" value="4">
                     </div>
-                    {%endif%}
+                    
                 {% else %}
                     <span>Handling</span>
                     
@@ -647,7 +647,7 @@
                             <span class="slider-value" id="max-value-angle-carrossage-avant"></span>
                             <input id="input32" type="number" step="0.1" min="-6" max="3" value="0">
                         </div>
-                        {% if car.transmission == "FWD" or car.transmission == "RWD" %}
+                        
                         <span>Tire pressure</span>
 
                         <div class="slider-container">
@@ -657,7 +657,7 @@
                             <span class="slider-value" id="max-value-pression-pneus-arriere"></span>
                             <input id="input33" type="number" step="0.1" min="2" max="6" value="4">
                         </div>
-                        {%endif%} {% if car.transmission == "FWD" or car.transmission == "RWD" %}
+                        
                         <div class="slider-container">
                             <span class="slider-label">Front tire pressure :</span>
                             <span class="slider-value" id="min-value-pression-pneus-avant"></span>
@@ -665,7 +665,7 @@
                             <span class="slider-value" id="max-value-pression-pneus-avant"></span>
                             <input id="input34" type="number" step="0.1" min="2" max="6" value="4">
                         </div>
-                        {%endif%}
+                        
                 {% endif %}
             </div>
             <div class="reglage">
@@ -760,6 +760,10 @@
                             return parseFloat( value );
                         }
                     }
+                });
+                // Synchronise le slider avec l'input
+                slider.noUiSlider.on("update", function (values) {
+                    input.value = values[0]; // Met à jour l'input lorsque le slider bouge
                 });
                 // Synchronise l'input avec le slider
     input.addEventListener("input", function () {
@@ -1046,18 +1050,18 @@
                 const slider33Min =  2;
                 const slider33Max =  6;
                 const slider33Value =  4;
-                if (deccav !== "4WD" ) {
-                  createSlider('slider33', 'input33', slider33Value, slider33Min, slider33Max );
-                  afficheSlider(slider33, 'min-value-pression-pneus-arriere', 'max-value-pression-pneus-arriere', slider33Min, slider33Max );
-                }
+                
+                createSlider('slider33', 'input33', slider33Value, slider33Min, slider33Max ,0.1);
+                afficheSlider(slider33, 'min-value-pression-pneus-arriere', 'max-value-pression-pneus-arriere', slider33Min, slider33Max );
+                
                 
                 const slider34Min =  2;
                 const slider34Max =  6;
                 const slider34Value = 4;
-                if (deccav !== "4WD" ) {
-                  createSlider('slider34', 'input34',slider34Value, slider34Min, slider34Max );
-                  afficheSlider(slider34, 'min-value-pression-pneus-avant', 'max-value-pression-pneus-avant', slider34Min, slider34Max );
-                }
+                
+                createSlider('slider34', 'input34',slider34Value, slider34Min, slider34Max,0.1 );
+                afficheSlider(slider34, 'min-value-pression-pneus-avant', 'max-value-pression-pneus-avant', slider34Min, slider34Max );
+                
                 
                 createSlider('slider35', 'input35',50, 0 , 100, 0.1  );
                 afficheSlider(slider35, 'min-value-repartiteur-freinage-avant', 'max-value-repartiteur-freinage-avant', 0 , 100  );
