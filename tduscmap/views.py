@@ -445,7 +445,7 @@ def saisie_reglage(request, car_id):
                 reglage = form.save(commit=False)
                 reglage.car = car
                 reglage.user = request.user
-                reglage.background = 'default_background'
+                reglage.background = car.background
                 reglage.save()
                 return redirect("liste_reglages")
             else:
